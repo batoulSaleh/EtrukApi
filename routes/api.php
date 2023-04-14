@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\admin\AdCategoryController;
-
+use App\Http\Controllers\api\user\UsCategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,6 +38,14 @@ Route::group(['middleware' => ['lang']] , function () {
 
     });
 
+    Route::prefix('/user')->group( function () {
+    
+        Route::prefix('/category')->group( function () {
+            Route::get('/index',[UsCategoryController::class,'index']);
+            Route::get('/show/{id}',[UsCategoryController::class,'show']);
+        });
+
+    });
 
     //protected
     Route::group(['middleware' => ['auth:sanctum']] , function () {

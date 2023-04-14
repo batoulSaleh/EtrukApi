@@ -49,6 +49,7 @@ class AuthController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;
 
         $response = [
+            'message'=>'successfull register',
             'user' => $user,
             'token' => $token
         ];
@@ -72,13 +73,14 @@ class AuthController extends Controller
         //check password
         if(!$user || !Hash::check($fields['password'], $user->password)){
 
-            return response([
+            return response([ 
                 'message' => 'wrong'
             ],401);
 
         }
 
         $response = [
+            'message'=>'successfull login',
             'user' => $user,
             'token' => $token
         ];
@@ -100,9 +102,8 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email',$request->email)->first();
-        $response = [
-            'user' => $user,
-            
+            $response = [
+                'user' => $user,
         ];
 
         return response($response,201);

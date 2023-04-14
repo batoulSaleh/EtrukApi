@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\auth\AuthController;
+use App\Http\Controllers\api\admin\AdCategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,14 +26,24 @@ Route::group(['middleware' => ['lang']] , function () {
     Route::post('/register',[AuthController::class,'register']);
     Route::post('/forget',[AuthController::class,'forget']);
     
+    Route::prefix('/dashboard')->group( function () {
     
+        Route::prefix('/category')->group( function () {
+            Route::get('/index',[AdCategoryController::class,'index']);
+            Route::get('/show/{id}',[AdCategoryController::class,'show']);
+            Route::post('/store',[AdCategoryController::class,'store']);
+            Route::post('/update/{id}',[AdCategoryController::class,'update']);
+            Route::post('/destroy/{id}',[AdCategoryController::class,'destroy']);
+        });
+
+    });
+
+
     //protected
     Route::group(['middleware' => ['auth:sanctum']] , function () {
     
         Route::post('/logout',[AuthController::class,'logout']);
-    
-    
-        // return $request->user();
+
     });
     
-    });
+});

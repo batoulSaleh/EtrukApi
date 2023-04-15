@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\admin\AdCategoryController;
+use App\Http\Controllers\api\admin\AdCaseController;
+use App\Http\Controllers\api\admin\DonationTypeController;
 use App\Http\Controllers\api\user\UsCategoryController;
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,22 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::post('/store',[AdCategoryController::class,'store']);
             Route::post('/update/{id}',[AdCategoryController::class,'update']);
             Route::post('/destroy/{id}',[AdCategoryController::class,'destroy']);
+        });
+
+        Route::prefix('/case')->group( function () {
+            Route::get('/index',[AdCaseController::class,'index']);
+            Route::get('/show/{id}',[AdCaseController::class,'show']);
+            Route::post('/store',[AdCaseController::class,'store']);
+            Route::post('/update/{id}',[AdCaseController::class,'update']);
+            Route::post('/destroy/{id}',[AdCaseController::class,'destroy']);
+        });
+
+        Route::prefix('/donationtype')->group( function () {
+            Route::get('/index',[DonationTypeController::class,'index']);
+            Route::get('/show/{id}',[DonationTypeController::class,'show']);
+            Route::post('/store',[DonationTypeController::class,'store']);
+            Route::post('/update/{id}',[DonationTypeController::class,'update']);
+            Route::post('/destroy/{id}',[DonationTypeController::class,'destroy']);
         });
 
     });

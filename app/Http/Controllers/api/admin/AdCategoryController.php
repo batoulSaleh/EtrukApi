@@ -36,7 +36,11 @@ class AdCategoryController extends Controller
             'image' => 'image|max:2048',
         ]);
 
-        $image_path = $request->file('image')->store('api/categories','public');
+        if($request->file('image')){
+            $image_path = $request->file('image')->store('api/categories','public');
+        }else{
+            $image_path=null;
+        }
 
         $category = Category::create([
             'name_en' => $request->name_en,

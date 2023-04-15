@@ -68,9 +68,9 @@ Route::group(['middleware' => ['lang']] , function () {
         Route::prefix('/case')->group( function () {
             Route::get('/index',[UsCaseController::class,'index']);
             Route::get('/show/{id}',[UsCaseController::class,'show']);
-            Route::post('/store',[UsCaseController::class,'store'])->middleware('auth:sancutm');
-            Route::post('/update/{id}',[UsCaseController::class,'update'])->middleware('auth:sancutm');
-            Route::post('/destroy/{id}',[UsCaseController::class,'destroy'])->middleware('auth:sancutm');
+            Route::post('/store',[UsCaseController::class,'store'])->middleware('auth:sanctum');
+            Route::post('/update/{id}',[UsCaseController::class,'update'])->middleware('auth:sanctum');
+            Route::post('/destroy/{id}',[UsCaseController::class,'destroy'])->middleware('auth:sanctum');
         });
     });
 

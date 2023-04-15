@@ -48,7 +48,10 @@ class UsCaseController extends Controller
             )->where('id',$id)->first();
         $response = [
             'message'=>'specific case with id',
-            'case' => $casee->category
+            'case' => $casee,
+            'category'=>$casee->category,
+            'donationtype'=>$casee->donationtype,
+            'user'=>$casee->user
         ];
         return response($response,201);
     }

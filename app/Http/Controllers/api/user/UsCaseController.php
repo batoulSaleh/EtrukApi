@@ -96,7 +96,7 @@ class UsCaseController extends Controller
 
     public function update(Request $request,$id){
         $casee=Casee::find($id);
-
+        if($casee->user_id==$request->user()->id){
         if($casee->status=='pending'){
             $request->validate([
                 'name_en' => 'required|string|max:200',
@@ -149,7 +149,11 @@ class UsCaseController extends Controller
         $response = [
             'message'=>'case updated successfully',
             'case' => $casee
-        ];
+        ];}
+        else{
+            $response = [
+                'message'=>'can not be updated'];
+        }
         return response($response,201);
     }
 

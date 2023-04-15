@@ -80,6 +80,13 @@ class AdCaseController extends Controller
             'initial_amount'=>'required|numeric',
             'status'=>'required|in:pending,accepted,published,rejected'
         ]);
+
+        if($request->file('image')){
+            $image_path = $request->file('image')->store('api/casees','public');
+            $casee->image = asset('storage/'.$image_path);
+            $casee->save();
+        }
+        
         $casee->update([
             'name_en' => $request->name_en,
             'name_ar'=> $request->name_ar,
@@ -92,11 +99,7 @@ class AdCaseController extends Controller
             'status'=>$request->status,
             'User_id'=>1
                 ]);
-        if($request->file('image')){
-            $image_path = $request->file('image')->store('api/casees','public');
-            $casee->image = asset('storage/'.$image_path);
-            $casee->save();
-        }
+        
         
 
         $response = [

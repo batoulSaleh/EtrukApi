@@ -15,4 +15,8 @@ class Category extends Model
         'description_ar',
         'image',
     ];
+
+    public function casees(){
+        return $this->hasMany(Casee::class);
+    }
 }

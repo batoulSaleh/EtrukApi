@@ -13,4 +13,7 @@ class Donationtype extends Model
         'name_ar',
     ];
 
+    public function casees(){
+        return $this->hasMany(Casee::class);
+    }
 }

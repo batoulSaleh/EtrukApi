@@ -9,7 +9,7 @@ use App\Models\Category;
 class UsCategoryController extends Controller
 {
     public function index(){
-        $categories = Category::select(
+        $categories = Category::with('casees')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',

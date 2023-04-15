@@ -55,6 +55,8 @@ class AdCaseController extends Controller
             'donationtype_id'=> $request->donationtype_id,
             'category_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,
+            'paied_amount'=>0,
+            'remaining_amount'=>0,
             'status'=>$request->status,
             'user_id'=>1
         ]);
@@ -83,8 +85,9 @@ class AdCaseController extends Controller
 
         if($request->file('image')){
             $image_path = $request->file('image')->store('api/casees','public');
-            $casee->image = asset('storage/'.$image_path);
-            $casee->save();
+            $image=asset('storage/'.$image_path);
+        }else{
+            $image=$casee->image;
         }
 
         $casee->update([
@@ -92,7 +95,7 @@ class AdCaseController extends Controller
             'name_ar'=> $request->name_ar,
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
-            'image' => asset('storage/'.$image_path),
+            'image' => $image,
             'donationtype_id'=> $request->donationtype_id,
             'category_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,

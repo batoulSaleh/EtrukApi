@@ -14,24 +14,24 @@ class Casee extends Model
         'description_en',
         'description_ar',
         'image',
-        'Donantiontype_id',
-        'Category_id',
+        'donantiontype_id',
+        'category_id',
         'initial_amount',
         'paied_amount',
         'remaining_amount',
         'status',
-        'User_id'
+        'user_id'
     ];
 
     public function category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     public function donationtype(){
-        return $this->belongsTo(Donationtype::class);
+        return $this->belongsTo(Donationtype::class,'donationtype_id');
     }
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 }

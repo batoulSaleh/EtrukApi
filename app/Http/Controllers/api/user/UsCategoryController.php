@@ -24,7 +24,7 @@ class UsCategoryController extends Controller
 
     public function show($id)
     {
-        $categories = Category::select(
+        $category = Category::select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',

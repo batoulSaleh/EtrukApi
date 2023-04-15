@@ -19,7 +19,8 @@ class Casee extends Model
         'initial_amount',
         'paied_amount',
         'remaining_amount',
-        'status'
+        'status',
+        'User_id'
     ];
 
     public function category(){

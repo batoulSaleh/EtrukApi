@@ -41,8 +41,9 @@ class AdCaseController extends Controller
 
         if($request->file('image')){
             $image_path = $request->file('image')->store('api/casees','public');
+            $image=asset('storage/'.$image_path);
         }else{
-            $image_path=null;
+            $image=null;
         }
 
         $casee = Casee::create([
@@ -50,7 +51,7 @@ class AdCaseController extends Controller
             'name_ar'=> $request->name_ar,
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
-            'image' => asset('storage/'.$image_path),
+            'image' => $image,
             'Donantiontype_id'=> $request->Donantiontype_id,
             'Category_id'=> $request->Category_id,
             'initial_amount'=>$request->initial_amount,

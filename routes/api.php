@@ -49,9 +49,6 @@ Route::group(['middleware' => ['lang']] , function () {
         Route::prefix('/donationtype')->group( function () {
             Route::get('/index',[DonationTypeController::class,'index']);
             Route::get('/show/{id}',[DonationTypeController::class,'show']);
-            Route::post('/store',[DonationTypeController::class,'store']);
-            Route::post('/update/{id}',[DonationTypeController::class,'update']);
-            Route::post('/destroy/{id}',[DonationTypeController::class,'destroy']);
         });
 
     });

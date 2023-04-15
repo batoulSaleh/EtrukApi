@@ -19,11 +19,11 @@ class UsCaseController extends Controller
             'paied_amount',
             'remaining_amount',
             'status'
-            )->whereHas('category','donationtype','user')->get();
+            )->get();
 
         $response = [
             'message'=>'All cases',
-            'cases' => $casees
+            'cases' => $casees->with('category','donationtype','user')
         ];
         return response($response,201);
     }
@@ -39,10 +39,10 @@ class UsCaseController extends Controller
             'paied_amount',
             'remaining_amount',
             'status'
-            )->whereHas('category','donationtype','user')->where('id',$id)->first();
+            )->where('id',$id)->first();
         $response = [
             'message'=>'specific case with id',
-            'case' => $casee
+            'case' => $casee->with('category','donationtype','user')
         ];
         return response($response,201);
     }

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Donationtype;
+use App\Models\Category;
 
 class Casee extends Model
 {
@@ -14,7 +17,7 @@ class Casee extends Model
         'description_en',
         'description_ar',
         'image',
-        'donantiontype_id',
+        'donationtype_id',
         'category_id',
         'initial_amount',
         'paied_amount',

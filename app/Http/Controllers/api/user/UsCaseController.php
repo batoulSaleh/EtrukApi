@@ -22,7 +22,7 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->get();
+            )->with('category','donationtype','user')->get();
 
         $response = [
             'message'=>'All cases',

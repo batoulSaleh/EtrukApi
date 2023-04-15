@@ -20,32 +20,32 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-    Dontiontype::create([
+    Donationtype::create([
         'name_en'=>'Financial',
         'name_ar'=>'مالي'
     ]);
 
-    Dontiontype::create([
+    Donationtype::create([
         'name_en'=>'Volunteer',
         'name_ar'=>'تطوع'
     ]);
 
-    Dontiontype::create([
+    Donationtype::create([
         'name_en'=>'Food',
         'name_ar'=>'طعام'
     ]);
     
-    Dontiontype::create([
+    Donationtype::create([
         'name_en'=>'clothes',
         'name_ar'=>'ملابس'
     ]);
 
-    Dontiontype::create([
+    Donationtype::create([
         'name_en'=>'furniture or devices',
         'name_ar'=>'أثاث او أجهزة'
     ]);
 
-    Dontiontype::create([
+    Donationtype::create([
         'name_en'=>'others',
         'name_ar'=>'أخري'
     ]);

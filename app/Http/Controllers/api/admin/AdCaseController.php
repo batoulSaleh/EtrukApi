@@ -78,7 +78,7 @@ class AdCaseController extends Controller
             'Category_id' =>'required|exists:categories,id',
             'initial_amount'=>'required|numeric',
             'status'=>'required|in:pending,accepted,published,rejected'
-
+        ]);
         $casee->update([
             'name_en' => $request->name_en,
             'name_ar'=> $request->name_ar,

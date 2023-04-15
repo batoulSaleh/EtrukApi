@@ -7,6 +7,8 @@ use App\Http\Controllers\api\admin\AdCategoryController;
 use App\Http\Controllers\api\admin\AdCaseController;
 use App\Http\Controllers\api\admin\DonationTypeController;
 use App\Http\Controllers\api\user\UsCategoryController;
+use App\Http\Controllers\api\user\UsCaseController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -63,6 +65,10 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::get('/show/{id}',[UsCategoryController::class,'show']);
         });
 
+        Route::prefix('/case')->group( function () {
+            Route::get('/index',[UsCaseController::class,'index']);
+            Route::get('/show/{id}',[UsCaseController::class,'show']);
+        });
     });
 
     //protected

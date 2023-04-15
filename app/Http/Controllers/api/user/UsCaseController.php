@@ -10,7 +10,7 @@ class UsCaseController extends Controller
 {
     public function index(){
 
-        $casees=Casee::with('category','donationtype','user')->select(
+        $casees=Casee::with('category')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',

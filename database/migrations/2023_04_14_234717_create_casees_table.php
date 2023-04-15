@@ -18,9 +18,9 @@ return new class extends Migration
             $table->text('description_en')->nullable();
             $table->text('description_ar')->nullable();
             $table->string('image')->nullable();
-            $table->foreignId('Donantiontype_id')->constrained('donationtypes');
-            $table->foreignId('Category_id')->constrained('categories');
-            $table->foreignId('User_id')->constrained('users');
+            $table->foreignId('donantiontype_id')->constrained('donationtypes');
+            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('user_id')->constrained('users');
             $table->double('initial_amount');
             $table->double('paied_amount')->nullable();
             $table->double('remaining_amount')->nullable();

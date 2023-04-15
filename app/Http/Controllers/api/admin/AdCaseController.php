@@ -52,11 +52,11 @@ class AdCaseController extends Controller
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
             'image' => $image,
-            'Donationtype_id'=> $request->Donantiontype_id,
-            'Category_id'=> $request->Category_id,
+            'donationtype_id'=> $request->donationtype_id,
+            'dategory_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,
             'status'=>$request->status,
-            'User_id'=>1
+            'user_id'=>1
         ]);
 
         $response = [
@@ -75,8 +75,8 @@ class AdCaseController extends Controller
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
             'image' => 'image|max:2048',
-            'Donationtype_id' =>'required|exists:donationtypes,id',
-            'Category_id' =>'required|exists:categories,id',
+            'donationtype_id' =>'required|exists:donationtypes,id',
+            'category_id' =>'required|exists:categories,id',
             'initial_amount'=>'required|numeric',
             'status'=>'required|in:pending,accepted,published,rejected'
         ]);
@@ -93,11 +93,11 @@ class AdCaseController extends Controller
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
             'image' => asset('storage/'.$image_path),
-            'Donationtype_id'=> $request->Donantiontype_id,
-            'Category_id'=> $request->Category_id,
+            'donationtype_id'=> $request->donationtype_id,
+            'category_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,
             'status'=>$request->status,
-            'User_id'=>1
+            'user_id'=>1
                 ]);
         
         

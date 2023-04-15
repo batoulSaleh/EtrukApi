@@ -33,8 +33,8 @@ class AdCaseController extends Controller
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
             'image' => 'image|max:2048',
-            'Donantiontype_id' =>'required|exists:donationtypes,id',
-            'Category_id' =>'required|exists:categories,id',
+            'donationtype_id' =>'required|exists:donationtypes,id',
+            'category_id' =>'required|exists:categories,id',
             'initial_amount'=>'required|numeric',
             'status'=>'required|in:pending,accepted,published,rejected'
         ]);
@@ -52,7 +52,7 @@ class AdCaseController extends Controller
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
             'image' => $image,
-            'Donantiontype_id'=> $request->Donantiontype_id,
+            'Donationtype_id'=> $request->Donantiontype_id,
             'Category_id'=> $request->Category_id,
             'initial_amount'=>$request->initial_amount,
             'status'=>$request->status,
@@ -75,7 +75,7 @@ class AdCaseController extends Controller
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
             'image' => 'image|max:2048',
-            'Donantiontype_id' =>'required|exists:donationtypes,id',
+            'Donationtype_id' =>'required|exists:donationtypes,id',
             'Category_id' =>'required|exists:categories,id',
             'initial_amount'=>'required|numeric',
             'status'=>'required|in:pending,accepted,published,rejected'
@@ -86,14 +86,14 @@ class AdCaseController extends Controller
             $casee->image = asset('storage/'.$image_path);
             $casee->save();
         }
-        
+
         $casee->update([
             'name_en' => $request->name_en,
             'name_ar'=> $request->name_ar,
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
             'image' => asset('storage/'.$image_path),
-            'Donantiontype_id'=> $request->Donantiontype_id,
+            'Donationtype_id'=> $request->Donantiontype_id,
             'Category_id'=> $request->Category_id,
             'initial_amount'=>$request->initial_amount,
             'status'=>$request->status,

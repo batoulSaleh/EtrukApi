@@ -83,7 +83,7 @@ class UsCaseController extends Controller
             'initial_amount'=>$request->initial_amount,
             'paied_amount'=>0,
             'remaining_amount'=>0,
-            'user_id'=>$request->user->id,
+            'user_id'=>$request->user()->id,
             'status'=>'pending'
         ]);
 
@@ -141,7 +141,7 @@ class UsCaseController extends Controller
             'donationtype_id'=> $request->donationtype_id,
             'category_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,
-            'user_id'=>$request->user->id,
+            'user_id'=>$request->user()->id,
             'status'=>$request->status
                 ]);
         
@@ -156,7 +156,7 @@ class UsCaseController extends Controller
     public function destroy(Request $request,$id){
 
         $casee = Casee::findOrFail($id);
-        if($casee->user_id==$request->user->id){
+        if($casee->user_id==$request->user()->id){
             $casee->delete();
         $response = [
             'message'=>'case deleted successfully',

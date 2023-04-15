@@ -10,7 +10,7 @@ class UsCaseController extends Controller
 {
     public function index(){
 
-        $casees=Casee::with('category')->select(
+        $casees=Casee::select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
@@ -18,7 +18,10 @@ class UsCaseController extends Controller
             'initial_amount',
             'paied_amount',
             'remaining_amount',
-            'status'
+            'status',
+            'user_id',
+            'donationtype_id',
+            'category_id'
             )->get();
 
         $response = [
@@ -30,7 +33,7 @@ class UsCaseController extends Controller
 
     public function show($id)
     {
-        $casee=Casee::with('category','donationtype','user')->select(
+        $casee=Casee::select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
@@ -38,7 +41,10 @@ class UsCaseController extends Controller
             'initial_amount',
             'paied_amount',
             'remaining_amount',
-            'status'
+            'status',
+            'user_id',
+            'donationtype_id',
+            'category_id'
             )->where('id',$id)->first();
         $response = [
             'message'=>'specific case with id',

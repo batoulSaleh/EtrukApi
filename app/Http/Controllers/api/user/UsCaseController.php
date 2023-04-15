@@ -19,7 +19,7 @@ class UsCaseController extends Controller
             'paied_amount',
             'remaining_amount',
             'status'
-            )->with('category','donationtype','user')->get();
+            )->whereHas('category','donationtype','user')->get();
 
         $response = [
             'message'=>'All cases',
@@ -39,7 +39,7 @@ class UsCaseController extends Controller
             'paied_amount',
             'remaining_amount',
             'status'
-            )->with('category','donationtype','user')->where('id',$id)->first();
+            )->whereHas('category','donationtype','user')->where('id',$id)->first();
         $response = [
             'message'=>'specific case with id',
             'case' => $casee

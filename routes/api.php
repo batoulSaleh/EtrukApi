@@ -29,7 +29,8 @@ Route::group(['middleware' => ['lang']] , function () {
     Route::post('/login',[AuthController::class,'login']);
     Route::post('/register',[AuthController::class,'register']);
     Route::post('/forget',[AuthController::class,'forget']);
-    
+    Route::post('/login/admin',[AuthController::class,'loginadmin']);
+
     Route::prefix('/dashboard')->group( function () {
     
         Route::prefix('/category')->group( function () {

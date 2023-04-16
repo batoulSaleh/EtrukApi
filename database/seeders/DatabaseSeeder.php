@@ -55,11 +55,18 @@ class DatabaseSeeder extends Seeder
         'name' =>'Etruk Athraa',
         'email' =>'Etruk@Etruk.com',
         'password' => bcrypt('12345678'),
-        'user_type'=> 2,
+        'user_type'=> '2',
         'address'=> 'address',
         'phone'=> 1234568,
     ]);
 
-
+    User::create([
+        'name' =>'Admin',
+        'email' =>'admin@admin.com',
+        'password' => bcrypt('admin'),
+        'user_type'=> '0',
+        'address'=> 'address',
+        'phone'=> 1234568,
+    ]);
     }
 }

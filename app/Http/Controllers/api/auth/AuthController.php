@@ -109,4 +109,33 @@ class AuthController extends Controller
         return response($response,201);
 
     }
-}
+
+    public function loginadmin(Request $request){
+
+        $fields = $request->validate([
+            'email' => 'required|string|exists:users,email',
+            'password' => 'required|string'
+        ]);
+
+        $user = User::where('user_type','0')->where('email',$fields['email'])->first();
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        //check password
+        if(!$user || !Hash::check($fields['password'], $user->password)){
+
+            return response([ 'message' => 'wrong'],401);
+
+        }
+
+        $response = [
+            'message'=>'successfull login',
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response,201);
+    }
+
+    }
+

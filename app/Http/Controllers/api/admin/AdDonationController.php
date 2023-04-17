@@ -56,7 +56,7 @@ class AdDonationController extends Controller
                 $response = [
                     'message'=>'different donationtypes',
                 ];
-            }elseif($donation->amount>$case->remaining_amount){
+            }elseif($donation->amount > $case->remaining_amount){
                 $message='wrong amount,choose amount less than or equal '.$case->remaining_amount;
                 $response = [
                     'message'=>$message,

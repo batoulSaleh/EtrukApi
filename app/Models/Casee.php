@@ -39,5 +39,7 @@ class Casee extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
- 
+    public function donation(){
+        return $this->hasMany(Donation::class,'donation_id');
+    }
 }

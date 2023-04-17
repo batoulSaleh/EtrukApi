@@ -77,18 +77,18 @@ Route::group(['middleware' => ['lang']] , function () {
 
         Route::prefix('/donation')->group( function () {
             Route::get('/index',[UsDonationController::class,'index']);
-            Route::post('/index/user',[UsDonationController::class,'indexOfUser']);
+            Route::post('/index/user',[UsDonationController::class,'indexOfUser'])->middleware('auth:sanctum');
             Route::get('/show/{id}',[UsDonationController::class,'show']);
             Route::post('/financial/user',[UsDonationController::class,'donatefinanciallyUser'])->middleware('auth:sanctum');
-            Route::post('/financial/guest',[UsDonationController::class,'donatefinanciallyGuest'])->middleware('auth:sanctum');
+            Route::post('/financial/guest',[UsDonationController::class,'donatefinanciallyGuest']);
             Route::post('/volunteering/user',[UsDonationController::class,'volunteeringUser'])->middleware('auth:sanctum');
-            Route::post('/volunteering/guest',[UsDonationController::class,'volunteeringGuest'])->middleware('auth:sanctum');
+            Route::post('/volunteering/guest',[UsDonationController::class,'volunteeringGuest']);
             Route::post('/food/user',[UsDonationController::class,'foodUser'])->middleware('auth:sanctum');
-            Route::post('/food/guest',[UsDonationController::class,'foodGuest'])->middleware('auth:sanctum');
+            Route::post('/food/guest',[UsDonationController::class,'foodGuest']);
             Route::post('/clothes/user',[UsDonationController::class,'clothesUser'])->middleware('auth:sanctum');
-            Route::post('/clothes/guest',[UsDonationController::class,'clothesGuest'])->middleware('auth:sanctum');
+            Route::post('/clothes/guest',[UsDonationController::class,'clothesGuest']);
             Route::post('/furniture/user',[UsDonationController::class,'furnitureUser'])->middleware('auth:sanctum');
-            Route::post('/furniture/guest',[UsDonationController::class,'furnitureGuest'])->middleware('auth:sanctum');
+            Route::post('/furniture/guest',[UsDonationController::class,'furnitureGuest']);
         });
     });
 

@@ -23,7 +23,8 @@ class Donation extends Model
         'city',
         'address',
         'date_to_send',
-        'user_id'
+        'user_id',
+        'phone'
     ];
 
 

@@ -33,6 +33,7 @@ class UsCaseController extends Controller
 
     public function show($id)
     {
+
         $casee=Casee::select(
             'id',
             'name_'.app()->getLocale().' as name',
@@ -152,7 +153,7 @@ class UsCaseController extends Controller
         ];}
         else{
             $response = [
-                'message'=>'can not be updated'];
+                'message'=>'can not be updated Unauthorized'];
         }
         return response($response,201);
     }

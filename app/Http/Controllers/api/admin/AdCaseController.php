@@ -100,7 +100,6 @@ class AdCaseController extends Controller
             'category_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,
             'status'=>$request->status,
-            'user_id'=>1
                 ]);
         
         

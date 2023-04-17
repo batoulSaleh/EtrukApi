@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->date('date_to_send')->nullable();
-            $table->bigInteger('user_id');
+            $table->bigInteger('user_id')->nullable();
             $table->enum('status',['pending','accepted']);
             $table->timestamps();
         });

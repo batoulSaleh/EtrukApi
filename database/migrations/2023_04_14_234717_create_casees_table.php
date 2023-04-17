@@ -24,7 +24,7 @@ return new class extends Migration
             $table->double('initial_amount');
             $table->double('paied_amount')->nullable();
             $table->double('remaining_amount')->nullable();
-            $table->enum('status',['pending','accepted','published','rejected']);
+            $table->enum('status',['pending','accepted','published','rejected','completed']);
             $table->timestamps();
         });
     }

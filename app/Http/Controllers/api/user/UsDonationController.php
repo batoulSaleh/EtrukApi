@@ -75,7 +75,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -119,7 +119,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -130,7 +130,6 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
@@ -148,7 +147,6 @@ class UsDonationController extends Controller
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
-            'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
             'amount' => 1,
@@ -162,7 +160,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -173,7 +171,6 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
@@ -191,7 +188,6 @@ class UsDonationController extends Controller
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
-            'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
             'amount' => 1,
@@ -204,7 +200,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -216,7 +212,7 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
+            'method' => 'in:representative',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
@@ -251,7 +247,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -262,7 +258,7 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
+            'method' => 'in:representative',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
@@ -296,7 +292,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -307,7 +303,7 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
+            'method' => 'in:representative',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
@@ -342,7 +338,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -353,7 +349,7 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
+            'method' => 'in:representative',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
@@ -398,7 +394,7 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
+            'method' => 'in:representative',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
@@ -433,7 +429,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }
@@ -444,7 +440,7 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:online_payment,representative,vodafone',
+            'method' => 'in:representative',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
@@ -478,7 +474,7 @@ class UsDonationController extends Controller
 
         $response = [
             'message'=>'donation created successfully',
-            'case' => $donation
+            'donation' => $donation
         ];
         return response($response,201);
     }

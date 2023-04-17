@@ -6,6 +6,7 @@ use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\admin\AdCategoryController;
 use App\Http\Controllers\api\admin\AdCaseController;
 use App\Http\Controllers\api\admin\DonationTypeController;
+use App\Http\Controllers\api\admin\AdDonationController;
 use App\Http\Controllers\api\user\UsCategoryController;
 use App\Http\Controllers\api\user\UsCaseController;
 use App\Http\Controllers\api\user\UsDonationController;
@@ -56,6 +57,13 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::post('/store',[DonationTypeController::class,'store']);
             Route::post('/update/{id}',[DonationTypeController::class,'update']);
             Route::post('/destroy/{id}',[DonationTypeController::class,'destroy']);
+        });
+
+        Route::prefix('/donation')->group( function () {
+            Route::get('/index',[AdDonationController::class,'index']);
+            Route::get('/index/case/{caseid}',[AdDonationController::class,'indexOfCase']);
+            Route::get('/show/{id}',[AdDonationController::class,'show']);
+            Route::post('/accept/{id}',[AdDonationController::class,'acceptDonation'])->middleware('auth:sanctum');
         });
 
     });

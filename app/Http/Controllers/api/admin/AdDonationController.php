@@ -48,7 +48,7 @@ class AdDonationController extends Controller
             $response = [
                 'message'=>'the donation is already accepted',
             ];
-        }elseif($case->status!='completed'){
+        }elseif($case->status=='completed'){
                 $response = [
                     'message'=>'the case is already completed',
                 ];

@@ -74,9 +74,8 @@ class AdDonationController extends Controller
 
                 $case->save();
 
-                $donation->update([
-                    'status'=>'accepted'
-                ]);
+                $donation->status='accepted';
+                $donation->save();
 
                 $response = [
                     'message'=>'Done',

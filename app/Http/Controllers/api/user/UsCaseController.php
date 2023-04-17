@@ -83,7 +83,7 @@ class UsCaseController extends Controller
             'category_id'=> $request->category_id,
             'initial_amount'=>$request->initial_amount,
             'paied_amount'=>0,
-            'remaining_amount'=>0,
+            'remaining_amount'=>$request->initial_amount,
             'user_id'=>$request->user()->id,
             'status'=>'pending'
         ]);

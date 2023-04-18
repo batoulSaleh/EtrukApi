@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->Integer('age');
             $table->enum('activity',['blind','feeding','medical_convoys']);
-            $table->Intger('num_of_members')->nullable();
+            $table->Integer('num_of_members')->nullable();
             $table->enum('volunteer_type',['individual','group']);
             $table->bigInteger('user_id')->nullable();
             $table->timestamps();

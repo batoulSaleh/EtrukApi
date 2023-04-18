@@ -7,9 +7,11 @@ use App\Http\Controllers\api\admin\AdCategoryController;
 use App\Http\Controllers\api\admin\AdCaseController;
 use App\Http\Controllers\api\admin\DonationTypeController;
 use App\Http\Controllers\api\admin\AdDonationController;
+use App\Http\Controllers\api\admin\AdVolunteerController;
 use App\Http\Controllers\api\user\UsCategoryController;
 use App\Http\Controllers\api\user\UsCaseController;
 use App\Http\Controllers\api\user\UsDonationController;
+use App\Http\Controllers\api\user\UsVolunteerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +68,11 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::post('/accept/{id}',[AdDonationController::class,'acceptDonation'])->middleware('auth:sanctum');
         });
 
+        Route::prefix('/volunteer')->group( function () {
+            Route::get('/index',[AdVolunteerController::class,'index']);
+            Route::get('/show/{id}',[AdVolunteerController::class,'show']);
+        });
+
     });
 
     Route::prefix('/user')->group( function () {
@@ -98,6 +105,11 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::post('/clothes/guest',[UsDonationController::class,'clothesGuest']);
             Route::post('/furniture/user',[UsDonationController::class,'furnitureUser'])->middleware('auth:sanctum');
             Route::post('/furniture/guest',[UsDonationController::class,'furnitureGuest']);
+        });
+
+        Route::prefix('/volunteer')->group( function () {
+            Route::post('/store/user',[UsVolunteerController::class,'storeUser'])->middleware('auth:sanctum');
+            Route::post('/store/guest',[UsVolunteerController::class,'storeGuest']);
         });
     });
 

@@ -48,7 +48,7 @@ class UsVolunteerController extends Controller
             'age' => $request->age,
             'activity' => $request->activity,
             'volunteer_type' => $request->volunteer_type,
-            'num_of_member'=>$num_of_member,
+            'num_of_members'=>$num_of_member,
             'user_id'=>$request->user()->id
         ]);
 
@@ -76,8 +76,10 @@ class UsVolunteerController extends Controller
                 'num_of_members' => 'required',
                 ]);
             $num_of_member=$request->num_of_members;
+            }else{
+                $num_of_member=null;
+
             }
-            $num_of_member=null;
 
         $volunteer=Volunteer::create([
             'name' => $request->name,
@@ -88,7 +90,7 @@ class UsVolunteerController extends Controller
             'age' => $request->age,
             'activity' => $request->activity,
             'volunteer_type' => $request->volunteer_type,
-            'num_of_member'=>$num_of_member,
+            'num_of_members'=>$num_of_member,
         ]);
 
         $response = [

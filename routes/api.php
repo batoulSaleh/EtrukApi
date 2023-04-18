@@ -46,7 +46,6 @@ Route::group(['middleware' => ['lang']] , function () {
         Route::prefix('/case')->group( function () {
             Route::get('/index',[AdCaseController::class,'index']);
             Route::get('/show/{id}',[AdCaseController::class,'show']);
-            Route::get('/cases/category/{id}',[AdCaseController::class,'casesOfCategory']);
             Route::post('/store',[AdCaseController::class,'store']);
             Route::post('/update/{id}',[AdCaseController::class,'update']);
             Route::post('/destroy/{id}',[AdCaseController::class,'destroy']);
@@ -79,6 +78,7 @@ Route::group(['middleware' => ['lang']] , function () {
         Route::prefix('/case')->group( function () {
             Route::get('/index',[UsCaseController::class,'index']);
             Route::get('/show/{id}',[UsCaseController::class,'show']);
+            Route::get('/category/{id}',[UsCaseController::class,'casesOfCategory']);
             Route::post('/store',[UsCaseController::class,'store'])->middleware('auth:sanctum');
             Route::post('/update/{id}',[UsCaseController::class,'update'])->middleware('auth:sanctum');
             Route::post('/destroy/{id}',[UsCaseController::class,'destroy'])->middleware('auth:sanctum');

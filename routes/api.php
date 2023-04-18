@@ -108,6 +108,7 @@ Route::group(['middleware' => ['lang']] , function () {
         });
 
         Route::prefix('/volunteer')->group( function () {
+            Route::get('/get/user',[UsVolunteerController::class,'getUser'])->middleware('auth:sanctum');
             Route::post('/store/user',[UsVolunteerController::class,'storeUser'])->middleware('auth:sanctum');
             Route::post('/store/guest',[UsVolunteerController::class,'storeGuest']);
         });

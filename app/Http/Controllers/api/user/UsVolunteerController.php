@@ -5,9 +5,19 @@ namespace App\Http\Controllers\api\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
+use App\Models\User;
 
 class UsVolunteerController extends Controller
 {
+    public function getUser(Request $request){
+        $user=User::findOrFail($request->user()->id);
+        $response = [
+            'message'=>'user who login',
+            'user' => $user
+        ];
+        return response($response,201);
+    }
+
     public function storeUser(Request $request){
         $request->validate([
             'name' => 'required|string',

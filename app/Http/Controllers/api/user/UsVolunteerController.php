@@ -36,8 +36,9 @@ class UsVolunteerController extends Controller
                 ]);
             $num_of_member=$request->num_of_members;
             }
-            $num_of_member=null;
-
+            else{
+                $num_of_member=null;
+            }
         $volunteer=Volunteer::create([
             'name' => $request->name,
             'email' => $request->email,

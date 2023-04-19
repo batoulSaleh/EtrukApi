@@ -86,6 +86,8 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::get('/index',[UsCaseController::class,'index']);
             Route::get('/show/{id}',[UsCaseController::class,'show']);
             Route::get('/category/{id}',[UsCaseController::class,'casesOfCategory']);
+            Route::get('/donation/{id}',[UsCaseController::class,'casesOfDonationtype']);
+            Route::get('/donation/{categoryid}/{donationtypeid}',[UsCaseController::class,'casesOfCategoryandDonationtype']);
             Route::post('/store',[UsCaseController::class,'store'])->middleware('auth:sanctum');
             Route::post('/update/{id}',[UsCaseController::class,'update'])->middleware('auth:sanctum');
             Route::post('/destroy/{id}',[UsCaseController::class,'destroy'])->middleware('auth:sanctum');
@@ -108,7 +110,7 @@ Route::group(['middleware' => ['lang']] , function () {
         });
 
         Route::prefix('/volunteer')->group( function () {
-            Route::get('/get/user',[UsVolunteerController::class,'getUser'])->middleware('auth:sanctum');
+            Route::get('/get/user',[UsVolunteerController::class,'getUserF'])->middleware('auth:sanctum');
             Route::post('/store/user',[UsVolunteerController::class,'storeUser'])->middleware('auth:sanctum');
             Route::post('/store/guest',[UsVolunteerController::class,'storeGuest']);
         });

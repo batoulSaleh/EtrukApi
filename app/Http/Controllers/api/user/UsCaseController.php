@@ -196,4 +196,48 @@ class UsCaseController extends Controller
         ];
         return response($response,201);
     }
+
+    public function casesOfDonationtype($donationtypeid){
+        $casees=Casee::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'initial_amount',
+            'paied_amount',
+            'remaining_amount',
+            'status',
+            'user_id',
+            'donationtype_id',
+            'category_id'
+            )->with('category','donationtype','user')->where('status','published')->where('donationtype_id',$donationtypeid)->get();
+
+        $response = [
+            'message'=>'All cases of donation type',
+            'cases' => $casees
+        ];
+        return response($response,201);
+    }
+
+    public function casesOfCategoryandDonationtype($categoryid,$donationtypeid){
+        $casees=Casee::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'initial_amount',
+            'paied_amount',
+            'remaining_amount',
+            'status',
+            'user_id',
+            'donationtype_id',
+            'category_id'
+            )->with('category','donationtype','user')->where('status','published')->where('category_id',$categoryid)->where('donationtype_id',$donationtypeid)->get();
+
+        $response = [
+            'message'=>'All cases of category and donation type',
+            'cases' => $casees
+        ];
+        return response($response,201);
+    }
 }

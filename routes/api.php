@@ -87,7 +87,7 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::get('/show/{id}',[UsCaseController::class,'show']);
             Route::get('/category/{id}',[UsCaseController::class,'casesOfCategory']);
             Route::get('/donation/{id}',[UsCaseController::class,'casesOfDonationtype']);
-            Route::get('/donation/{categoryid}/{donationtypeid}',[UsCaseController::class,'casesOfCategoryandDonationtype']);
+            Route::get('/category/donation/{categoryid}/{donationtypeid}',[UsCaseController::class,'casesOfCategoryandDonationtype']);
             Route::post('/store',[UsCaseController::class,'store'])->middleware('auth:sanctum');
             Route::post('/update/{id}',[UsCaseController::class,'update'])->middleware('auth:sanctum');
             Route::post('/destroy/{id}',[UsCaseController::class,'destroy'])->middleware('auth:sanctum');

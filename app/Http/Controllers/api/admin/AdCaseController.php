@@ -18,7 +18,7 @@ class AdCaseController extends Controller
 
     public function show($id)
     {
-        $casee=Casee::find($id)->with('category','donationtype','user');
+        $casee=Casee::where('id',$id)->with('category','donationtype','user')->get();
         $response = [
             'message'=>'specific case with id',
             'case' => $casee

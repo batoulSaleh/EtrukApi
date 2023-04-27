@@ -59,7 +59,7 @@ class UsDonationController extends Controller
         }
 
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -110,7 +110,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -158,7 +158,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -204,7 +204,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -251,7 +251,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -298,7 +298,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -346,7 +346,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -397,7 +397,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -447,7 +447,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];
@@ -498,7 +498,7 @@ class UsDonationController extends Controller
 
         }
         $case=Casee::find($fields['casee_id']);
-        if($donationtype_id!=$case->donationtype_id){
+        if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
             ];

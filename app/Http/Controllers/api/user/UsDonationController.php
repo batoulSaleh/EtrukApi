@@ -210,7 +210,6 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'description'=>'string',
         ]);
         if($request->method=='representative'){
             $request->validate([
@@ -227,7 +226,6 @@ class UsDonationController extends Controller
             'email' => $request->email,
             'amount_description' => $request->amount_description,
             'phone'=>$request->phone,
-            'description'=>$request->description,
             'address' => $request->address,
             'date_to_send' => null,
             'user_id' => $request->user()->id,
@@ -252,7 +250,6 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'description'=>'string',
         ]);
         if($request->method=='representative'){
             $request->validate([
@@ -269,7 +266,6 @@ class UsDonationController extends Controller
             'email' => $request->email,
             'amount_description' => $request->amount_description,
             'phone'=>$request->phone,
-            'description'=>$request->description,
             'address' => $request->address,
             'date_to_send' => null,
             'status'=>'pending'

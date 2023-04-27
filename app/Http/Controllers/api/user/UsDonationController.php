@@ -42,18 +42,17 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'method' => 'in:online_payment,representative,vodafone',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
 
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -65,7 +64,6 @@ class UsDonationController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'amount' => $request->amount,
-            'amount_description' => $request->amount_description,
             'address' => $request->address,
             'date_to_send' => $request->date,
             'user_id' => $request->user()->id,
@@ -86,18 +84,17 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'method' => 'in:online_payment,representative,vodafone',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
 
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -111,7 +108,6 @@ class UsDonationController extends Controller
             'email' => $request->email,
             'amount' => $request->amount,
             'phone'=>$request->phone,
-            'amount_description' => $request->amount_description,
             'address' => $request->address,
             'date_to_send' => $request->date,
             'status'=>'pending'
@@ -134,12 +130,13 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
+
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -175,12 +172,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -213,18 +210,16 @@ class UsDonationController extends Controller
             'phone' => 'required|string',
             'city' => 'required|string',
             'method' => 'in:representative',
-            'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -235,10 +230,8 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => $request->amount,
             'amount_description' => $request->amount_description,
             'phone'=>$request->phone,
-            'description'=>$request->description,
             'address' => $request->address,
             'date_to_send' => $request->date,
             'user_id' => $request->user()->id,
@@ -259,18 +252,16 @@ class UsDonationController extends Controller
             'phone' => 'required|string',
             'city' => 'required|string',
             'method' => 'in:representative',
-            'amount' => 'required|numeric',
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -281,10 +272,8 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => $request->amount,
             'amount_description' => $request->amount_description,
             'phone'=>$request->phone,
-            'description'=>$request->description,
             'address' => $request->address,
             'date_to_send' => $request->date,
             'status'=>'pending'
@@ -310,12 +299,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -356,12 +345,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -395,18 +384,16 @@ class UsDonationController extends Controller
             'phone' => 'required|string',
             'city' => 'required|string',
             'method' => 'in:representative',
-            'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -417,8 +404,6 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => $request->amount,
-            'amount_description' => $request->amount_description,
             'phone'=>$request->phone,
             'description'=>$request->description,
             'address' => $request->address,
@@ -441,18 +426,16 @@ class UsDonationController extends Controller
             'phone' => 'required|string',
             'city' => 'required|string',
             'method' => 'in:representative',
-            'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'date_format:m/d/Y',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date'
+            'date_to_send' => 'required|date_format:m/d/Y'
         ]);
 
         }
@@ -463,8 +446,6 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => $request->amount,
-            'amount_description' => $request->amount_description,
             'phone'=>$request->phone,
             'description'=>$request->description,
             'address' => $request->address,

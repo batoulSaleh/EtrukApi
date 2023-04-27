@@ -38,7 +38,7 @@ class UsDonationController extends Controller
     }
 
     public function donatefinanciallyUser(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -58,7 +58,7 @@ class UsDonationController extends Controller
             ]);
         }
 
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -89,7 +89,7 @@ class UsDonationController extends Controller
     }
 
     public function donatefinanciallyGuest(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -109,7 +109,7 @@ class UsDonationController extends Controller
         ]);
 
         }
-$case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -140,7 +140,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function volunteeringUser(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -157,7 +157,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -187,7 +187,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function volunteeringGuest(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -203,7 +203,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -233,7 +233,7 @@ $case=Casee::find($donation->casee_id);
 
     
     public function foodUser(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -250,7 +250,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -280,7 +280,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function foodGuest(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -297,7 +297,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -326,7 +326,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function clothesUser(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -345,7 +345,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -377,7 +377,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function clothesGuest(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -396,7 +396,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -427,7 +427,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function furnitureUser(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -446,7 +446,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',
@@ -478,7 +478,7 @@ $case=Casee::find($donation->casee_id);
     }
 
     public function furnitureGuest(Request $request){
-        $request->validate([
+        $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
@@ -497,7 +497,7 @@ $case=Casee::find($donation->casee_id);
         ]);
 
         }
-        $case=Casee::find($donation->casee_id);
+        $case=Casee::find($fields['casee_id']);
         if($donationtype_id!=$case->donationtype_id){
             $response = [
                 'message'=>'different donationtypes',

@@ -46,13 +46,13 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
 
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -88,13 +88,13 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
 
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -130,13 +130,13 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
 
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -172,12 +172,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -214,12 +214,12 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -256,12 +256,12 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -299,12 +299,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -345,12 +345,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -388,12 +388,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }
@@ -430,12 +430,12 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date_format:m/d/Y',
+            'date_to_send' => 'date_format:mm/dd/YYYY',
         ]);
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-            'date_to_send' => 'required|date_format:m/d/Y'
+            'date_to_send' => 'required|date_format:mm/dd/YYYY'
         ]);
 
         }

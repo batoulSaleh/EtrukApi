@@ -10,7 +10,7 @@ use App\Models\Casee;
 class AdDonationController extends Controller
 {
     public function index(){
-        $donations=Donation::all();
+        $donations=Donation::with('casee','donationtype')->get();
         $response = [
             'message'=>'All donations',
             'donations' => $donations
@@ -48,30 +48,39 @@ class AdDonationController extends Controller
             $response = [
                 'message'=>'the donation is already accepted',
             ];
+            $code=500;
         }elseif($case->status=='completed'){
                 $response = [
                     'message'=>'the case is already completed',
                 ];
+                $code=500;
+
             }elseif($donationtype_id!=$case->donationtype_id){
                 $response = [
                     'message'=>'different donationtypes',
                 ];
+                $code=500;
+
             }elseif($donation->amount > $case->remaining_amount){
                 $message='wrong amount,choose amount less than or equal '.$case->remaining_amount;
                 $response = [
                     'message'=>$message,
                 ];
+                $code=500;
+
             }elseif($case->status=='pending'||$case->status=='rejected'){
                 $response = [
                     'message'=>'the case must be accepted',
                 ];
+                $code=500;
+
             }else{
                 $case->paied_amount=$case->paied_amount+$donation->amount;
                 $case->remaining_amount=$case->initial_amount-$case->paied_amount;
                 if($case->remaining_amount==0){
                     $case->status='completed';
                 }
-
+                $code=201;
                 $case->save();
 
                 $donation->status='accepted';
@@ -84,7 +93,7 @@ class AdDonationController extends Controller
                 ];
             }
 
-        return response($response,201);
+        return response($response,$code);
 
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donation;
+use App\Models\Casee;
 
 class UsDonationController extends Controller
 {
@@ -49,11 +50,20 @@ class UsDonationController extends Controller
             'address' => 'string',
         ]);
 
+        
+
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
-        ]);
+            ]);
+        }
 
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
         }
 
         $donation = Donation::create([
@@ -91,13 +101,22 @@ class UsDonationController extends Controller
             'address' => 'string',
         ]);
 
+        
+
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
         ]);
 
         }
-
+$case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
 
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
@@ -138,7 +157,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -177,7 +203,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -217,7 +250,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -257,7 +297,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -298,7 +345,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -342,7 +396,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -385,7 +446,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,
@@ -429,7 +497,14 @@ class UsDonationController extends Controller
         ]);
 
         }
-
+        $case=Casee::find($donation->casee_id);
+        if($donationtype_id!=$case->donationtype_id){
+            $response = [
+                'message'=>'different donationtypes',
+            ];
+            return response($response,500);
+        }
+        
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
             'donationtype_id' => $request->donationtype_id,

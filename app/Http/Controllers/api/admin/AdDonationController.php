@@ -19,7 +19,7 @@ class AdDonationController extends Controller
     }
 
     public function indexOfCase($caseid){
-        $donations=Donation::where('casee_id',$caseid)->get();
+        $donations=Donation::where('casee_id',$caseid)->with('casee','donationtype')->get();
         $response = [
             'message'=>'All donations of case',
             'donations' => $donations
@@ -29,7 +29,7 @@ class AdDonationController extends Controller
 
     public function show($id)
     {
-        $donation=Donation::findOrFail($id);
+        $donation=Donation::where('id',$id)->with('casee','donationtype')->get();
         $response = [
             'message'=>'specific donation with id',
             'donation' => $donation

@@ -71,6 +71,8 @@ Route::group(['middleware' => ['lang']] , function () {
         Route::prefix('/volunteer')->group( function () {
             Route::get('/index',[AdVolunteerController::class,'index']);
             Route::get('/show/{id}',[AdVolunteerController::class,'show']);
+            Route::post('/destroy/{id}',[AdVolunteerController::class,'destroy']);
+
         });
 
     });

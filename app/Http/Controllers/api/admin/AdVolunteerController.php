@@ -28,4 +28,13 @@ class AdVolunteerController extends Controller
         return response($response,201);
     }
 
+    public function destroy($id){
+        $volunteer=Volunteer::findOrFail($id);
+        $volunteer->delete();
+        $response = [
+            'message'=>'volunteer deleted successfully',
+        ];
+        return response($response,201);
+    }
+
 }

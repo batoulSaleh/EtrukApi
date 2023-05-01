@@ -8,10 +8,12 @@ use App\Http\Controllers\api\admin\AdCaseController;
 use App\Http\Controllers\api\admin\DonationTypeController;
 use App\Http\Controllers\api\admin\AdDonationController;
 use App\Http\Controllers\api\admin\AdVolunteerController;
+use App\Http\Controllers\api\admin\AdEventController;
 use App\Http\Controllers\api\user\UsCategoryController;
 use App\Http\Controllers\api\user\UsCaseController;
 use App\Http\Controllers\api\user\UsDonationController;
 use App\Http\Controllers\api\user\UsVolunteerController;
+use App\Http\Controllers\api\user\UsEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +77,14 @@ Route::group(['middleware' => ['lang']] , function () {
 
         });
 
+        Route::prefix('/events')->group(function () {
+            Route::get('/index', [AdEventController::class, 'index']);
+            Route::get('/show/{id}', [AdEventController::class, 'show']);
+            Route::post('/store', [AdEventController::class, 'store']);
+            Route::post('/update/{id}', [AdEventController::class, 'update']);
+            Route::post('/destroy/{id}', [AdEventController::class, 'destroy']);
+        });
+
     });
 
     Route::prefix('/user')->group( function () {
@@ -116,6 +126,13 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::post('/store/user',[UsVolunteerController::class,'storeUser'])->middleware('auth:sanctum');
             Route::post('/store/guest',[UsVolunteerController::class,'storeGuest']);
         });
+
+        Route::prefix('/event')->group(function () {
+            Route::get('/index', [UsEventController::class, 'index']);
+            Route::get('/show/{id}', [UsEventController::class, 'show']);
+            Route::get('/latest/events', [UsEventController::class, 'showLatestEvents']);
+            Route::get('/join/{id}', [UsEventController::class, 'joinToEvent'])->middleware('auth:sanctum');
+            });
     });
 
     //protected

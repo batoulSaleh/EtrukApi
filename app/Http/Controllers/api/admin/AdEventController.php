@@ -33,6 +33,8 @@ class AdEventController extends Controller
             'end_date' => 'required',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
+            'start_time_desc' => 'required|in:am,pm',
+            'end_time_desc' => 'required|in:am,pm',
         ]);
         if ($request->file('image')) {
             $image_path = $request->file('image')->store('api/events', 'public'); //store('name of folder', 'in folder public');
@@ -51,6 +53,8 @@ class AdEventController extends Controller
                 'created_at' => Carbon::now(),
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
+                'start_time_desc' =>  $request->start_time_desc,
+                'end_time_desc' =>  $request->end_time_desc,
             ]
         );
         $response = ['message' => 'Event is created successfully.', 'result' => $event];
@@ -87,6 +91,8 @@ class AdEventController extends Controller
             'end_date' => 'required',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
+            'start_time_desc' => 'required|in:am,pm',
+            'end_time_desc' => 'required|in:am,pm',
         ]);
         $event->update(
             [
@@ -99,6 +105,8 @@ class AdEventController extends Controller
                 'updated' => Carbon::now(),
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
+                'start_time_desc' =>  $request->start_time_desc,
+                'end_time_desc' =>  $request->end_time_desc,
             ]
         );
         if ($request->file('image')) {

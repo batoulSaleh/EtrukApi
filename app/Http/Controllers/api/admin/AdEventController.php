@@ -31,8 +31,6 @@ class AdEventController extends Controller
             'image' => 'image|max:2048',
             'start_date' => 'required',
             'end_date' => 'required',
-            'start_time' => 'required|date_format:hh:mm',
-            'end_time' => 'required|date_format:hh:mm',
         ]);
         if ($request->file('image')) {
             $image_path = $request->file('image')->store('api/events', 'public'); //store('name of folder', 'in folder public');
@@ -85,8 +83,6 @@ class AdEventController extends Controller
             'image' => 'image|max:2048',
             'start_date' => 'required',
             'end_date' => 'required',
-            'start_time' => 'required|date_format:hh:mm',
-            'end_time' => 'required|date_format:hh:mm',
         ]);
         $event->update(
             [

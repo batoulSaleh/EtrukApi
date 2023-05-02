@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('description_ar')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->timestamps();
         });
     }

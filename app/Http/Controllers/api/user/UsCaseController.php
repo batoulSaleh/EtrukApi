@@ -12,7 +12,7 @@ class UsCaseController extends Controller
 {
     public function index(){
 
-        $casees=Casee::select(
+        $casees=Casee::with('item')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
@@ -49,9 +49,23 @@ class UsCaseController extends Controller
             'donationtype_id',
             'category_id'
             )->with('category','donationtype','user')->where('id',$id)->first();
+
+        if($casee->donationtype_id==5){
+            $items=Item::select(
+                'id',
+                'name_'.app()->getLocale().' as name',
+                'amount',
+                'casee_id'
+                )->where('casee_id',$casee->id)->get();   
+                $response = [
+                    'message'=>'specific case with id',
+                    'case' => $casee,
+                    'items'=>$items,
+                ];
+        }
         $response = [
             'message'=>'specific case with id',
-            'case' => $casee
+            'case' => $casee,
         ];
         return response($response,201);
     }

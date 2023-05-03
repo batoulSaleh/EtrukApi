@@ -10,7 +10,7 @@ use App\Models\Item;
 class AdCaseController extends Controller
 {
     public function index(){
-        $casees=Casee::all();
+        $casees=Casee::with('item')->get();
         $response = [
             'message'=>'All cases',
             'cases' => $casees
@@ -21,6 +21,14 @@ class AdCaseController extends Controller
     public function show($id)
     {
         $casee=Casee::where('id',$id)->with('category','donationtype','user')->get();
+        if($casee->donationtype_id==5){
+            $items=Item::where('casee_id',$casee->id)->get();   
+                $response = [
+                    'message'=>'specific case with id',
+                    'case' => $casee,
+                    'items'=>$items,
+                ];
+        }
         $response = [
             'message'=>'specific case with id',
             'case' => $casee

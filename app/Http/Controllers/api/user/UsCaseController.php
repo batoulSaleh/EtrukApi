@@ -95,6 +95,76 @@ class UsCaseController extends Controller
         return response($response,201);
     }
 
+    public function storeFurniture(Request $request){
+        $request->validate([
+            'name_en' => 'required|string|max:200',
+            'name_ar' => 'required|string|max:200',
+            'description_en' => 'string|max:500',
+            'description_ar' => 'string|max:500',
+            'image' => 'image|max:2048',
+            'donationtype_id' =>'required|in|5',
+            'category_id' =>'required|exists:categories,id',
+            'items'=>'required'
+        ]);
+
+        if($request->file('image')){
+            $image_path = $request->file('image')->store('api/casees','public');
+            $image=asset('storage/'.$image_path);
+        }else{
+            $image=null;
+        }
+
+        $initial_amount=0;
+        $items=$request->items;
+        
+
+        $casee = Casee::create([
+            'name_en' => $request->name_en,
+            'name_ar'=> $request->name_ar,
+            'description_en'=> $request->description_en,
+            'description_ar'=> $request->description_ar,
+            'image' => $image,
+            'donationtype_id'=> $request->donationtype_id,
+            'category_id'=> $request->category_id,
+            'initial_amount'=>$initial_amount,
+            'paied_amount'=>0,
+            'remaining_amount'=>$request->initial_amount,
+            'user_id'=>$request->user()->id,
+            'status'=>'pending'
+        ]);
+
+        foreach($items as $item){
+            Item::create([
+                'name_ar'=>$item['name_ar'],
+                'name_en'=>$item['name_en'],
+                'amount'=>$item['amount'],
+                'casee_id'=>$casee->id,
+
+            ]);
+
+            $initial_amount=$initial_amount +$item['amount'];
+
+        }
+
+        $casee->update([
+            'initial_amount'=>$initial_amount,
+        ]);
+
+        $final_items=Item::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'amount',
+            'casee_id'
+            )->where('casee_id',$casee->id)->get();
+
+        $response = [
+            'message'=>'case created successfully',
+            'case' => $casee,
+            'items'=>$final_items,
+        ];
+        return response($response,201);
+    }
+
     public function update(Request $request,$id){
         $casee=Casee::find($id);
         if($casee->user_id==$request->user()->id){

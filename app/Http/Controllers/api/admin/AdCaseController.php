@@ -179,7 +179,7 @@ class AdCaseController extends Controller
                     'image' => $image,
                     'donationtype_id'=> $request->donationtype_id,
                     'category_id'=> $request->category_id,
-                    'initial_amount'=>$request->initial_amount,
+                    'initial_amount'=>$initial_amount,
                     'status'=>$request->status,
                         ]);
 

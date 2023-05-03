@@ -20,7 +20,7 @@ class AdCaseController extends Controller
 
     public function show($id)
     {
-        $casee=Casee::where('id',$id)->with('category','donationtype','user')->get();
+        $casee=Casee::where('id',$id)->with('category','donationtype','user')->first();
         if($casee->donationtype_id==5){
             $items=Item::where('casee_id',$casee->id)->get();   
                 $response = [

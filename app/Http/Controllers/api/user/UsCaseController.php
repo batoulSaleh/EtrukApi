@@ -102,7 +102,7 @@ class UsCaseController extends Controller
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
             'image' => 'image|max:2048',
-            'donationtype_id' =>'required|in|5',
+            'donationtype_id' =>'required|in:5',
             'category_id' =>'required|exists:categories,id',
             'items'=>'required'
         ]);

@@ -252,9 +252,9 @@ class AdCaseController extends Controller
                 'message'=>'case updated successfully',
                 'case' => $casee
             ];
-            return response($response,201);
         }
-        
+        return response($response,201);
+
     }
 
     public function destroy($id){

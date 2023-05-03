@@ -111,13 +111,14 @@ class AdCaseController extends Controller
 
         foreach($items as $item){
             Item::create([
-                'name_ar'=>$item->name_ar,
-                'name_en'=>$item->name_en,
+                'name_ar'=>$item['name_ar'],
+                'name_en'=>$item['name_en'],
+                'amount'=>$item['amount'],
                 'casee_id'=>$casee->id,
-                'amount'=>$itme->amount,
+
             ]);
 
-            $initial_amount=$initial_amount +$item->amount;
+            $initial_amount=$initial_amount +$item['amount'];
 
         }
 

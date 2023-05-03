@@ -21,9 +21,7 @@ return new class extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->time('start_time')->nullable();
-            $table->enum('start_time_desc',['am','pm'])->nullable();
             $table->time('end_time')->nullable();
-            $table->enum('end_time_desc',['am','pm'])->nullable();
             $table->timestamps();
         });
     }

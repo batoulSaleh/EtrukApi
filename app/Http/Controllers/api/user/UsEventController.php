@@ -14,13 +14,35 @@ class UsEventController extends Controller
 {
     public function index()
     {
-        $events = Event::all();
-        $response = ['message' => 'All Events', 'result' => $events];
+        $events = Event::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'start_date',
+            'end_date',
+            'start_time',
+            'end_time'
+            )->get();
+
+        $response = [
+        'message' => 'All Events',
+        'result' => $events
+        ];
         return response($response, 201);
     }
     public function show(string $id)
     {
-        $event = Event::find($id);
+        $event = Event::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'start_date',
+            'end_date',
+            'start_time',
+            'end_time'
+        )->where('id',$id)->first();        
         $ids = EvenntVolunteer::where('event_id', $id)->get();
         $id_volunteers = $ids->pluck('volunteer_id')->toArray();
         $volunteers = User::whereIn('id', $id_volunteers)->get();
@@ -34,7 +56,16 @@ class UsEventController extends Controller
     }
     public function showLatestEvents()
     {
-        $events = Event::latest()->take(3)->get();
+        $events = Event::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'start_date',
+            'end_date',
+            'start_time',
+            'end_time'
+        )->latest()->take(3)->get();
         $response = [
             'message' => 'Latest events.',
             'events' => $events

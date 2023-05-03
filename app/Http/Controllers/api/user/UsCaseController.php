@@ -50,23 +50,19 @@ class UsCaseController extends Controller
             'category_id'
             )->with('category','donationtype','user')->where('id',$id)->first();
 
-        if($casee->donationtype_id==5){
             $items=Item::select(
                 'id',
                 'name_'.app()->getLocale().' as name',
                 'amount',
                 'casee_id'
                 )->where('casee_id',$casee->id)->get();   
+                
                 $response = [
                     'message'=>'specific case with id',
                     'case' => $casee,
                     'items'=>$items,
                 ];
-        }
-        $response = [
-            'message'=>'specific case with id',
-            'case' => $casee,
-        ];
+
         return response($response,201);
     }
 

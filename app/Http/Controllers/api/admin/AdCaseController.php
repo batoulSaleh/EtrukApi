@@ -171,7 +171,7 @@ class AdCaseController extends Controller
             $initial_amount=0;
             $items=$request->items;
 
-            $casee = Casee::update([
+            $casee->update([
                     'name_en' => $request->name_en,
                     'name_ar'=> $request->name_ar,
                     'description_en'=> $request->description_en,

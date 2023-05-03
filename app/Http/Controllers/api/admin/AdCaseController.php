@@ -109,34 +109,34 @@ class AdCaseController extends Controller
             'user_id'=>1
         ]);
 
-        foreach($items as $item){
-            Item::create([
-                'name_ar'=>$item['name_ar'],
-                'name_en'=>$item['name_en'],
-                'amount'=>$item['amount'],
-                'casee_id'=>$casee->id,
+        // foreach($items as $item){
+        //     Item::create([
+        //         'name_ar'=>$item['name_ar'],
+        //         'name_en'=>$item['name_en'],
+        //         'amount'=>$item['amount'],
+        //         'casee_id'=>$casee->id,
 
-            ]);
+        //     ]);
 
-            $initial_amount=$initial_amount +$item['amount'];
+        //     $initial_amount=$initial_amount +$item['amount'];
 
-        }
+        // }
 
-        $casee->update([
-            'initial_amount'=>$initial_amount,
-        ]);
+        // $casee->update([
+        //     'initial_amount'=>$initial_amount,
+        // ]);
 
-        $final_items=Item::select(
-            'id',
-            'name_'.app()->getLocale().' as name',
-            'amount',
-            'casee_id'
-            )->where('casee_id',$casee->id)->get();
+        // $final_items=Item::select(
+        //     'id',
+        //     'name_'.app()->getLocale().' as name',
+        //     'amount',
+        //     'casee_id'
+        //     )->where('casee_id',$casee->id)->get();
 
         $response = [
             'message'=>'case created successfully',
             'case' => $casee,
-            'items'=>$final_items,
+            'items'=>$items,
         ];
         return response($response,201);
     }

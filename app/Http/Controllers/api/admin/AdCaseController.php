@@ -143,45 +143,118 @@ class AdCaseController extends Controller
 
     public function update(Request $request,$id){
         $casee=Casee::find($id);
+        if($casee->donationtype_id==5){
+            $request->validate([
+                'name_en' => 'required|string|max:200',
+                'name_ar' => 'required|string|max:200',
+                'description_en' => 'string|max:500',
+                'description_ar' => 'string|max:500',
+                'image' => 'image|max:2048',
+                'donationtype_id' =>'required|in:5',
+                'category_id' =>'required|exists:categories,id',
+                'status'=>'required|in:pending,accepted,published,rejected',
+                'items'=>'required'
+            ]);
 
-        $request->validate([
-            'name_en' => 'required|string|max:200',
-            'name_ar' => 'required|string|max:200',
-            'description_en' => 'string|max:500',
-            'description_ar' => 'string|max:500',
-            'image' => 'image|max:2048',
-            'donationtype_id' =>'required|exists:donationtypes,id',
-            'category_id' =>'required|exists:categories,id',
-            'initial_amount'=>'required|numeric',
-            'status'=>'required|in:pending,accepted,published,rejected'
-        ]);
+            if($request->file('image')){
+                $image_path = $request->file('image')->store('api/casees','public');
+                $image=asset('storage/'.$image_path);
+            }else{
+                $image=$casee->image;
+            }
 
-        if($request->file('image')){
-            $image_path = $request->file('image')->store('api/casees','public');
-            $image=asset('storage/'.$image_path);
-        }else{
-            $image=$casee->image;
-        }
+            $items=Item::where('casee_id',$casee->id)->get();
+            foreach($items as $item){
+                $item->delete();
+            }
 
-        $casee->update([
-            'name_en' => $request->name_en,
-            'name_ar'=> $request->name_ar,
-            'description_en'=> $request->description_en,
-            'description_ar'=> $request->description_ar,
-            'image' => $image,
-            'donationtype_id'=> $request->donationtype_id,
-            'category_id'=> $request->category_id,
-            'initial_amount'=>$request->initial_amount,
-            'status'=>$request->status,
+            $initial_amount=0;
+            $items=$request->items;
+
+            $casee = Casee::update([
+                    'name_en' => $request->name_en,
+                    'name_ar'=> $request->name_ar,
+                    'description_en'=> $request->description_en,
+                    'description_ar'=> $request->description_ar,
+                    'image' => $image,
+                    'donationtype_id'=> $request->donationtype_id,
+                    'category_id'=> $request->category_id,
+                    'initial_amount'=>$request->initial_amount,
+                    'status'=>$request->status,
+                        ]);
+
+    
+            foreach($items as $item){
+                Item::create([
+                    'name_ar'=>$item['name_ar'],
+                    'name_en'=>$item['name_en'],
+                    'amount'=>$item['amount'],
+                    'casee_id'=>$casee->id,
+    
                 ]);
-        
-        
+    
+                $initial_amount=$initial_amount +$item['amount'];
+    
+            }
+    
+            $casee->update([
+                'initial_amount'=>$initial_amount,
+            ]);
+    
+            $final_items=Item::select(
+                'id',
+                'name_'.app()->getLocale().' as name',
+                'amount',
+                'casee_id'
+                )->where('casee_id',$casee->id)->get();
+    
+            $response = [
+                'message'=>'case updated successfully',
+                'case' => $casee,
+                'items'=>$final_items,
+            ];
 
-        $response = [
-            'message'=>'case updated successfully',
-            'case' => $casee
-        ];
-        return response($response,201);
+        }else{
+            $request->validate([
+                'name_en' => 'required|string|max:200',
+                'name_ar' => 'required|string|max:200',
+                'description_en' => 'string|max:500',
+                'description_ar' => 'string|max:500',
+                'image' => 'image|max:2048',
+                'donationtype_id' =>'required|exists:donationtypes,id',
+                'category_id' =>'required|exists:categories,id',
+                'initial_amount'=>'required|numeric',
+                'status'=>'required|in:pending,accepted,published,rejected'
+            ]);
+    
+            if($request->file('image')){
+                $image_path = $request->file('image')->store('api/casees','public');
+                $image=asset('storage/'.$image_path);
+            }else{
+                $image=$casee->image;
+            }
+    
+            $casee->update([
+                'name_en' => $request->name_en,
+                'name_ar'=> $request->name_ar,
+                'description_en'=> $request->description_en,
+                'description_ar'=> $request->description_ar,
+                'image' => $image,
+                'donationtype_id'=> $request->donationtype_id,
+                'category_id'=> $request->category_id,
+                'initial_amount'=>$request->initial_amount,
+                'status'=>$request->status,
+                    ]);
+            
+            
+    
+            $response = [
+                'message'=>'case updated successfully',
+                'case' => $casee
+            ];
+            return response($response,201);
+        }
+        
     }
 
     public function destroy($id){

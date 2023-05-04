@@ -64,7 +64,7 @@ class AdCaseController extends Controller
                 'category_id'=> $request->category_id,
                 'initial_amount'=>$initial_amount,
                 'paied_amount'=>0,
-                'remaining_amount'=>$request->initial_amount,
+                'remaining_amount'=>$initial_amount,
                 'status'=>$request->status,
                 'user_id'=>1
             ]);
@@ -92,16 +92,37 @@ class AdCaseController extends Controller
                 'case' => $casee,
                 'items'=>$final_items,
             ];
+        }elseif($request->donationtype_id==4){
+            $request->validate([
+                'description_en' => 'required|string|max:500',
+                'description_ar' => 'required|string|max:500',
+                'type_en' => 'required|string|max:500',
+                'type_ar' => 'required|string|max:500',
+                'initial_amount'=>'required|numeric',
+            ]);
+
+            $casee = Casee::create([
+                'name_en' => $request->name_en,
+                'name_ar'=> $request->name_ar,
+                'description_en'=> $request->description_en,
+                'description_ar'=> $request->description_ar,
+                'type_en' => $request->type_en,
+                'type_ar' => $request->type_ar,
+                'image' => $image,
+                'donationtype_id'=> $request->donationtype_id,
+                'category_id'=> $request->category_id,
+                'initial_amount'=>$request->initial_amount,
+                'paied_amount'=>0,
+                'remaining_amount'=>$request->initial_amount,
+                'status'=>$request->status,
+                'user_id'=>1
+            ]);
+    
         }else{
 
-        $initial_amount=1;
-
-        if($request->donationtype_id==1){
             $request->validate([
                 'initial_amount'=>'required|numeric',
             ]);
-            $initial_amount=$request->initial_amount;
-        }
 
         $casee = Casee::create([
             'name_en' => $request->name_en,
@@ -111,9 +132,9 @@ class AdCaseController extends Controller
             'image' => $image,
             'donationtype_id'=> $request->donationtype_id,
             'category_id'=> $request->category_id,
-            'initial_amount'=>$initial_amount,
+            'initial_amount'=>$request->initial_amount,
             'paied_amount'=>0,
-            'remaining_amount'=>$initial_amount,
+            'remaining_amount'=>$request->initial_amount,
             'status'=>$request->status,
             'user_id'=>1
         ]);
@@ -132,14 +153,21 @@ class AdCaseController extends Controller
         $casee=Casee::find($id);
 
         $request->validate([
-            'donationtype_id' =>'required',
+            'donationtype_id' =>'required|exists:donationtypes,id',
         ]);
 
-        if($casee->donationtype_id==5){
-            $items=Item::where('casee_id',$casee->id)->get();
+        $items=Item::where('casee_id',$casee->id)->get();
+        if($items){
             foreach($items as $item){
-                $item->delete();
+            $item->delete();
             }
+        }
+        
+        if($casee->donationtype_id==4){
+            $casee->update([
+                'type_en' => null,
+                'type_ar' => null,
+            ]);
         }
 
         if($request->donationtype_id==5){
@@ -160,6 +188,7 @@ class AdCaseController extends Controller
             }else{
                 $image=$casee->image;
             }
+
             $initial_amount=0;
             $items=$request->items;
 
@@ -202,16 +231,52 @@ class AdCaseController extends Controller
                 'case' => $casee,
                 'items'=>$final_items,
             ];
-        }else{
+        }elseif($request->donationtype_id==4){
+            $request->validate([
+                'name_en' => 'required|string|max:200',
+                'name_ar' => 'required|string|max:200',
+                'description_en' => 'required|string|max:500',
+                'description_ar' => 'required|string|max:500',
+                'type_en' => 'required|string|max:500',
+                'type_ar' => 'required|string|max:500',
+                'image' => 'image|max:2048',
+                'category_id' =>'required|exists:categories,id',
+                'status'=>'required|in:pending,accepted,published,rejected',
+                'initial_amount'=>'required|numeric',
+            ]);
+
+            if($request->file('image')){
+                $image_path = $request->file('image')->store('api/casees','public');
+                $image=asset('storage/'.$image_path);
+            }else{
+                $image=$casee->image;
+            }
+
+            $casee->update([
+                'name_en' => $request->name_en,
+                'name_ar'=> $request->name_ar,
+                'description_en'=> $request->description_en,
+                'description_ar'=> $request->description_ar,
+                'type_en' => $request->type_en,
+                'type_ar' => $request->type_ar,
+                'image' => $image,
+                'donationtype_id'=> $request->donationtype_id,
+                'category_id'=> $request->category_id,
+                'initial_amount'=>$request->initial_amount,
+                'remaining_amount'=>$request->initial_amount,
+                'status'=>$request->status,
+            ]);
+        }
+        else{
             $request->validate([
                 'name_en' => 'required|string|max:200',
                 'name_ar' => 'required|string|max:200',
                 'description_en' => 'string|max:500',
                 'description_ar' => 'string|max:500',
                 'image' => 'image|max:2048',
-                'donationtype_id' =>'required|exists:donationtypes,id',
                 'category_id' =>'required|exists:categories,id',
-                'status'=>'required|in:pending,accepted,published,rejected'
+                'status'=>'required|in:pending,accepted,published,rejected',
+                'initial_amount'=>'required|numeric',
             ]);
     
             if($request->file('image')){
@@ -221,14 +286,6 @@ class AdCaseController extends Controller
                 $image=$casee->image;
             }
 
-            $initial_amount=1;
-
-            if($request->donationtype_id==1){
-                $request->validate([
-                    'initial_amount'=>'required|numeric',
-                ]);
-                $initial_amount=$request->initial_amount;
-            }
     
             $casee->update([
                 'name_en' => $request->name_en,
@@ -238,8 +295,8 @@ class AdCaseController extends Controller
                 'image' => $image,
                 'donationtype_id'=> $request->donationtype_id,
                 'category_id'=> $request->category_id,
-                'initial_amount'=>$initial_amount,
-                'remaining_amount'=>$initial_amount,
+                'initial_amount'=>$request->initial_amount,
+                'remaining_amount'=>$request->initial_amount,
                 'status'=>$request->status,
             ]);
             

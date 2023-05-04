@@ -18,6 +18,8 @@ class Casee extends Model
         'name_ar',
         'description_en',
         'description_ar',
+        'type_en',
+        'type_ar',
         'image',
         'donationtype_id',
         'category_id',

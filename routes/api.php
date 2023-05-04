@@ -14,6 +14,7 @@ use App\Http\Controllers\api\user\UsCaseController;
 use App\Http\Controllers\api\user\UsDonationController;
 use App\Http\Controllers\api\user\UsVolunteerController;
 use App\Http\Controllers\api\user\UsEventController;
+use App\Http\Controllers\api\user\UsProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +89,10 @@ Route::group(['middleware' => ['lang']] , function () {
     });
 
     Route::prefix('/user')->group( function () {
-    
+        Route::prefix('/profile')->group( function () {
+            Route::get('/show',[UsProfileController::class,'show'])->middleware('auth:sanctum');
+        });
+
         Route::prefix('/category')->group( function () {
             Route::get('/index',[UsCategoryController::class,'index']);
             Route::get('/show/{id}',[UsCategoryController::class,'show']);

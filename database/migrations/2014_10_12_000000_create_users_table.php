@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('gender',['m','f'])->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->string('image')->nullable();
             $table->enum('user_type',['0','1','2']);
             $table->rememberToken();
             $table->timestamps();

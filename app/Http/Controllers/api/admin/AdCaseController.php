@@ -117,7 +117,11 @@ class AdCaseController extends Controller
                 'status'=>$request->status,
                 'user_id'=>1
             ]);
-    
+            $response = [
+                'message'=>'case created successfully',
+                'case' => $casee
+            ];
+            
         }else{
 
             $request->validate([

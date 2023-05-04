@@ -89,8 +89,13 @@ Route::group(['middleware' => ['lang']] , function () {
     });
 
     Route::prefix('/user')->group( function () {
+
         Route::prefix('/profile')->group( function () {
             Route::get('/show',[UsProfileController::class,'show'])->middleware('auth:sanctum');
+            Route::post('/edit',[UsProfileController::class,'edit'])->middleware('auth:sanctum');
+            Route::get('/cases',[UsProfileController::class,'casesOfUser'])->middleware('auth:sanctum');
+            Route::get('/donations',[UsProfileController::class,'donationsOfUser'])->middleware('auth:sanctum');
+
         });
 
         Route::prefix('/category')->group( function () {

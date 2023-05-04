@@ -150,24 +150,13 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
+            'amount' => 'required|numeric',
+            'description'=>'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'description'=>'string',
-            'date_to_send' => 'date'
         ]);
 
-        
-
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-
-            ]);
-        }
-
-        
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
@@ -181,11 +170,11 @@ class UsDonationController extends Controller
             'donationtype_id' => $request->donationtype_id,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => 1,
+            'amount' => $request->amount,
             'phone'=>$request->phone,
+            'city' => $request->city,
             'description'=>$request->description,
             'address' => $request->address,
-            'date_to_send' => $request->date_to_send,
             'user_id' => $request->user()->id,
             'status'=>'pending'
         ]);
@@ -203,23 +192,14 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
+            'amount' => 'required|numeric',
+            'description'=>'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
-            'description'=>'string',
-            'date_to_send' => 'date'
         ]);
 
         
-
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-
-            ]);
-        }
-
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
@@ -233,11 +213,11 @@ class UsDonationController extends Controller
             'donationtype_id' => $request->donationtype_id,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => 1,
+            'amount' => $request->amount,
             'phone'=>$request->phone,
+            'city' => $request->city,
             'description'=>$request->description,
             'address' => $request->address,
-            'date_to_send' => $request->date_to_send,
             'status'=>'pending'
         ]);
 
@@ -255,8 +235,10 @@ class UsDonationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'method' => 'in:representative',
+            'amount' => 'required|numeric',
             'amount_description' => 'string',
+            'description'=>'string',
+            'method' => 'in:representative',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
@@ -286,7 +268,10 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
+            'amount' => $request->amount,
+            'description' => $request->description,
             'amount_description' => $request->amount_description,
+            'city' =>$request->city,
             'phone'=>$request->phone,
             'address' => $request->address,
             'date_to_send' => $request->date_to_send,
@@ -308,7 +293,9 @@ class UsDonationController extends Controller
             'phone' => 'required|string',
             'city' => 'required|string',
             'method' => 'in:representative',
+            'amount' => 'required|numeric',
             'amount_description' => 'string',
+            'description'=>'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
@@ -338,7 +325,10 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
+            'amount' => $request->amount,
+            'description' => $request->description,
             'amount_description' => $request->amount_description,
+            'city' =>$request->city,
             'phone'=>$request->phone,
             'address' => $request->address,
             'date_to_send' => $request->date_to_send,

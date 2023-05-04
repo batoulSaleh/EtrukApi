@@ -75,35 +75,103 @@ class UsCaseController extends Controller
             'image' => 'image|max:2048',
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
-            'initial_amount'=>'required|numeric',
         ]);
 
-        if($request->file('image')){
-            $image_path = $request->file('image')->store('api/casees','public');
-            $image=asset('storage/'.$image_path);
+        if($request->donationtype_id==5){
+            $request->validate([
+                'items'=>'required'
+            ]);
+
+            if($request->file('image')){
+                $image_path = $request->file('image')->store('api/casees','public');
+                $image=asset('storage/'.$image_path);
+            }else{
+                $image=null;
+            }
+    
+            $initial_amount=0;
+            $items=$request->items;
+            
+    
+            $casee = Casee::create([
+                'name_en' => $request->name_en,
+                'name_ar'=> $request->name_ar,
+                'description_en'=> $request->description_en,
+                'description_ar'=> $request->description_ar,
+                'image' => $image,
+                'donationtype_id'=> $request->donationtype_id,
+                'category_id'=> $request->category_id,
+                'initial_amount'=>$initial_amount,
+                'paied_amount'=>0,
+                'remaining_amount'=>$request->initial_amount,
+                'user_id'=>$request->user()->id,
+                'status'=>'pending'
+            ]);
+    
+            foreach($items as $item){
+                Item::create([
+                    'name_ar'=>$item['name_ar'],
+                    'name_en'=>$item['name_en'],
+                    'amount'=>$item['amount'],
+                    'casee_id'=>$casee->id,
+    
+                ]);
+    
+                $initial_amount=$initial_amount +$item['amount'];
+    
+            }
+    
+            $casee->update([
+                'initial_amount'=>$initial_amount,
+            ]);
+    
+            $final_items=Item::select(
+                'id',
+                'name_'.app()->getLocale().' as name',
+                'amount',
+                'casee_id'
+                )->where('casee_id',$casee->id)->get();
+    
+            $response = [
+                'message'=>'case created successfully',
+                'case' => $casee,
+                'items'=>$final_items,
+            ];
+
         }else{
-            $image=null;
+            $request->validate([
+                'initial_amount'=>'required|numeric',
+            ]);
+
+            if($request->file('image')){
+                $image_path = $request->file('image')->store('api/casees','public');
+                $image=asset('storage/'.$image_path);
+            }else{
+                $image=null;
+            }
+    
+            $casee = Casee::create([
+                'name_en' => $request->name_en,
+                'name_ar'=> $request->name_ar,
+                'description_en'=> $request->description_en,
+                'description_ar'=> $request->description_ar,
+                'image' => $image,
+                'donationtype_id'=> $request->donationtype_id,
+                'category_id'=> $request->category_id,
+                'initial_amount'=>$request->initial_amount,
+                'paied_amount'=>0,
+                'remaining_amount'=>$request->initial_amount,
+                'user_id'=>$request->user()->id,
+                'status'=>'pending'
+            ]);
+    
+            $response = [
+                'message'=>'case created successfully',
+                'case' => $casee
+            ];
         }
 
-        $casee = Casee::create([
-            'name_en' => $request->name_en,
-            'name_ar'=> $request->name_ar,
-            'description_en'=> $request->description_en,
-            'description_ar'=> $request->description_ar,
-            'image' => $image,
-            'donationtype_id'=> $request->donationtype_id,
-            'category_id'=> $request->category_id,
-            'initial_amount'=>$request->initial_amount,
-            'paied_amount'=>0,
-            'remaining_amount'=>$request->initial_amount,
-            'user_id'=>$request->user()->id,
-            'status'=>'pending'
-        ]);
-
-        $response = [
-            'message'=>'case created successfully',
-            'case' => $casee
-        ];
+        
         return response($response,201);
     }
 
@@ -119,61 +187,8 @@ class UsCaseController extends Controller
             'items'=>'required'
         ]);
 
-        if($request->file('image')){
-            $image_path = $request->file('image')->store('api/casees','public');
-            $image=asset('storage/'.$image_path);
-        }else{
-            $image=null;
-        }
 
-        $initial_amount=0;
-        $items=$request->items;
         
-
-        $casee = Casee::create([
-            'name_en' => $request->name_en,
-            'name_ar'=> $request->name_ar,
-            'description_en'=> $request->description_en,
-            'description_ar'=> $request->description_ar,
-            'image' => $image,
-            'donationtype_id'=> $request->donationtype_id,
-            'category_id'=> $request->category_id,
-            'initial_amount'=>$initial_amount,
-            'paied_amount'=>0,
-            'remaining_amount'=>$request->initial_amount,
-            'user_id'=>$request->user()->id,
-            'status'=>'pending'
-        ]);
-
-        foreach($items as $item){
-            Item::create([
-                'name_ar'=>$item['name_ar'],
-                'name_en'=>$item['name_en'],
-                'amount'=>$item['amount'],
-                'casee_id'=>$casee->id,
-
-            ]);
-
-            $initial_amount=$initial_amount +$item['amount'];
-
-        }
-
-        $casee->update([
-            'initial_amount'=>$initial_amount,
-        ]);
-
-        $final_items=Item::select(
-            'id',
-            'name_'.app()->getLocale().' as name',
-            'amount',
-            'casee_id'
-            )->where('casee_id',$casee->id)->get();
-
-        $response = [
-            'message'=>'case created successfully',
-            'case' => $casee,
-            'items'=>$final_items,
-        ];
         return response($response,201);
     }
 

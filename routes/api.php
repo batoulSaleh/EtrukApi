@@ -51,7 +51,6 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::get('/index',[AdCaseController::class,'index']);
             Route::get('/show/{id}',[AdCaseController::class,'show']);
             Route::post('/store',[AdCaseController::class,'store']);
-            Route::post('/store/furniture',[AdCaseController::class,'storeFurniture']);
             Route::post('/update/{id}',[AdCaseController::class,'update']);
             Route::post('/destroy/{id}',[AdCaseController::class,'destroy']);
         });

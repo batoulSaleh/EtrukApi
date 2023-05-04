@@ -159,7 +159,10 @@ class UsCaseController extends Controller
                 'user_id'=>$request->user()->id,
                 'status'=>'pending'
             ]);
-    
+            $response = [
+                'message'=>'case created successfully',
+                'case' => $casee
+            ];
         }else{
 
             $request->validate([
@@ -316,6 +319,11 @@ class UsCaseController extends Controller
                     'status'=>$request->status,
                     'user_id'=>$request->user()->id,
                 ]);
+                $response = [
+                    'message'=>'case created successfully',
+                    'case' => $casee
+                ];
+                
             }else{
                 $request->validate([
                     'name_en' => 'required|string|max:200',

@@ -121,7 +121,7 @@ class AdCaseController extends Controller
                 'message'=>'case created successfully',
                 'case' => $casee
             ];
-            
+
         }else{
 
             $request->validate([
@@ -270,6 +270,11 @@ class AdCaseController extends Controller
                 'remaining_amount'=>$request->initial_amount,
                 'status'=>$request->status,
             ]);
+
+            $response = [
+                'message'=>'case updated successfully',
+                'case' => $casee
+            ];
         }
         else{
             $request->validate([

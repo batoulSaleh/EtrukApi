@@ -101,7 +101,6 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::get('/donation/{id}',[UsCaseController::class,'casesOfDonationtype']);
             Route::get('/category/donation/{categoryid}/{donationtypeid}',[UsCaseController::class,'casesOfCategoryandDonationtype']);
             Route::post('/store',[UsCaseController::class,'store'])->middleware('auth:sanctum');
-            Route::post('/store/furniture',[UsCaseController::class,'storeFurniture'])->middleware('auth:sanctum');
             Route::post('/update/{id}',[UsCaseController::class,'update'])->middleware('auth:sanctum');
             Route::post('/destroy/{id}',[UsCaseController::class,'destroy'])->middleware('auth:sanctum');
         });

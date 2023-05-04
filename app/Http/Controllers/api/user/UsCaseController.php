@@ -76,19 +76,20 @@ class UsCaseController extends Controller
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
         ]);
+        if($request->file('image')){
+            $image_path = $request->file('image')->store('api/casees','public');
+            $image=asset('storage/'.$image_path);
+        }else{
+            $image=null;
+        }
+
 
         if($request->donationtype_id==5){
             $request->validate([
                 'items'=>'required'
             ]);
 
-            if($request->file('image')){
-                $image_path = $request->file('image')->store('api/casees','public');
-                $image=asset('storage/'.$image_path);
-            }else{
-                $image=null;
-            }
-    
+           
             $initial_amount=0;
             $items=$request->items;
             
@@ -103,7 +104,7 @@ class UsCaseController extends Controller
                 'category_id'=> $request->category_id,
                 'initial_amount'=>$initial_amount,
                 'paied_amount'=>0,
-                'remaining_amount'=>$request->initial_amount,
+                'remaining_amount'=>$initial_amount,
                 'user_id'=>$request->user()->id,
                 'status'=>'pending'
             ]);
@@ -123,6 +124,7 @@ class UsCaseController extends Controller
     
             $casee->update([
                 'initial_amount'=>$initial_amount,
+                'remaining_amount'=>$initial_amount,
             ]);
     
             $final_items=Item::select(
@@ -139,17 +141,16 @@ class UsCaseController extends Controller
             ];
 
         }else{
+
+        $initial_amount=1;
+
+        if($request->donationtype_id==1){
             $request->validate([
                 'initial_amount'=>'required|numeric',
             ]);
+            $initial_amount=$request->initial_amount;
+        }
 
-            if($request->file('image')){
-                $image_path = $request->file('image')->store('api/casees','public');
-                $image=asset('storage/'.$image_path);
-            }else{
-                $image=null;
-            }
-    
             $casee = Casee::create([
                 'name_en' => $request->name_en,
                 'name_ar'=> $request->name_ar,
@@ -158,9 +159,9 @@ class UsCaseController extends Controller
                 'image' => $image,
                 'donationtype_id'=> $request->donationtype_id,
                 'category_id'=> $request->category_id,
-                'initial_amount'=>$request->initial_amount,
+                'initial_amount'=>$initial_amount,
                 'paied_amount'=>0,
-                'remaining_amount'=>$request->initial_amount,
+                'remaining_amount'=>$initial_amount,
                 'user_id'=>$request->user()->id,
                 'status'=>'pending'
             ]);
@@ -175,68 +176,48 @@ class UsCaseController extends Controller
         return response($response,201);
     }
 
-    public function storeFurniture(Request $request){
-        $request->validate([
-            'name_en' => 'required|string|max:200',
-            'name_ar' => 'required|string|max:200',
-            'description_en' => 'string|max:500',
-            'description_ar' => 'string|max:500',
-            'image' => 'image|max:2048',
-            'donationtype_id' =>'required|in:5',
-            'category_id' =>'required|exists:categories,id',
-            'items'=>'required'
-        ]);
-
-
-        
-        return response($response,201);
-    }
 
     public function update(Request $request,$id){
-
-        $casee=Casee::find($id);
-        if($casee->donationtype_id==5){
         if($casee->user_id==$request->user()->id){
             if($casee->status=='pending'){
+                $request->validate([
+                    'status'=>'required|in:pending'
+                ]);
+            }
+            else{
+                $request->validate([
+                    'status'=>'required|in:accepted,published'
+                ]);
+            }
+
+            $request->validate([
+                'donationtype_id' =>'required',
+            ]);
+
+            if($casee->donationtype_id==5){
+                $items=Item::where('casee_id',$casee->id)->get();
+                foreach($items as $item){
+                    $item->delete();
+                }
+            }
+
+            if($request->donationtype_id==5){
                 $request->validate([
                     'name_en' => 'required|string|max:200',
                     'name_ar' => 'required|string|max:200',
                     'description_en' => 'string|max:500',
                     'description_ar' => 'string|max:500',
                     'image' => 'image|max:2048',
-                    'donationtype_id' =>'required|in:5',
                     'category_id' =>'required|exists:categories,id',
-                    'status'=>'required|in:pending',
                     'items'=>'required'
                 ]);
-            }else{
     
-            $request->validate([
-                'name_en' => 'required|string|max:200',
-                'name_ar' => 'required|string|max:200',
-                'description_en' => 'string|max:500',
-                'description_ar' => 'string|max:500',
-                'image' => 'image|max:2048',
-                'donationtype_id' =>'required|in:5',
-                'category_id' =>'required|exists:categories,id',
-                'status'=>'required|in:accepted,published',
-                 'items'=>'required'
-            ]);}
-    
-            if($request->file('image')){
-                $image_path = $request->file('image')->store('api/casees','public');
-                $image=asset('storage/'.$image_path);
-            }else{
-                $image=$casee->image;
-            }
-    
-    
-    
-                       $items=Item::where('casee_id',$casee->id)->get();
-                foreach($items as $item){
-                    $item->delete();
+                if($request->file('image')){
+                    $image_path = $request->file('image')->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                }else{
+                    $image=$casee->image;
                 }
-    
                 $initial_amount=0;
                 $items=$request->items;
     
@@ -249,105 +230,88 @@ class UsCaseController extends Controller
                         'donationtype_id'=> $request->donationtype_id,
                         'category_id'=> $request->category_id,
                         'initial_amount'=>$initial_amount,
+                        'remaining_amount'=>$initial_amount,
                         'status'=>$request->status,
-                            ]);
+                        'user_id'=>$request->user()->id,
+                    ]);
     
-        
+            
                 foreach($items as $item){
                     Item::create([
                         'name_ar'=>$item['name_ar'],
                         'name_en'=>$item['name_en'],
                         'amount'=>$item['amount'],
                         'casee_id'=>$casee->id,
-        
                     ]);
         
                     $initial_amount=$initial_amount +$item['amount'];
         
                 }
-        
+            
                 $casee->update([
                     'initial_amount'=>$initial_amount,
+                    'remaining_amount'=>$initial_amount,
                 ]);
         
-                $final_items=Item::select(
-                    'id',
-                    'name_'.app()->getLocale().' as name',
-                    'amount',
-                    'casee_id'
-                    )->where('casee_id',$casee->id)->get();
+                $final_items=Item::where('casee_id',$casee->id)->get();
         
                 $response = [
                     'message'=>'case updated successfully',
                     'case' => $casee,
                     'items'=>$final_items,
-                ];}
+                ];
+            }else{
+                $request->validate([
+                    'name_en' => 'required|string|max:200',
+                    'name_ar' => 'required|string|max:200',
+                    'description_en' => 'string|max:500',
+                    'description_ar' => 'string|max:500',
+                    'image' => 'image|max:2048',
+                    'donationtype_id' =>'required|exists:donationtypes,id',
+                    'category_id' =>'required|exists:categories,id',
+                ]);
+        
+                if($request->file('image')){
+                    $image_path = $request->file('image')->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                }else{
+                    $image=$casee->image;
+                }
     
-            else{
+                $initial_amount=1;
+    
+                if($request->donationtype_id==1){
+                    $request->validate([
+                        'initial_amount'=>'required|numeric',
+                    ]);
+                    $initial_amount=$request->initial_amount;
+                }
+        
+                $casee->update([
+                    'name_en' => $request->name_en,
+                    'name_ar'=> $request->name_ar,
+                    'description_en'=> $request->description_en,
+                    'description_ar'=> $request->description_ar,
+                    'image' => $image,
+                    'donationtype_id'=> $request->donationtype_id,
+                    'category_id'=> $request->category_id,
+                    'initial_amount'=>$initial_amount,
+                    'remaining_amount'=>$initial_amount,
+                    'status'=>$request->status,
+                    'user_id'=>$request->user()->id,
+                ]);
+                
                 $response = [
-                    'message'=>'can not be updated Unauthorized'];
+                    'message'=>'case updated successfully',
+                    'case' => $casee
+                ];
             }
         }
         else{
-        if($casee->user_id==$request->user()->id){
-        if($casee->status=='pending'){
-            
-            $request->validate([
-                'name_en' => 'required|string|max:200',
-                'name_ar' => 'required|string|max:200',
-                'description_en' => 'string|max:500',
-                'description_ar' => 'string|max:500',
-                'image' => 'image|max:2048',
-                'donationtype_id' =>'required|exists:donationtypes,id',
-                'category_id' =>'required|exists:categories,id',
-                'initial_amount'=>'required|numeric',
-                'status'=>'required|in:pending'
-            ]);
-        }else{
-
-        $request->validate([
-            'name_en' => 'required|string|max:200',
-            'name_ar' => 'required|string|max:200',
-            'description_en' => 'string|max:500',
-            'description_ar' => 'string|max:500',
-            'image' => 'image|max:2048',
-            'donationtype_id' =>'required|exists:donationtypes,id',
-            'category_id' =>'required|exists:categories,id',
-            'initial_amount'=>'required|numeric',
-            'status'=>'required|in:accepted,published'
-        ]);}
-
-        if($request->file('image')){
-            $image_path = $request->file('image')->store('api/casees','public');
-            $image=asset('storage/'.$image_path);
-        }else{
-            $image=$casee->image;
-        }
-
-
-
-        $casee->update([
-            'name_en' => $request->name_en,
-            'name_ar'=> $request->name_ar,
-            'description_en'=> $request->description_en,
-            'description_ar'=> $request->description_ar,
-            'image' => $image,
-            'donationtype_id'=> $request->donationtype_id,
-            'category_id'=> $request->category_id,
-            'initial_amount'=>$request->initial_amount,
-            'user_id'=>$request->user()->id,
-            'status'=>$request->status
-                ]);
-        
-        
-        $response = [
-            'message'=>'case updated successfully',
-            'case' => $casee
-        ];}
-        else{
             $response = [
                 'message'=>'can not be updated Unauthorized'];
-        }}
+        }
+
         return response($response,201);
     }
 

@@ -491,7 +491,7 @@ class UsDonationController extends Controller
 
         foreach($items as $item){
             $it=Item::find($item['id']);
-            if($item['amount']>$it->amount){
+            if((double)$item['amount']>(double)$it->amount){
                 $response = [
                     'message'=>'the'.$it->name_en .'amount must be less than or equal' . $it->amount,
                 ];

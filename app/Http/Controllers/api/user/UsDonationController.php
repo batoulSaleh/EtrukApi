@@ -460,16 +460,14 @@ class UsDonationController extends Controller
             'phone' => 'required|string',
             'city' => 'required|string',
             'method' => 'in:representative',
-            'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'description'=>'string',
-            'date_to_send' => 'date'
+            'date_to_send' => 'date',
+            'items'=>'required'
         ]);
 
-        
 
         if($request->method=='representative'){
             $request->validate([
@@ -485,6 +483,20 @@ class UsDonationController extends Controller
             ];
             return response($response,500);
         }
+
+        $items=$request->items;
+        $total_amount=0;
+
+        foreach($items as $item){
+            $it=Item::find($item['id']);
+            if($item['amount']<$it->amount){
+                $response = [
+                    'message'=>'the'.$it->name_en .'amount must be less than or equal' . $it->amount,
+                ];
+                return response($response,500);
+            }
+            $total_amount=$total_amount+$item['amount'];
+        }
         
         $donation = Donation::create([
             'casee_id' => $request->casee_id,
@@ -492,8 +504,7 @@ class UsDonationController extends Controller
             'method' => $request->method,
             'name' => $request->name,
             'email' => $request->email,
-            'amount' => $request->amount,
-            'amount_description' => $request->amount_description,
+            'amount' => $total_amount,
             'phone'=>$request->phone,
             'description'=>$request->description,
             'address' => $request->address,
@@ -501,6 +512,15 @@ class UsDonationController extends Controller
             'user_id' => $request->user()->id,
             'status'=>'pending'
         ]);
+
+
+        foreach($items as $item){
+            $donationitem=Donationitem::create([
+                'item_id'=> $item['id'],
+                'donation_id' =>$donation->id,
+                'amount'=>$item['amount'],
+            ]);
+        }
 
         $response = [
             'message'=>'donation created successfully',

@@ -75,22 +75,49 @@ class AdDonationController extends Controller
                 $code=500;
 
             }else{
-                $case->paied_amount=$case->paied_amount+$donation->amount;
-                $case->remaining_amount=$case->initial_amount-$case->paied_amount;
-                if($case->remaining_amount==0){
-                    $case->status='completed';
+                if($donationtype_id==5){
+                    $donation_items=Donationitem::where('donation_id',$donation->id)->get();
+                    $items=Item::where('casee_id',$case->id)->get();
+                    $total_amount=$donation->amount;
+                    foreach($donation_items as $dt){
+                        $item=Item::find($dt->id);
+                        $item->amount=$item->amount-$dt->amount;
+                        $item->save();
+                        $total_amount=$total_amount=$dt->amount;
+                    }
+
+                    $case->paied_amount=$case->paied_amount+$donation->amount;
+                    $case->remaining_amount=$case->initial_amount-$case->paied_amount;
+                    if($case->remaining_amount==0){
+                        $case->status='completed';
+                    }
+                    $code=201;
+                    $case->save();
+                    $donation->status='accepted';
+                    $donation->save();
+                    $response = [
+                        'message'=>'Done',
+                        'case'=>$case,
+                        'donation'=>$donation
+                    ];
                 }
-                $code=201;
-                $case->save();
+                else{
+                    $case->paied_amount=$case->paied_amount+$donation->amount;
+                    $case->remaining_amount=$case->initial_amount-$case->paied_amount;
+                    if($case->remaining_amount==0){
+                        $case->status='completed';
+                    }
+                    $code=201;
+                    $case->save();
+                    $donation->status='accepted';
+                    $donation->save();
+                    $response = [
+                        'message'=>'Done',
+                        'case'=>$case,
+                        'donation'=>$donation
+                    ];
+                }
 
-                $donation->status='accepted';
-                $donation->save();
-
-                $response = [
-                    'message'=>'Done',
-                    'case'=>$case,
-                    'donation'=>$donation
-                ];
             }
 
         return response($response,$code);

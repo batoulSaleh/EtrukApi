@@ -82,8 +82,7 @@ class AdDonationController extends Controller
                     $items=Item::where('casee_id',$case->id)->get();
                     $total_amount=$donation->amount;
                     foreach($donation_items as $dt){
-                        dd($dt);
-                        $item=Item::find($dt->id);
+                        $item=Item::find($dt->item_id);
                         $item->amount=$item->amount-$dt->amount;
                         $item->save();
                         $total_amount=$total_amount=$dt->amount;

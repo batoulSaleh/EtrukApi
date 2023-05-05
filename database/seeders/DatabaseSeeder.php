@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Donationtype;
 use App\Models\User;
+use App\Models\Category;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -19,6 +21,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+    Category::create([
+        'name_en'=>'Sponsoring an orphan',
+        'name_ar'=>'كفالة اليتيم'
+    ]);
+
+    Category::create([
+        'name_en'=>'medical cases',
+        'name_ar'=>'حالات طبية'
+    ]);
+
+    Category::create([
+        'name_en'=>'Humanitarian cases',
+        'name_ar'=>'حالات انسانية'
+    ]);
+    
+    Category::create([
+        'name_en'=>'Education',
+        'name_ar'=>'التعليم'
+    ]);
+
+    Category::create([
+        'name_en'=>'Al Gharemeen',
+        'name_ar'=>'الغارمين'
+    ]);
 
     Donationtype::create([
         'name_en'=>'Financial',

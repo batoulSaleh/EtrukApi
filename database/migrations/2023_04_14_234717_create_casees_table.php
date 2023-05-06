@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('description_ar')->nullable();
             $table->text('type_en')->nullable();
             $table->text('type_ar')->nullable();
+            $table->text('gender_en')->nullable();
+            $table->text('gender_ar')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('donationtype_id')->constrained('donationtypes');
             $table->foreignId('category_id')->constrained('categories');

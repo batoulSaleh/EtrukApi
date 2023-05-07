@@ -33,6 +33,29 @@ class UsCaseController extends Controller
         return response($response,201);
     }
 
+    public function lastCases(){
+
+        $casees=Casee::with('item')->select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'initial_amount',
+            'paied_amount',
+            'remaining_amount',
+            'status',
+            'user_id',
+            'donationtype_id',
+            'category_id'
+            )->with('category','donationtype','user')->where('status','published')->latest()->take(3)->get();
+
+        $response = [
+            'message'=>'All cases',
+            'cases' => $casees
+        ];
+        return response($response,201);
+    }
+
     public function show($id)
     {
 

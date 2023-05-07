@@ -105,6 +105,7 @@ Route::group(['middleware' => ['lang']] , function () {
 
         Route::prefix('/case')->group( function () {
             Route::get('/index',[UsCaseController::class,'index']);
+            Route::get('/last',[UsCaseController::class,'lastCases']);
             Route::get('/show/{id}',[UsCaseController::class,'show']);
             Route::get('/category/{id}',[UsCaseController::class,'casesOfCategory']);
             Route::get('/donation/{id}',[UsCaseController::class,'casesOfDonationtype']);

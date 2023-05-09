@@ -61,7 +61,8 @@ class UsCharityController extends Controller
             'start_date',
             'end_date',
             'start_time',
-            'end_time'
+            'end_time',
+            'user_id'
             )->where('user_id',$id)->get();
 
         $response = [

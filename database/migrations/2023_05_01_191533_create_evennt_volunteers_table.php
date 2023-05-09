@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('evennt_volunteers', function (Blueprint $table) {
             $table->id();
             $table->boolean('joined')->default(false);
-            // $table->foreignId('event_id')->constrained('events');
-            // $table->foreignId('volunteer_id')->constrained('volunteers');
             $table->bigInteger('event_id')->nullable();
             $table->bigInteger('volunteer_id')->nullable();
             $table->timestamps();

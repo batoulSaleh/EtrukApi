@@ -123,6 +123,7 @@ Route::group(['middleware' => ['lang']] , function () {
             Route::get('/index',[UsCaseController::class,'index']);
             Route::get('/last',[UsCaseController::class,'lastCases']);
             Route::get('/show/{id}',[UsCaseController::class,'show']);
+            Route::get('/show/update/{id}',[UsCaseController::class,'showUpdate']);
             Route::get('/category/{id}',[UsCaseController::class,'casesOfCategory']);
             Route::get('/donation/{id}',[UsCaseController::class,'casesOfDonationtype']);
             Route::get('/category/donation/{categoryid}/{donationtypeid}',[UsCaseController::class,'casesOfCategoryandDonationtype']);

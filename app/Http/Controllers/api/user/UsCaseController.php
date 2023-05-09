@@ -47,7 +47,7 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->with('category','donationtype','user')->where('status','published')->latest()->take(3)->get();
+            )->with('category','donationtype','user')->where('status','published')->latest()->take(10)->get();
 
         $response = [
             'message'=>'All cases',
@@ -86,6 +86,15 @@ class UsCaseController extends Controller
                     'items'=>$items,
                 ];
 
+        return response($response,201);
+    }
+    public function showUpdate($id)
+    {
+        $casee=Casee::where('id',$id)->with('category','donationtype','user','item')->first();
+        $response = [
+            'message'=>'specific case with id',
+            'case' => $casee
+        ];
         return response($response,201);
     }
 

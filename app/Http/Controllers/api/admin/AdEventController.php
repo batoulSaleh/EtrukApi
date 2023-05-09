@@ -51,7 +51,7 @@ class AdEventController extends Controller
                 'created_at' => Carbon::now(),
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
-                'user_id'=>2
+                'user_id'=>1
             ]
         );
         $response = ['message' => 'Event is created successfully.', 'result' => $event];

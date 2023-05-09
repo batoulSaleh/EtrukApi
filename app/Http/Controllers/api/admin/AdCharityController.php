@@ -45,7 +45,7 @@ class AdCharityController extends Controller
             'end_time' => 'required|date_format:H:i',
         ]);
         if ($request->file('image')) {
-            $image_path = $request->file('image')->store('api/events', 'public'); //store('name of folder', 'in folder public');
+            $image_path = $request->file('image')->store('api/events', 'public');
         } else {
             $image_path = null;
         }

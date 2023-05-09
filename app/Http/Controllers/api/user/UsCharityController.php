@@ -71,18 +71,5 @@ class UsCharityController extends Controller
         return response($response, 201);
     }
 
-    public function getCategories($id){
-        $categories = Category::with('casees')->select(
-            'id',
-            'name_'.app()->getLocale().' as name',
-            'description_'.app()->getLocale().' as description',
-            'image',
-            )->where('user_id',$id)->get();
-        $response = [
-            'message'=>'All Categories',
-            'Categories' => $categories
-        ];
-        return response($response,201);
-    }
 
 }

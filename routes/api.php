@@ -102,15 +102,15 @@ Route::group(['middleware' => ['lang']] , function () {
         Route::prefix('/charity')->group( function () {
             Route::get('/index',[UsCharityController::class,'index']);
             Route::get('/show/{id}',[UsCharityController::class,'show']);
-            Route::get('/cases',[UsCharityController::class,'getCases']);
-            Route::get('/donations',[UsCharityController::class,'getEvents']);
+            Route::get('/cases/{id}',[UsCharityController::class,'getCases']);
+            Route::get('/events/{id}',[UsCharityController::class,'getEvents']);
         });
 
         Route::prefix('/profile')->group( function () {
             Route::get('/show',[UsProfileController::class,'show'])->middleware('auth:sanctum');
             Route::post('/edit',[UsProfileController::class,'edit'])->middleware('auth:sanctum');
             Route::get('/cases',[UsProfileController::class,'casesOfUser'])->middleware('auth:sanctum');
-            Route::get('/events',[UsProfileController::class,'donationsOfUser'])->middleware('auth:sanctum');
+            Route::get('/donations',[UsProfileController::class,'donationsOfUser'])->middleware('auth:sanctum');
 
         });
 

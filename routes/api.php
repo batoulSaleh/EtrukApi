@@ -9,12 +9,15 @@ use App\Http\Controllers\api\admin\DonationTypeController;
 use App\Http\Controllers\api\admin\AdDonationController;
 use App\Http\Controllers\api\admin\AdVolunteerController;
 use App\Http\Controllers\api\admin\AdEventController;
+use App\Http\Controllers\api\admin\AdCharityController;
 use App\Http\Controllers\api\user\UsCategoryController;
 use App\Http\Controllers\api\user\UsCaseController;
 use App\Http\Controllers\api\user\UsDonationController;
 use App\Http\Controllers\api\user\UsVolunteerController;
 use App\Http\Controllers\api\user\UsEventController;
 use App\Http\Controllers\api\user\UsProfileController;
+use App\Http\Controllers\api\user\UsCharityController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,12 @@ Route::group(['middleware' => ['lang']] , function () {
     Route::post('/login/admin',[AuthController::class,'loginadmin']);
 
     Route::prefix('/dashboard')->group( function () {
+
+        Route::prefix('/charity')->group( function () {
+            Route::get('/cases',[AdCharityController::class,'getcases'])->middleware('auth:sanctum');
+            Route::get('/events',[AdCharityController::class,'getEvents'])->middleware('auth:sanctum');
+            Route::post('/store/event',[AdCharityController::class,'storeEvent'])->middleware('auth:sanctum');
+        });
     
         Route::prefix('/category')->group( function () {
             Route::get('/index',[AdCategoryController::class,'index']);
@@ -90,11 +99,18 @@ Route::group(['middleware' => ['lang']] , function () {
 
     Route::prefix('/user')->group( function () {
 
+        Route::prefix('/charity')->group( function () {
+            Route::get('/index',[UsCharityController::class,'index']);
+            Route::get('/show/{id}',[UsCharityController::class,'show']);
+            Route::get('/cases',[UsCharityController::class,'getCases']);
+            Route::get('/donations',[UsCharityController::class,'getEvents']);
+        });
+
         Route::prefix('/profile')->group( function () {
             Route::get('/show',[UsProfileController::class,'show'])->middleware('auth:sanctum');
             Route::post('/edit',[UsProfileController::class,'edit'])->middleware('auth:sanctum');
             Route::get('/cases',[UsProfileController::class,'casesOfUser'])->middleware('auth:sanctum');
-            Route::get('/donations',[UsProfileController::class,'donationsOfUser'])->middleware('auth:sanctum');
+            Route::get('/events',[UsProfileController::class,'donationsOfUser'])->middleware('auth:sanctum');
 
         });
 

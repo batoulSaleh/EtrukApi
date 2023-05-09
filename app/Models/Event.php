@@ -19,6 +19,7 @@ class Event extends Model
         'end_date',
         'start_time',
         'end_time',
+        'user_id'
     ];
     // public function volunteers()
     // {

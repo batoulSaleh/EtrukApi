@@ -23,7 +23,7 @@ class UsEventController extends Controller
             'end_date',
             'start_time',
             'end_time'
-            )->get();
+            )->where('user_id',1)->get();
 
         $response = [
         'message' => 'All Events',

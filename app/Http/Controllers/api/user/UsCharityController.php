@@ -13,7 +13,7 @@ use App\Models\Category;
 class UsCharityController extends Controller
 {
     public function index(){
-        $charities =User::where('user_type','2')->get();
+        $charities =User::where('id','!=',1)->where('user_type','2')->get();
         $response = [
             'message'=>'All charities',
             'charities' => $charities

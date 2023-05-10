@@ -11,15 +11,15 @@ class UsZakatController extends Controller
     {
         $static_price_gold21 = 2525;
         $static_price_gold24 = 2886;
-        $price_gold21 = $request->gold21;
-        $price_gold24 = $request->gold24;
+        $gold21 = $request->gold21;
+        $gold24 = $request->gold24;
         $money = $request->money;
 
         /** Gold 21 */
-        if ($price_gold21) // Check the price exists or not
+        if ($gold21) // Check the price exists or not
         {
-            if ($price_gold21  > $static_price_gold21 * 87.48) {
-                $zakat_gold21 = ($price_gold21 * 2.5) / 100;
+            if ($gold21 > 87.48) {
+                $zakat_gold21 = ($gold21*$static_price_gold21* 2.5) / 100;
             } else {
                 $zakat_gold21 = 0;
             }
@@ -28,10 +28,10 @@ class UsZakatController extends Controller
         }
 
         /** Gold 24 */
-        if ($price_gold24) // Check the price exists or not
+        if ($gold24) // Check the price exists or not
         {
-            if ($price_gold24  > $static_price_gold24 * 87.48) {
-                $zakat_gold24 = ($price_gold24 * 2.5) / 100;
+            if ($gold24  >  87.48) {
+                $zakat_gold24 = ($gold24*$static_price_gold24 * 2.5) / 100;
             } else {
                 $zakat_gold24 = 0;
             }

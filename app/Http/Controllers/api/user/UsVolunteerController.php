@@ -9,16 +9,18 @@ use App\Models\User;
 
 class UsVolunteerController extends Controller
 {
-    public function getUser(Request $request){
-        $user=User::findOrFail($request->user()->id);
+    public function getUser(Request $request)
+    {
+        $user = User::findOrFail($request->user()->id);
         $response = [
-            'message'=>'user who login',
+            'message' => 'user who login',
             'user' => $user
         ];
-        return response($response,201);
+        return response($response, 201);
     }
 
-    public function storeUser(Request $request){
+    public function storeUser(Request $request)
+    {
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
@@ -30,16 +32,15 @@ class UsVolunteerController extends Controller
             'volunteer_type' => 'required|in:individual,group',
         ]);
 
-        if($request->volunteer_type=='group'){
+        if ($request->volunteer_type == 'group') {
             $request->validate([
                 'num_of_members' => 'required',
-                ]);
-            $num_of_member=$request->num_of_members;
-            }
-            else{
-                $num_of_member=null;
-            }
-        $volunteer=Volunteer::create([
+            ]);
+            $num_of_member = $request->num_of_members;
+        } else {
+            $num_of_member = null;
+        }
+        $volunteer = Volunteer::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -48,18 +49,19 @@ class UsVolunteerController extends Controller
             'age' => $request->age,
             'activity' => $request->activity,
             'volunteer_type' => $request->volunteer_type,
-            'num_of_members'=>$num_of_member,
-            'user_id'=>$request->user()->id
+            'num_of_members' => $num_of_member,
+            'user_id' => $request->user()->id
         ]);
 
         $response = [
-            'message'=>'volunteer successfully',
+            'message' => 'volunteer successfully',
             'volunteer' => $volunteer
         ];
-        return response($response,201);
+        return response($response, 201);
     }
 
-    public function storeGuest(Request $request){
+    public function storeGuest(Request $request)
+    {
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
@@ -71,17 +73,16 @@ class UsVolunteerController extends Controller
             'volunteer_type' => 'required|in:individual,group',
         ]);
 
-        if($request->volunteer_type=='group'){
+        if ($request->volunteer_type == 'group') {
             $request->validate([
                 'num_of_members' => 'required',
-                ]);
-            $num_of_member=$request->num_of_members;
-            }else{
-                $num_of_member=null;
+            ]);
+            $num_of_member = $request->num_of_members;
+        } else {
+            $num_of_member = null;
+        }
 
-            }
-
-        $volunteer=Volunteer::create([
+        $volunteer = Volunteer::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -90,13 +91,13 @@ class UsVolunteerController extends Controller
             'age' => $request->age,
             'activity' => $request->activity,
             'volunteer_type' => $request->volunteer_type,
-            'num_of_members'=>$num_of_member,
+            'num_of_members' => $num_of_member,
         ]);
 
         $response = [
-            'message'=>'volunteer successfully',
+            'message' => 'volunteer successfully',
             'volunteer' => $volunteer
         ];
-        return response($response,201);
+        return response($response, 201);
     }
 }

@@ -179,6 +179,8 @@ class AdCaseController extends Controller
             'status'=>$request->status,
             'user_id'=>1
         ]);
+        dd($images);
+
         $images=$request->images;
         foreach($images as $image){
             if($request->file('image')){

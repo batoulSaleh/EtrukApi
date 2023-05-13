@@ -73,18 +73,17 @@ class AdCaseController extends Controller
             ]);
 
             $images=$request->file('images');
-            foreach($images as $image){
-                if($request->file('image')){
-                    $image_path = $request->file('image')->store('api/casees','public');
+            if($images){
+                foreach($images as $image){
+                    $image_path = $image->store('api/casees','public');
                     $image=asset('storage/'.$image_path);
-                }else{
-                    $image=null;
+                
+    
+                    Caseimage::create([
+                        'casee_id'=>$casee->id,
+                        'image'=>$image
+                    ]);
                 }
-
-                Caseimage::create([
-                    'casee_id'=>$casee->id,
-                    'image'=>$image
-                ]);
             }
     
             foreach($items as $item){
@@ -139,19 +138,18 @@ class AdCaseController extends Controller
                 'status'=>$request->status,
                 'user_id'=>1
             ]);
-            $images=$request->images;
-            foreach($images as $image){
-                if($request->file('image')){
-                    $image_path = $request->file('image')->store('api/casees','public');
+            $images=$request->file('images');
+            if($images){
+                foreach($images as $image){
+                    $image_path = $image->store('api/casees','public');
                     $image=asset('storage/'.$image_path);
-                }else{
-                    $image=null;
-                }
+                
 
-                Caseimage::create([
-                    'casee_id'=>$casee->id,
-                    'image'=>$image
-                ]);
+                    Caseimage::create([
+                        'casee_id'=>$casee->id,
+                        'image'=>$image
+                    ]);
+                }
             }
             $response = [
                 'message'=>'case created successfully',
@@ -180,16 +178,17 @@ class AdCaseController extends Controller
         ]);
 
         $images=$request->file('images');
-
-        foreach($images as $image){
+        if($images){
+            foreach($images as $image){
                 $image_path = $image->store('api/casees','public');
                 $image=asset('storage/'.$image_path);
             
 
-            Caseimage::create([
-                'casee_id'=>$casee->id,
-                'image'=>$image
-            ]);
+                Caseimage::create([
+                    'casee_id'=>$casee->id,
+                    'image'=>$image
+                ]);
+            }
         }
 
         $response = [
@@ -260,22 +259,21 @@ class AdCaseController extends Controller
                     'reason_reject_ar'=>$request->reason_reject_ar,
                 ]);
             
-            $images=$request->images;
+            $images=$request->file('images');
             if(count($images)>0){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
-                foreach($images as $image){
-                    if($request->file('image')){
-                        $image_path = $request->file('image')->store('api/casees','public');
+                
+                    foreach($images as $image){
+                        $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
-                    }else{
-                        $image=null;
+                    
+
+                        Caseimage::create([
+                            'casee_id'=>$casee->id,
+                            'image'=>$image
+                        ]);
                     }
-                    Caseimage::create([
-                        'casee_id'=>$casee->id,
-                        'image'=>$image
-                    ]);
-                }
             }
         
             foreach($items as $item){
@@ -345,22 +343,21 @@ class AdCaseController extends Controller
                 'reason_reject_ar'=>$request->reason_reject_ar,
             ]);
 
-            $images=$request->images;
+            $images=$request->file('images');
             if(count($images)>0){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
-                foreach($images as $image){
-                    if($request->file('image')){
-                        $image_path = $request->file('image')->store('api/casees','public');
+                
+                    foreach($images as $image){
+                        $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
-                    }else{
-                        $image=null;
+                    
+
+                        Caseimage::create([
+                            'casee_id'=>$casee->id,
+                            'image'=>$image
+                        ]);
                     }
-                    Caseimage::create([
-                        'casee_id'=>$casee->id,
-                        'image'=>$image
-                    ]);
-                }
             }
 
             $response = [
@@ -402,23 +399,21 @@ class AdCaseController extends Controller
                 'reason_reject_en'=>$request->reason_reject_en,
                 'reason_reject_ar'=>$request->reason_reject_ar,
             ]);
-
-            $images=$request->images;
+            $images=$request->file('images');
             if(count($images)>0){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
-                foreach($images as $image){
-                    if($request->file('image')){
-                        $image_path = $request->file('image')->store('api/casees','public');
+                
+                    foreach($images as $image){
+                        $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
-                    }else{
-                        $image=null;
+                    
+
+                        Caseimage::create([
+                            'casee_id'=>$casee->id,
+                            'image'=>$image
+                        ]);
                     }
-                    Caseimage::create([
-                        'casee_id'=>$casee->id,
-                        'image'=>$image
-                    ]);
-                }
             }
 
             $response = [

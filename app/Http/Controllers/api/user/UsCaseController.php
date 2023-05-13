@@ -342,8 +342,9 @@ class UsCaseController extends Controller
                     $images=$request->file('images');
             if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
-                $old_images->delete();
-                
+                foreach($old_images as $_oldimage){
+                    $old_image->delete();
+                }                
                     foreach($images as $image){
                         $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
@@ -423,8 +424,9 @@ class UsCaseController extends Controller
                 $images=$request->file('images');
             if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
-                $old_images->delete();
-                
+                foreach($old_images as $_oldimage){
+                    $old_image->delete();
+                }                
                     foreach($images as $image){
                         $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
@@ -477,8 +479,9 @@ class UsCaseController extends Controller
                 $images=$request->file('images');
             if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
-                $old_images->delete();
-                
+                foreach($old_images as $_oldimage){
+                    $old_image->delete();
+                }                
                     foreach($images as $image){
                         $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);

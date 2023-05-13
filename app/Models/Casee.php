@@ -9,6 +9,7 @@ use App\Models\Donationtype;
 use App\Models\Donation;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Caseimage;
 
 class Casee extends Model
 {
@@ -22,14 +23,16 @@ class Casee extends Model
         'type_ar',
         'gender_en',
         'gender_ar',
-        'image',
+        'file',
         'donationtype_id',
         'category_id',
         'initial_amount',
         'paied_amount',
         'remaining_amount',
         'status',
-        'user_id'
+        'user_id',
+        'reason_reject_en',
+        'reason_reject_ar'
     ];
 
     public function category(){
@@ -51,5 +54,10 @@ class Casee extends Model
     public function item()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function caseimage()
+    {
+        return $this->hasMany(Caseimage::class);
     }
 }

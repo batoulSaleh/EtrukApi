@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Casee;
 use App\Models\Item;
+use App\Models\Caseimage;
 
 
 class UsCaseController extends Controller
 {
     public function index(){
 
-        $casees=Casee::with('item')->select(
+        $casees=Casee::with('item','caseimage')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
@@ -35,7 +36,7 @@ class UsCaseController extends Controller
 
     public function lastCases(){
 
-        $casees=Casee::with('item')->select(
+        $casees=Casee::with('item','caseimage')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
@@ -71,7 +72,7 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->with('category','donationtype','user')->where('id',$id)->first();
+            )->with('category','donationtype','user','caseimage')->where('id',$id)->first();
 
             $items=Item::select(
                 'id',
@@ -90,7 +91,7 @@ class UsCaseController extends Controller
     }
     public function showUpdate($id)
     {
-        $casee=Casee::where('id',$id)->with('category','donationtype','user','item')->first();
+        $casee=Casee::where('id',$id)->with('category','donationtype','user','item','caseimage')->first();
         $response = [
             'message'=>'specific case with id',
             'case' => $casee
@@ -104,15 +105,15 @@ class UsCaseController extends Controller
             'name_ar' => 'required|string|max:200',
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
-            'image' => 'image|max:2048',
+            'file' => 'file|max:2048',
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
         ]);
-        if($request->file('image')){
-            $image_path = $request->file('image')->store('api/casees','public');
-            $image=asset('storage/'.$image_path);
+        if($request->file('file')){
+            $file_path = $request->file('file')->store('api/casees','public');
+            $file=asset('storage/'.$file_path);
         }else{
-            $image=null;
+            $file=null;
         }
 
 
@@ -139,6 +140,21 @@ class UsCaseController extends Controller
                 'user_id'=>$request->user()->id,
                 'status'=>'pending'
             ]);
+
+            $images=$request->images;
+            foreach($images as $image){
+                if($request->file('image')){
+                    $image_path = $request->file('image')->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                }else{
+                    $image=null;
+                }
+
+                Caseimage::create([
+                    'casee_id'=>$casee->id,
+                    'image'=>$image
+                ]);
+            }
     
             foreach($items as $item){
                 Item::create([
@@ -195,6 +211,22 @@ class UsCaseController extends Controller
                 'user_id'=>$request->user()->id,
                 'status'=>'pending'
             ]);
+
+            $images=$request->images;
+            foreach($images as $image){
+                if($request->file('image')){
+                    $image_path = $request->file('image')->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                }else{
+                    $image=null;
+                }
+
+                Caseimage::create([
+                    'casee_id'=>$casee->id,
+                    'image'=>$image
+                ]);
+            }
+
             $response = [
                 'message'=>'case created successfully',
                 'case' => $casee
@@ -219,7 +251,20 @@ class UsCaseController extends Controller
                 'user_id'=>$request->user()->id,
                 'status'=>'pending'
             ]);
-    
+            $images=$request->images;
+            foreach($images as $image){
+                if($request->file('image')){
+                    $image_path = $request->file('image')->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                }else{
+                    $image=null;
+                }
+
+                Caseimage::create([
+                    'casee_id'=>$casee->id,
+                    'image'=>$image
+                ]);
+            }
             $response = [
                 'message'=>'case created successfully',
                 'case' => $casee
@@ -269,17 +314,18 @@ class UsCaseController extends Controller
                     'name_ar' => 'required|string|max:200',
                     'description_en' => 'string|max:500',
                     'description_ar' => 'string|max:500',
-                    'image' => 'image|max:2048',
+                    'file' => 'file|max:2048',
                     'category_id' =>'required|exists:categories,id',
                     'items'=>'required'
                 ]);
     
-                if($request->file('image')){
-                    $image_path = $request->file('image')->store('api/casees','public');
-                    $image=asset('storage/'.$image_path);
+                if($request->file('file')){
+                    $file_path = $request->file('file')->store('api/casees','public');
+                    $file=asset('storage/'.$file_path);
                 }else{
-                    $image=$casee->image;
+                    $file=null;
                 }
+
                 $initial_amount=0;
                 $items=$request->items;
     
@@ -297,7 +343,24 @@ class UsCaseController extends Controller
                         'user_id'=>$request->user()->id,
                     ]);
     
-            
+                    $images=$request->images;
+                    if(count($images)>0){
+                        $old_images=Caseimage::where('casee_id',$casee->id)->get();
+                        $old_images->delete();
+                        foreach($images as $image){
+                            if($request->file('image')){
+                                $image_path = $request->file('image')->store('api/casees','public');
+                                $image=asset('storage/'.$image_path);
+                            }else{
+                                $image=null;
+                            }
+                            Caseimage::create([
+                                'casee_id'=>$casee->id,
+                                'image'=>$image
+                            ]);
+                        }
+                    }
+
                 foreach($items as $item){
                     Item::create([
                         'name_ar'=>$item['name_ar'],
@@ -332,16 +395,16 @@ class UsCaseController extends Controller
                     'type_ar' => 'required|string|max:500',
                     'gender_en' => 'required|string|max:500',
                     'gender_ar' => 'required|string|max:500',
-                    'image' => 'image|max:2048',
+                    'file' => 'file|max:2048',
                     'category_id' =>'required|exists:categories,id',
                     'initial_amount'=>'required|numeric',
                 ]);
     
-                if($request->file('image')){
-                    $image_path = $request->file('image')->store('api/casees','public');
-                    $image=asset('storage/'.$image_path);
+                if($request->file('file')){
+                    $file_path = $request->file('file')->store('api/casees','public');
+                    $file=asset('storage/'.$file_path);
                 }else{
-                    $image=$casee->image;
+                    $file=$casee->image;
                 }
     
                 $casee->update([
@@ -361,6 +424,25 @@ class UsCaseController extends Controller
                     'status'=>$request->status,
                     'user_id'=>$request->user()->id,
                 ]);
+
+                $images=$request->images;
+                if(count($images)>0){
+                    $old_images=Caseimage::where('casee_id',$casee->id)->get();
+                    $old_images->delete();
+                    foreach($images as $image){
+                        if($request->file('image')){
+                            $image_path = $request->file('image')->store('api/casees','public');
+                            $image=asset('storage/'.$image_path);
+                        }else{
+                            $image=null;
+                        }
+                        Caseimage::create([
+                            'casee_id'=>$casee->id,
+                            'image'=>$image
+                        ]);
+                    }
+                }
+
                 $response = [
                     'message'=>'case created successfully',
                     'case' => $casee
@@ -372,16 +454,16 @@ class UsCaseController extends Controller
                     'name_ar' => 'required|string|max:200',
                     'description_en' => 'string|max:500',
                     'description_ar' => 'string|max:500',
-                    'image' => 'image|max:2048',
+                    'file' => 'file|max:2048',
                     'category_id' =>'required|exists:categories,id',
                     'initial_amount'=>'required|numeric',
                 ]);
         
-                if($request->file('image')){
-                    $image_path = $request->file('image')->store('api/casees','public');
-                    $image=asset('storage/'.$image_path);
+                if($request->file('file')){
+                    $file_path = $request->file('file')->store('api/casees','public');
+                    $file=asset('storage/'.$file_path);
                 }else{
-                    $image=$casee->image;
+                    $file=$casee->image;
                 }
 
                 $casee->update([
@@ -397,6 +479,24 @@ class UsCaseController extends Controller
                     'status'=>$request->status,
                     'user_id'=>$request->user()->id,
                 ]);
+
+                $images=$request->images;
+                if(count($images)>0){
+                    $old_images=Caseimage::where('casee_id',$casee->id)->get();
+                    $old_images->delete();
+                    foreach($images as $image){
+                        if($request->file('image')){
+                            $image_path = $request->file('image')->store('api/casees','public');
+                            $image=asset('storage/'.$image_path);
+                        }else{
+                            $image=null;
+                        }
+                        Caseimage::create([
+                            'casee_id'=>$casee->id,
+                            'image'=>$image
+                        ]);
+                    }
+                }
                 
                 $response = [
                     'message'=>'case updated successfully',

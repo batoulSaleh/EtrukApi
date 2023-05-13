@@ -182,12 +182,9 @@ class AdCaseController extends Controller
         $images=$request->file('images');
 
         foreach($images as $image){
-            if($request->file('image')){
-                $image_path = $request->file('image')->store('api/casees','public');
+                $image_path = $image->store('api/casees','public');
                 $image=asset('storage/'.$image_path);
-            }else{
-                $image=null;
-            }
+            
 
             Caseimage::create([
                 'casee_id'=>$casee->id,

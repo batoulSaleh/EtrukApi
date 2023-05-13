@@ -73,7 +73,6 @@ class AdCaseController extends Controller
             ]);
 
             $images=$request->images;
-            dd($images);
             foreach($images as $image){
                 if($request->file('image')){
                     $image_path = $request->file('image')->store('api/casees','public');
@@ -181,7 +180,6 @@ class AdCaseController extends Controller
         ]);
 
 $images=$request->images;
-                dd($images);
 
         foreach($images as $image){
             if($request->file('image')){

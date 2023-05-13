@@ -31,11 +31,10 @@ class UsCharityController extends Controller
     }
 
     public function getCases($id){
-        $casees=Casee::with('item')->select(
+        $casees=Casee::with('item','caseimage')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
             'initial_amount',
             'paied_amount',
             'remaining_amount',

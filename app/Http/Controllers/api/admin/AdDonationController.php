@@ -39,6 +39,7 @@ class AdDonationController extends Controller
         return response($response,201);
     }
 
+    
     public function acceptDonation($id){
 
         $donation=Donation::findOrFail($id);

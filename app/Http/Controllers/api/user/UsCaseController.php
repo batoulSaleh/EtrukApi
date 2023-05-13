@@ -116,7 +116,6 @@ class UsCaseController extends Controller
             $file=null;
         }
 
-
         if($request->donationtype_id==5){
             $request->validate([
                 'items'=>'required'
@@ -124,14 +123,13 @@ class UsCaseController extends Controller
 
             $initial_amount=0;
             $items=$request->items;
-            
-    
+
             $casee = Casee::create([
                 'name_en' => $request->name_en,
                 'name_ar'=> $request->name_ar,
                 'description_en'=> $request->description_en,
                 'description_ar'=> $request->description_ar,
-                'image' => $image,
+                'file' => $file,
                 'donationtype_id'=> $request->donationtype_id,
                 'category_id'=> $request->category_id,
                 'initial_amount'=>$initial_amount,
@@ -201,7 +199,7 @@ class UsCaseController extends Controller
                 'type_ar' => $request->type_ar,
                 'gender_en' => $request->gender_en,
                 'gender_ar' => $request->gender_ar,
-                'image' => $image,
+                'file' => $file,
                 'donationtype_id'=> $request->donationtype_id,
                 'category_id'=> $request->category_id,
                 'initial_amount'=>$request->initial_amount,
@@ -240,7 +238,7 @@ class UsCaseController extends Controller
                 'name_ar'=> $request->name_ar,
                 'description_en'=> $request->description_en,
                 'description_ar'=> $request->description_ar,
-                'image' => $image,
+                'file' => $file,
                 'donationtype_id'=> $request->donationtype_id,
                 'category_id'=> $request->category_id,
                 'initial_amount'=>$request->initial_amount,
@@ -332,7 +330,7 @@ class UsCaseController extends Controller
                         'name_ar'=> $request->name_ar,
                         'description_en'=> $request->description_en,
                         'description_ar'=> $request->description_ar,
-                        'image' => $image,
+                        'file' => $file,
                         'donationtype_id'=> $request->donationtype_id,
                         'category_id'=> $request->category_id,
                         'initial_amount'=>$initial_amount,
@@ -413,7 +411,7 @@ class UsCaseController extends Controller
                     'type_ar' => $request->type_ar,
                     'gender_en' => $request->gender_en,
                     'gender_ar' => $request->gender_ar,
-                    'image' => $image,
+                    'file' => $file,
                     'donationtype_id'=> $request->donationtype_id,
                     'category_id'=> $request->category_id,
                     'initial_amount'=>$request->initial_amount,
@@ -467,7 +465,7 @@ class UsCaseController extends Controller
                     'name_ar'=> $request->name_ar,
                     'description_en'=> $request->description_en,
                     'description_ar'=> $request->description_ar,
-                    'image' => $image,
+                    'file' => $file,
                     'donationtype_id'=> $request->donationtype_id,
                     'category_id'=> $request->category_id,
                     'initial_amount'=>$request->initial_amount,

@@ -17,7 +17,7 @@ class UsCaseController extends Controller
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
+            'file',
             'initial_amount',
             'paied_amount',
             'remaining_amount',
@@ -40,7 +40,7 @@ class UsCaseController extends Controller
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
+            'file',
             'initial_amount',
             'paied_amount',
             'remaining_amount',
@@ -64,7 +64,7 @@ class UsCaseController extends Controller
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
+            'file',
             'initial_amount',
             'paied_amount',
             'remaining_amount',
@@ -340,7 +340,7 @@ class UsCaseController extends Controller
                     ]);
     
                     $images=$request->file('images');
-            if(count($images)>0){
+            if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
                 
@@ -421,7 +421,7 @@ class UsCaseController extends Controller
                 ]);
 
                 $images=$request->file('images');
-            if(count($images)>0){
+            if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
                 
@@ -475,7 +475,7 @@ class UsCaseController extends Controller
                 ]);
 
                 $images=$request->file('images');
-            if(count($images)>0){
+            if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
                 

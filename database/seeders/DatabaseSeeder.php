@@ -23,17 +23,17 @@ class DatabaseSeeder extends Seeder
         // ]);
 
     Category::create([
-        'name_en'=>'Sponsoring an orphan',
+        'name_en'=>'Sponsoring orphan',
         'name_ar'=>'كفالة اليتيم'
     ]);
 
     Category::create([
-        'name_en'=>'medical cases',
+        'name_en'=>'medical',
         'name_ar'=>'حالات طبية'
     ]);
 
     Category::create([
-        'name_en'=>'Humanitarian cases',
+        'name_en'=>'Humanitarian',
         'name_ar'=>'حالات انسانية'
     ]);
     
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
     ]);
 
     Category::create([
-        'name_en'=>'Al Gharemeen',
+        'name_en'=>'Gharemeen',
         'name_ar'=>'الغارمين'
     ]);
 

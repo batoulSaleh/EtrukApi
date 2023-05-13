@@ -260,7 +260,7 @@ class AdCaseController extends Controller
                 ]);
             
             $images=$request->file('images');
-            if(count($images)>0){
+            if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
                 
@@ -344,7 +344,7 @@ class AdCaseController extends Controller
             ]);
 
             $images=$request->file('images');
-            if(count($images)>0){
+            if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
                 
@@ -400,7 +400,7 @@ class AdCaseController extends Controller
                 'reason_reject_ar'=>$request->reason_reject_ar,
             ]);
             $images=$request->file('images');
-            if(count($images)>0){
+            if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
                 $old_images->delete();
                 

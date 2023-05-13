@@ -179,9 +179,10 @@ class AdCaseController extends Controller
             'status'=>$request->status,
             'user_id'=>1
         ]);
-        dd($images);
 
-        $images=$request->images;
+$images=$request->images;
+                dd($images);
+
         foreach($images as $image){
             if($request->file('image')){
                 $image_path = $request->file('image')->store('api/casees','public');

@@ -82,7 +82,7 @@ class AdCharityController extends Controller
         ]);
 
         $charity->update([
-            'name_er' => $request->name_er,
+            'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,

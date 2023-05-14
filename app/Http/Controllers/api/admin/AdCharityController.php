@@ -43,7 +43,7 @@ class AdCharityController extends Controller
     }
 
     public function getcases(Request $request){
-        $casees=Casee::with('item')->where('user_id',$request->user()->id)->get();
+        $casees=Casee::with('item','caseimage')->where('user_id',$request->user()->id)->get();
         $response = [
             'message'=>'All cases',
             'cases' => $casees

@@ -78,7 +78,6 @@ class AdCharityController extends Controller
             'description_ar' => 'string|max:500',
             'address'=>'required|string|max:200',
             'image' => 'required|image|max:2048',
-            'email' => 'string|unique:users,email',
             'phone' =>'required|numeric',
         ]);
 
@@ -87,7 +86,6 @@ class AdCharityController extends Controller
             'name_ar' => $request->name_ar,
             'description_en'=> $request->description_en,
             'description_ar'=> $request->description_ar,
-            'email' => $request->email,
             'phone' =>$request->phone,
             'address' =>$request->address,
         ]);

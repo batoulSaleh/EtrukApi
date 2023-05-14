@@ -13,7 +13,15 @@ use App\Models\Category;
 class UsCharityController extends Controller
 {
     public function index(){
-        $charities =User::where('id','!=',1)->where('user_type','2')->get();
+        $charities =User::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'address',
+            'phone',
+            'email'
+            )->where('id','!=',1)->where('user_type','2')->get(); 
         $response = [
             'message'=>'All charities',
             'charities' => $charities
@@ -22,7 +30,15 @@ class UsCharityController extends Controller
     }
 
     public function show($id){
-        $charity =User::findOrFail($id);
+        $charity =User::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'image',
+            'address',
+            'phone',
+            'email'
+            )->where('id',$id)->first();
         $response = [
             'message'=>'specific charity',
             'charity' => $charity

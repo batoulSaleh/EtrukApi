@@ -68,4 +68,41 @@ class AdCharityController extends Controller
         return response($response, 201);
     }
 
+    public function edit(Request $request){
+        $charity=User::findOrFail($request->user()->id);
+        $request->validate([
+            'name_en' => 'required|string',
+            'name_ar' => 'required|string',
+            'description_en' => 'string|max:500',
+            'description_ar' => 'string|max:500',
+            'address'=>'required|string|max:200',
+            'image' => 'required|image|max:2048',
+            'email' => 'required|string|unique:users,email',
+            'phone' =>'required|numeric',
+        ]);
+
+        $charity->update([
+            'name_er' => $request->name_er,
+            'name_ar' => $request->name_ar,
+            'description_en'=> $request->description_en,
+            'description_ar'=> $request->description_ar,
+            'email' => $request->email,
+            'phone' =>$request->phone,
+            'address' =>$request->address,
+        ]);
+
+        if ($request->file('image')) {
+            $image_path = $request->file('image')->store('api/users', 'public');
+            $charity->image = asset('storage/' . $image_path);
+            $charity->save();
+        }
+
+        $response = [
+            'message'=>'edited successfully',
+            'charity' => $charity
+        ];
+
+        return response($response,201);
+    }
+
 }

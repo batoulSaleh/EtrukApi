@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function register(Request $request){
         $fields = $request->validate([
-            'name' => 'required|string',
+            'name_en' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed',
             'user_type'=>'required|in:0,1,2',
@@ -23,7 +23,7 @@ class AuthController extends Controller
                 'gender' =>'required|in:m,f'
             ]);
             $user = User::create([
-                'name' => $request['name'],
+                'name_en' => $request['name_en'],
                 'email' => $request['email'],
                 'password' => bcrypt($request['password']),
                 'user_type'=> $request['user_type'],
@@ -34,9 +34,20 @@ class AuthController extends Controller
         }elseif($request->user_type==2){
             $fields = $request->validate([
                 'address'=>'required|string|max:200',
+                'name_ar' => 'required|string',
+                'image' => 'required|image|max:2048',
             ]);
+
+            if ($request->file('image')) {
+                $image_path = $request->file('image')->store('api/users', 'public'); //store('name of folder', 'in folder public');
+            } else {
+                $image_path = null;
+            }
+
             $user = User::create([
-                'name' => $request['name'],
+                'name_en' => $request['name_en'],
+                'name_ar' => $request['name_ar'],
+                'image' => asset('storage/' . $image_path),
                 'email' => $request['email'],
                 'password' => bcrypt($request['password']),
                 'user_type'=> $request['user_type'],

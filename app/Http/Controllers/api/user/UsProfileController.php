@@ -22,7 +22,7 @@ class UsProfileController extends Controller
     public function edit(Request $request){
         $user=User::findOrFail($request->user()->id);
         $request->validate([
-            'name' => 'required|string',
+            'name_er' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'phone' =>'required|numeric',
             'gender' =>'required|in:m,f',
@@ -30,12 +30,17 @@ class UsProfileController extends Controller
         ]);
 
         $user->update([
-            'name' => $request->name,
+            'name_er' => $request->name_er,
             'email' => $request->email,
             'phone' =>$request->phone,
             'gender' =>$request->gender,
-            'image' => $request->image,
         ]);
+
+        if ($request->file('image')) {
+            $image_path = $request->file('image')->store('api/users', 'public');
+            $user->image = asset('storage/' . $image_path);
+            $user->save();
+        }
 
         $response = [
             'message'=>'edited successfully',

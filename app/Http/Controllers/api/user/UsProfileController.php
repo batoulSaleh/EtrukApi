@@ -22,7 +22,7 @@ class UsProfileController extends Controller
     public function edit(Request $request){
         $user=User::findOrFail($request->user()->id);
         $request->validate([
-            'name_er' => 'required|string',
+            'name_en' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'phone' =>'required|numeric',
             'gender' =>'required|in:m,f',
@@ -30,7 +30,7 @@ class UsProfileController extends Controller
         ]);
 
         $user->update([
-            'name_er' => $request->name_er,
+            'name_en' => $request->name_en,
             'email' => $request->email,
             'phone' =>$request->phone,
             'gender' =>$request->gender,

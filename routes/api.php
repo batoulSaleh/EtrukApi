@@ -18,6 +18,10 @@ use App\Http\Controllers\api\admin\AdDonationController;
 use App\Http\Controllers\api\user\UsVolunteerController;
 use App\Http\Controllers\api\admin\AdVolunteerController;
 use App\Http\Controllers\api\admin\DonationTypeController;
+use App\Http\Controllers\api\admin\AdMazadController;
+use App\Http\Controllers\api\admin\AdZakatController;
+use App\Http\Controllers\api\user\UsMazadController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +46,17 @@ Route::group(['middleware' => ['lang']], function () {
     Route::post('/login/admin', [AuthController::class, 'loginadmin']);
 
     Route::prefix('/dashboard')->group(function () {
+
+        Route::prefix('/zakat')->group(function () {
+            Route::post('/update', [AdZakatController::class, 'update']);
+        });
+
+        Route::prefix('/mazad')->group(function () {
+            Route::get('/index', [AdMazadController::class, 'index']);
+            Route::get('/show/{id}', [AdMazadController::class, 'show']);
+            Route::post('/update/{id}', [AdMazadController::class, 'update']);
+            Route::get('/destroy/{id}', [AdMazadController::class, 'destroy']);
+        });
 
         Route::prefix('/charity')->group(function () {
             Route::get('/index', [AdCharityController::class, 'index']);
@@ -100,6 +115,17 @@ Route::group(['middleware' => ['lang']], function () {
     });
 
     Route::prefix('/user')->group(function () {
+
+        Route::prefix('/mazad')->group(function () {
+            Route::get('/index', [UsMazadController::class, 'index']);
+            Route::post('/store', [UsMazadController::class, 'store'])->middleware('auth:sanctum');
+            Route::get('/latestshow', [UsMazadController::class, 'latestshow']);
+            Route::get('/show/{id}', [UsMazadController::class, 'show']);
+            Route::get('/othermazad/{id}', [UsMazadController::class, 'auctionsOfUser']);
+            Route::post('/increment/{id}', [UsMazadController::class, 'mazadIncrement'])->middleware('auth:sanctum');
+            Route::get('/history/{id}', [UsMazadController::class, 'historyOfMazad']);
+            });
+
 
         Route::prefix('/charity')->group(function () {
             Route::get('/index', [UsCharityController::class, 'index']);

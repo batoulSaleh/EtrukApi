@@ -13,6 +13,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->call(
+        //     function () {
+        //         $mazads = Mazad::all();
+        //         foreach ($mazads as $mazad) {
+        //             if ($mazad->end_date == '2023-05-14') {
+        //                 $mazad->status = 'finished';
+        //                 $mazad->save();
+        //             }
+        //         }
+        //     }
+        // )->everyMinute();
     }
 
     /**

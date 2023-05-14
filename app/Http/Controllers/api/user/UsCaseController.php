@@ -531,7 +531,6 @@ class UsCaseController extends Controller
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
             'initial_amount',
             'paied_amount',
             'remaining_amount',
@@ -539,7 +538,7 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->with('category','donationtype','user')->where('status','published')->where('category_id',$categoryid)->get();
+            )->with('category','donationtype','user','item','caseimage')->where('status','published')->where('category_id',$categoryid)->get();
 
         $response = [
             'message'=>'All cases of category',
@@ -553,7 +552,6 @@ class UsCaseController extends Controller
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
             'initial_amount',
             'paied_amount',
             'remaining_amount',
@@ -561,7 +559,7 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->with('category','donationtype','user')->where('status','published')->where('donationtype_id',$donationtypeid)->get();
+            )->with('category','donationtype','user','item','caseimage')->where('status','published')->where('donationtype_id',$donationtypeid)->get();
 
         $response = [
             'message'=>'All cases of donation type',
@@ -575,7 +573,6 @@ class UsCaseController extends Controller
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
-            'image',
             'initial_amount',
             'paied_amount',
             'remaining_amount',
@@ -583,7 +580,7 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->with('category','donationtype','user')->where('status','published')->where('category_id',$categoryid)->where('donationtype_id',$donationtypeid)->get();
+            )->with('category','donationtype','user','item','caseimage')->where('status','published')->where('category_id',$categoryid)->where('donationtype_id',$donationtypeid)->get();
 
         $response = [
             'message'=>'All cases of category and donation type',

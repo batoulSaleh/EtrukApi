@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Casee;
 use App\Models\Event;
+use App\Models\User;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 

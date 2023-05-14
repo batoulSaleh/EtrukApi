@@ -79,7 +79,8 @@ class DatabaseSeeder extends Seeder
 
 
     User::create([
-        'name' =>'Etruk Athraa',
+        'name_en' =>'Etruk Athraa',
+        'name_en' =>'اترك أثرا',
         'email' =>'Etruk@Etruk.com',
         'password' => bcrypt('12345678'),
         'user_type'=> '2',
@@ -88,7 +89,7 @@ class DatabaseSeeder extends Seeder
     ]);
 
     User::create([
-        'name' =>'Admin',
+        'name_en' =>'Admin',
         'email' =>'admin@admin.com',
         'password' => bcrypt('admin'),
         'user_type'=> '0',

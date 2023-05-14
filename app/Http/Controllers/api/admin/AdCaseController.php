@@ -238,7 +238,7 @@ class AdCaseController extends Controller
                 $file_path = $request->file('file')->store('api/casees','public');
                 $file=asset('storage/'.$file_path);
             }else{
-                $file=null;
+                $file=$casee->file;
             }
 
             $initial_amount=0;
@@ -262,7 +262,7 @@ class AdCaseController extends Controller
             $images=$request->file('images');
             if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
-                foreach($old_images as $_oldimage){
+                foreach($old_images as $old_image){
                     $old_image->delete();
                 }                
                     foreach($images as $image){
@@ -322,7 +322,7 @@ class AdCaseController extends Controller
                 $file_path = $request->file('file')->store('api/casees','public');
                 $file=asset('storage/'.$file_path);
             }else{
-                $file=null;
+                $file=$casee->file;
             }
 
             $casee->update([
@@ -347,7 +347,7 @@ class AdCaseController extends Controller
             $images=$request->file('images');
             if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
-                foreach($old_images as $_oldimage){
+                foreach($old_images as $old_image){
                     $old_image->delete();
                 }                
                     foreach($images as $image){
@@ -383,7 +383,7 @@ class AdCaseController extends Controller
                 $file_path = $request->file('file')->store('api/casees','public');
                 $file=asset('storage/'.$file_path);
             }else{
-                $file=null;
+                $file=$casee->file;
             }
 
     
@@ -404,7 +404,7 @@ class AdCaseController extends Controller
             $images=$request->file('images');
             if($images){
                 $old_images=Caseimage::where('casee_id',$casee->id)->get();
-                foreach($old_images as $_oldimage){
+                foreach($old_images as $old_image){
                     $old_image->delete();
                 }
                 

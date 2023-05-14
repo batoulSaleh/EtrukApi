@@ -12,6 +12,36 @@ use Carbon\Carbon;
 
 class AdCharityController extends Controller
 {
+    public function index(){
+        $charities=User::where('id','!=',1)->where('user_type','2')->get();
+        $response = [
+            'message'=>'All charities',
+            'charities' => $charities
+        ];
+        return response($response,201);
+    }
+
+    public function show($id)
+    {
+        $charity=User::where('id',$id)->first();
+        $response = [
+            'message'=>'specific charity with id',
+            'charity' => $charity
+        ];
+        return response($response,201);
+    }
+
+
+    public function showUpdate(Request $request)
+    {
+        $charity=User::where('id',$request->user()->id)->first();
+        $response = [
+            'message'=>' charity which logined',
+            'charity' => $charity
+        ];
+        return response($response,201);
+    }
+
     public function getcases(Request $request){
         $casees=Casee::with('item')->where('user_id',$request->user()->id)->get();
         $response = [

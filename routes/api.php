@@ -46,7 +46,7 @@ Route::group(['middleware' => ['lang']], function () {
         Route::prefix('/charity')->group(function () {
             Route::get('/index', [AdCharityController::class, 'index']);
             Route::get('/show/{id}', [AdCharityController::class, 'show']);
-            Route::get('/show/update', [AdCharityController::class, 'show'])->middleware('auth:sanctum');
+            Route::get('/show/update', [AdCharityController::class, 'showUpdate'])->middleware('auth:sanctum');
             Route::get('/cases', [AdCharityController::class, 'getcases'])->middleware('auth:sanctum');
             Route::get('/events', [AdCharityController::class, 'getEvents'])->middleware('auth:sanctum');
             Route::post('/store/event', [AdCharityController::class, 'storeEvent'])->middleware('auth:sanctum');

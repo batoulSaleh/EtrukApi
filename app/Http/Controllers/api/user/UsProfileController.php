@@ -23,7 +23,7 @@ class UsProfileController extends Controller
         $user=User::findOrFail($request->user()->id);
         $request->validate([
             'name_en' => 'required|string',
-            'email' => 'required|string|unique:users,email',
+            'email' => 'string|unique:users,email',
             'phone' =>'required|numeric',
             'gender' =>'required|in:m,f',
             'image' => 'image|max:2048',

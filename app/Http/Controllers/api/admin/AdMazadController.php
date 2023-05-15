@@ -35,7 +35,11 @@ class AdMazadController extends Controller
         if ($mazad->status == 'rejected') {
             $response = ['message' => "Your auction can't be published."];
             return response($response, 201);
-        } else {
+        }
+        elseif($mazad->status == 'finished') {
+            $response = ['message' => "Your auction is finished "];
+            return response($response, 201);
+        }else {
             $response =
                 [
                     'message' => "Your auction is published successfully.",
@@ -45,7 +49,7 @@ class AdMazadController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $mazad = Mazad::findOrFail($id);
         if ($mazad->status == 'finished') {

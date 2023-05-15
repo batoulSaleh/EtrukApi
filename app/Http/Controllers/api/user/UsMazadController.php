@@ -40,7 +40,7 @@ class UsMazadController extends Controller
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
             'end_date' => 'required',
-            'end_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i:s',
             'starting_price' => 'required|numeric',
             'mazad_amount' => 'required|numeric',
             // 'current_price' => 'required|numeric',

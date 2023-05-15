@@ -103,8 +103,7 @@ class AdDonationController extends Controller
                         'case'=>$case,
                         'donation'=>$donation
                     ];
-                }
-                else{
+                }else{
                     $case->paied_amount=$case->paied_amount+$donation->amount;
                     $case->remaining_amount=$case->initial_amount-$case->paied_amount;
                     if($case->remaining_amount==0){
@@ -120,10 +119,7 @@ class AdDonationController extends Controller
                         'donation'=>$donation
                     ];
                 }
-
             }
-
         return response($response,$code);
-
     }
 }

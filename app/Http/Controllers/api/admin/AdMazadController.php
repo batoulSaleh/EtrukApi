@@ -14,7 +14,7 @@ class AdMazadController extends Controller
         $mazads = Mazad::with('mazadimage')->get();
         $response =
             [
-                'message' => "Your auction is deleted successfully.",
+                'message' => "all auctions.",
                 'auctions' => $mazads
             ];
         return response($response, 201);

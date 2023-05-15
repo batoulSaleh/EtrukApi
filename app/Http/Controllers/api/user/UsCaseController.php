@@ -120,10 +120,8 @@ class UsCaseController extends Controller
             $request->validate([
                 'items'=>'required'
             ]);
-
             $initial_amount=0;
             $items=$request->items;
-
             $casee = Casee::create([
                 'name_en' => $request->name_en,
                 'name_ar'=> $request->name_ar,
@@ -140,18 +138,16 @@ class UsCaseController extends Controller
             ]);
 
             $images=$request->file('images');
-        if($images){
-            foreach($images as $image){
-                $image_path = $image->store('api/casees','public');
-                $image=asset('storage/'.$image_path);
-            
-
-                Caseimage::create([
-                    'casee_id'=>$casee->id,
-                    'image'=>$image
-                ]);
+            if($images){
+                foreach($images as $image){
+                    $image_path = $image->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                    Caseimage::create([
+                        'casee_id'=>$casee->id,
+                        'image'=>$image
+                    ]);
+                }
             }
-        }
 
             foreach($items as $item){
                 Item::create([
@@ -159,13 +155,10 @@ class UsCaseController extends Controller
                     'name_en'=>$item['name_en'],
                     'amount'=>$item['amount'],
                     'casee_id'=>$casee->id,
-    
-                ]);
-    
-                $initial_amount=$initial_amount +$item['amount'];
-    
+                ]); 
+                $initial_amount=$initial_amount +$item['amount'];    
             }
-    
+
             $casee->update([
                 'initial_amount'=>$initial_amount,
                 'remaining_amount'=>$initial_amount,
@@ -210,25 +203,22 @@ class UsCaseController extends Controller
             ]);
 
             $images=$request->file('images');
-        if($images){
-            foreach($images as $image){
-                $image_path = $image->store('api/casees','public');
-                $image=asset('storage/'.$image_path);
-            
-
-                Caseimage::create([
-                    'casee_id'=>$casee->id,
-                    'image'=>$image
-                ]);
+            if($images){
+                foreach($images as $image){
+                    $image_path = $image->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                    Caseimage::create([
+                        'casee_id'=>$casee->id,
+                        'image'=>$image
+                    ]);
+                }
             }
-        }
 
             $response = [
                 'message'=>'case created successfully',
                 'case' => $casee
             ];
         }else{
-
             $request->validate([
                 'initial_amount'=>'required|numeric',
             ]);
@@ -248,25 +238,21 @@ class UsCaseController extends Controller
                 'status'=>'pending'
             ]);
             $images=$request->file('images');
-        if($images){
-            foreach($images as $image){
-                $image_path = $image->store('api/casees','public');
-                $image=asset('storage/'.$image_path);
-            
-
-                Caseimage::create([
-                    'casee_id'=>$casee->id,
-                    'image'=>$image
-                ]);
+            if($images){
+                foreach($images as $image){
+                    $image_path = $image->store('api/casees','public');
+                    $image=asset('storage/'.$image_path);
+                    Caseimage::create([
+                        'casee_id'=>$casee->id,
+                        'image'=>$image
+                    ]);
+                }
             }
-        }
-
             $response = [
                 'message'=>'case created successfully',
                 'case' => $casee
             ];
         }
-
         return response($response,201);
     }
 

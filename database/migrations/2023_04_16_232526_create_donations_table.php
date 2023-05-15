@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('casee_id')->constrained('casees');
-            $table->foreignId('donationtype_id')->constrained('donationtypes');
+            $table->foreignId('casee_id')->constrained('casees')->onDelete("cascade")->onUpdate('cascade');
+            $table->foreignId('donationtype_id')->constrained('donationtypes')->onDelete("cascade")->onUpdate('cascade');
             $table->enum('method',['online_payment','representative','vodafone'])->nullable();
             $table->string('name');
             $table->string('email');

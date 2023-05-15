@@ -8,6 +8,7 @@ use App\Models\Donation;
 use App\Models\Casee;
 use App\Models\Item;
 use App\Models\Donationitem;
+use App\Models\Payment;
 
 class AdDonationController extends Controller
 {
@@ -122,4 +123,14 @@ class AdDonationController extends Controller
             }
         return response($response,$code);
     }
+
+    public function allPayments(){
+        $payments=Payment::all();
+        $response = [
+            'message'=>'All payments',
+            'payments' => $payments
+        ];
+        return response($response,201);
+    }
+
 }

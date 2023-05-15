@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('casee_id')->constrained('casees');
+            $table->foreignId('casee_id')->constrained('casees')->onDelete("cascade")->onUpdate('cascade');
             $table->enum('name_en',['chair', 'bed', 'table', 'sofa', 'refrigerator', 'cooker', 'washing machine', 'fan']);
             $table->enum('name_ar',['كرسي ','سرير ','منضدة','اريكة','ثلاجة','بوتجاز','غسالة','مروحة']);
             $table->double('amount');

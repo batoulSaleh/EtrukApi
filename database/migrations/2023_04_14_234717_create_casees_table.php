@@ -24,9 +24,9 @@ return new class extends Migration
             $table->text('reason_reject_en')->nullable();
             $table->text('reason_reject_ar')->nullable();
             $table->string('file')->nullable();
-            $table->foreignId('donationtype_id')->constrained('donationtypes');
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('donationtype_id')->constrained('donationtypes')->onDelete("cascade")->onUpdate('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete("cascade")->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete("cascade")->onUpdate('cascade');
             $table->double('initial_amount');
             $table->double('paied_amount')->nullable();
             $table->double('remaining_amount')->nullable();

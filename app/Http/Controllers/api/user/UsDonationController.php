@@ -8,6 +8,7 @@ use App\Models\Donation;
 use App\Models\Casee;
 use App\Models\Item;
 use App\Models\Donationitem;
+use App\Models\Payment;
 
 class UsDonationController extends Controller
 {
@@ -606,4 +607,28 @@ class UsDonationController extends Controller
         return response($response,201);
     }
     
+    public function storePayment(Request $request){
+        $request->validate([
+            'cnn' => 'required|numeric',
+            'name' => 'required|string|max:200',
+            'date' => 'required|date',
+            'verification_code' => 'required|string|max:500',
+            'donation_id' => 'required|exists:donations,id',
+        ]);
+
+        $payment = Payment::create([
+            'cnn' => $request->cnn,
+            'name'=> $request->name,
+            'date'=> $request->date,
+            'verification_code'=> $request->verification_code,
+            'donation_id'=> $request->donation_id,
+        ]);
+
+        $response = [
+            'message'=>'payment created successfully',
+            'payment' => $payment
+        ];
+        return response($response,201);
+    }
+
 }

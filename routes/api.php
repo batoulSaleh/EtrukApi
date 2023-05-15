@@ -97,6 +97,7 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/index/case/{caseid}', [AdDonationController::class, 'indexOfCase']);
             Route::get('/show/{id}', [AdDonationController::class, 'show']);
             Route::post('/accept/{id}', [AdDonationController::class, 'acceptDonation'])->middleware('auth:sanctum');
+            Route::get('/payments', [AdDonationController::class, 'allPayments']);
         });
 
         Route::prefix('/volunteer')->group(function () {
@@ -173,6 +174,8 @@ Route::group(['middleware' => ['lang']], function () {
             Route::post('/clothes/guest', [UsDonationController::class, 'clothesGuest']);
             Route::post('/furniture/user', [UsDonationController::class, 'furnitureUser'])->middleware('auth:sanctum');
             Route::post('/furniture/guest', [UsDonationController::class, 'furnitureGuest']);
+            Route::post('/store/payment', [UsDonationController::class, 'storePayment']);
+
         });
 
         Route::prefix('/volunteer')->group(function () {

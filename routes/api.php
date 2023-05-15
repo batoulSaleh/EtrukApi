@@ -55,7 +55,7 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/index', [AdMazadController::class, 'index']);
             Route::get('/show/{id}', [AdMazadController::class, 'show']);
             Route::post('/update/{id}', [AdMazadController::class, 'update']);
-            Route::get('/destroy/{id}', [AdMazadController::class, 'destroy']);
+            Route::post('/destroy/{id}', [AdMazadController::class, 'destroy']);
         });
 
         Route::prefix('/charity')->group(function () {

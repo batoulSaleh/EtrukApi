@@ -52,10 +52,8 @@ class AdMazadController extends Controller
     public function destroy($id)
     {
         $mazad = Mazad::findOrFail($id);
-        if ($mazad->status == 'finished') {
             $mazad->delete();
             $response = ['message' => "Your auction is deleted successfully."];
             return response($response, 201);
-        }
     }
 }

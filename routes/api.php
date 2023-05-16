@@ -162,6 +162,7 @@ Route::group(['middleware' => ['lang']], function () {
 
         Route::prefix('/donation')->group(function () {
             Route::get('/index', [UsDonationController::class, 'index']);
+            Route::get('/money', [UsDonationController::class, 'getmoney']);
             Route::get('/index/user', [UsDonationController::class, 'indexOfUser'])->middleware('auth:sanctum');
             Route::get('/show/{id}', [UsDonationController::class, 'show']);
             Route::post('/financial/user', [UsDonationController::class, 'donatefinanciallyUser'])->middleware('auth:sanctum');

@@ -13,7 +13,8 @@ class AdVolunteerController extends Controller
         $volunteers=Volunteer::all();
         $response = [
             'message'=>'All volunteers',
-            'volunteers' => $volunteers
+            'volunteers' => $volunteers,
+            'count'=>count($volunteers)
         ];
         return response($response,201);
     }

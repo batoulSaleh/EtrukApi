@@ -16,7 +16,8 @@ class AdCharityController extends Controller
         $charities=User::where('id','!=',1)->where('user_type','2')->get();
         $response = [
             'message'=>'All charities',
-            'charities' => $charities
+            'charities' => $charities,
+            'count'=>count($charities)
         ];
         return response($response,201);
     }
@@ -46,7 +47,8 @@ class AdCharityController extends Controller
         $casees=Casee::with('item','caseimage')->where('user_id',$request->user()->id)->get();
         $response = [
             'message'=>'All cases',
-            'cases' => $casees
+            'cases' => $casees,
+            'count'=>count($casees)
         ];
         return response($response,201);
     }
@@ -56,7 +58,8 @@ class AdCharityController extends Controller
         $events = Event::where('user_id',$request->user()->id)->get();
         $response = [
             'message' => 'All Events',
-            'result' => $events
+            'result' => $events,
+            'count' =>count($events)
         ];
         return response($response, 201);
     }

@@ -25,11 +25,12 @@ class UsCaseController extends Controller
             'user_id',
             'donationtype_id',
             'category_id'
-            )->with('category','donationtype','user')->where('status','published')->get();
+            )->with('category','donationtype','user')->where('status','published')->orWhere('status', 'completed')->get();
 
         $response = [
             'message'=>'All cases',
-            'cases' => $casees
+            'cases' => $casees,
+            'count' => count($casees)
         ];
         return response($response,201);
     }

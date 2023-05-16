@@ -15,7 +15,8 @@ class AdMazadController extends Controller
         $response =
             [
                 'message' => "all auctions.",
-                'auctions' => $mazads
+                'auctions' => $mazads,
+                'count' =>count($mazads)
             ];
         return response($response, 201);
     }

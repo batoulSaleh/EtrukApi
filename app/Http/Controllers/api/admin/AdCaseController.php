@@ -15,7 +15,8 @@ class AdCaseController extends Controller
         $casees=Casee::with('item','caseimage')->get();
         $response = [
             'message'=>'All cases',
-            'cases' => $casees
+            'cases' => $casees,
+            'count' => count($cases)
         ];
         return response($response,201);
     }
@@ -268,15 +269,12 @@ class AdCaseController extends Controller
                     foreach($images as $image){
                         $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
-                    
-
                         Caseimage::create([
                             'casee_id'=>$casee->id,
                             'image'=>$image
                         ]);
                     }
             }
-        
             foreach($items as $item){
                 Item::create([
                     'name_ar'=>$item['name_ar'],
@@ -285,9 +283,7 @@ class AdCaseController extends Controller
                     'casee_id'=>$casee->id,
     
                 ]);
-    
                 $initial_amount=$initial_amount +$item['amount'];
-    
             }
         
             $casee->update([
@@ -302,6 +298,7 @@ class AdCaseController extends Controller
                 'case' => $casee,
                 'items'=>$final_items,
             ];
+
         }elseif($request->donationtype_id==4){
             $request->validate([
                 'name_en' => 'required|string|max:200',
@@ -317,14 +314,12 @@ class AdCaseController extends Controller
                 'status'=>'required|in:pending,accepted,published,rejected',
                 'initial_amount'=>'required|numeric',
             ]);
-
             if($request->file('file')){
                 $file_path = $request->file('file')->store('api/casees','public');
                 $file=asset('storage/'.$file_path);
             }else{
                 $file=$casee->file;
             }
-
             $casee->update([
                 'name_en' => $request->name_en,
                 'name_ar'=> $request->name_ar,
@@ -353,15 +348,12 @@ class AdCaseController extends Controller
                     foreach($images as $image){
                         $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
-                    
-
                         Caseimage::create([
                             'casee_id'=>$casee->id,
                             'image'=>$image
                         ]);
                     }
             }
-
             $response = [
                 'message'=>'case updated successfully',
                 'case' => $casee
@@ -378,15 +370,12 @@ class AdCaseController extends Controller
                 'status'=>'required|in:pending,accepted,published,rejected',
                 'initial_amount'=>'required|numeric',
             ]);
-    
             if($request->file('file')){
                 $file_path = $request->file('file')->store('api/casees','public');
                 $file=asset('storage/'.$file_path);
             }else{
                 $file=$casee->file;
             }
-
-    
             $casee->update([
                 'name_en' => $request->name_en,
                 'name_ar'=> $request->name_ar,
@@ -407,25 +396,20 @@ class AdCaseController extends Controller
                 foreach($old_images as $old_image){
                     $old_image->delete();
                 }
-                
                     foreach($images as $image){
                         $image_path = $image->store('api/casees','public');
                         $image=asset('storage/'.$image_path);
-                    
-
                         Caseimage::create([
                             'casee_id'=>$casee->id,
                             'image'=>$image
                         ]);
                     }
             }
-
             $response = [
                 'message'=>'case updated successfully',
                 'case' => $casee
             ];
         }
-
         return response($response,201);
 
     }

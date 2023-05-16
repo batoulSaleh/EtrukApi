@@ -25,13 +25,14 @@ class UsMazadController extends Controller
             'end_time',
             'created_at',
             'current_price',
-        )->where('status', 'accepted')->get();
+        )->where('status', 'accepted')->orWhere('status', 'finished')->get();
         $response = [
             'message' => 'All auctions',
             'cases' => $auctions,
         ];
         return response($response, 201);
     }
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -43,8 +44,6 @@ class UsMazadController extends Controller
             'end_time' => 'required|date_format:H:i:s',
             'starting_price' => 'required|numeric',
             'mazad_amount' => 'required|numeric',
-            // 'current_price' => 'required|numeric',
-            // 'status' => 'required|in:pending,accepted,rejected,finished',
         ]);
         $auction = Mazad::create(
             [
@@ -84,14 +83,14 @@ class UsMazadController extends Controller
         $response = [
             'message' => 'A specific mazad with id of owner.',
             'mazad' => $mazad,
-            'the owner name' => $owner->name,
-            'the owner address' => $owner->address,
+            'the owner name' => $owner->name_en,
+            'the owner email' => $owner->email,
         ];
         return response($response, 201);
     }
+
     public function mazadIncrement(Request $request,  $id)
     {
-        // $mazad = Mazad::find($id);
         $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
         $vendor_id = $request->user()->id;
         $vendor = User::findorfail($vendor_id);

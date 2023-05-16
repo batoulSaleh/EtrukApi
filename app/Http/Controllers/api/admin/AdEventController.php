@@ -17,7 +17,11 @@ class AdEventController extends Controller
     public function index()
     {
         $events = Event::all();
-        $response = ['message' => 'All Events', 'result' => $events];
+        $response = [
+            'message' => 'All Events',
+            'result' => $events,
+            'count' =>count($events)
+        ];
         return response($response, 201);
     }
 

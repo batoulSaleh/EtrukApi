@@ -16,7 +16,8 @@ class AdDonationController extends Controller
         $donations=Donation::with('casee','donationtype')->get();
         $response = [
             'message'=>'All donations',
-            'donations' => $donations
+            'donations' => $donations,
+            'count' =>count($donations)
         ];
         return response($response,201);
     }

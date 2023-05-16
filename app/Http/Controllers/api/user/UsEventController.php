@@ -27,7 +27,8 @@ class UsEventController extends Controller
 
         $response = [
         'message' => 'All Events',
-        'result' => $events
+        'result' => $events,
+        'count'=>count($events)
         ];
         return response($response, 201);
     }

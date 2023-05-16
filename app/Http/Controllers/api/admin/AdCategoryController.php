@@ -12,7 +12,8 @@ class AdCategoryController extends Controller
         $categories=Category::all();
         $response = [
             'message'=>'All Categories',
-            'Categories' => $categories
+            'Categories' => $categories,
+            'count' => count($categories)
         ];
         return response($response,201);
     }

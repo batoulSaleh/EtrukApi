@@ -13,12 +13,26 @@ use App\Models\Payment;
 class UsDonationController extends Controller
 {
     public function index(){
-        $donations=Donation::all();
+        $donations=Donation::where('status','accepted')->get();
         $response = [
             'message'=>'All donations',
-            'donations' => $donations
+            'donations' => $donations,
+            'count' => count($donations)
         ];
         return response($response,201);
+    }
+
+    public function getmoney(){
+        $donations=Donation::where('donationtype_id','1')->where('status','accepted')->get();
+        $sum=0;
+        foreach($donations as $donation){
+            $sum=$sum+$donation->amount;
+        }
+        $response = [
+            'message'=>'financial donations',
+            'sum' => $sum,
+            'count'=>count($donations)
+        ];
     }
 
     public function indexOfUser(Request $request){

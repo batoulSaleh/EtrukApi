@@ -24,7 +24,8 @@ class UsCharityController extends Controller
             )->where('id','!=',1)->where('user_type','2')->get(); 
         $response = [
             'message'=>'All charities',
-            'charities' => $charities
+            'charities' => $charities,
+            'count'=>count($charities)
         ];
         return response($response,201);
     }

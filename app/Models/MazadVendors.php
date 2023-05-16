@@ -12,12 +12,5 @@ class MazadVendors extends Model
         'vendor_id', 'mazad_id', 'vendor_paid',
         'vendor_paid_time',
     ];
-    public function mazads()
-    {
-        return $this->hasMany(Mazad::class);
-    }
-    public function volunteers()
-    {
-        return $this->hasMany(Volunteer::class);
-    }
+
 }

@@ -33,6 +33,9 @@ class UsDonationController extends Controller
             'sum' => $sum,
             'count'=>count($donations)
         ];
+
+        return response($response,201);
+
     }
 
     public function indexOfUser(Request $request){

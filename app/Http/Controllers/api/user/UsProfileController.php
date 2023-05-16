@@ -53,7 +53,8 @@ class UsProfileController extends Controller
         $cases=Casee::where('user_id',$request->user()->id)->get();
         $response = [
             'message'=>'all cases of user',
-            'cases' => $cases
+            'cases' => $cases,
+            'count' => count($cases)
         ];
 
         return response($response,201);
@@ -64,7 +65,8 @@ class UsProfileController extends Controller
         $donations=Donation::where('user_id',$request->user()->id)->where('status','accepted')->get();
         $response = [
             'message'=>'all donations of user',
-            'donations' => $donations
+            'donations' => $donations,
+            'count' => count($donations)
         ];
 
         return response($response,201);

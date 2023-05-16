@@ -16,7 +16,7 @@ class AdCaseController extends Controller
         $response = [
             'message'=>'All cases',
             'cases' => $casees,
-            'count' => count($cases)
+            'count' => count($casees)
         ];
         return response($response,201);
     }

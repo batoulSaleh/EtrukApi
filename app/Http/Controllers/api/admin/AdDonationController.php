@@ -14,7 +14,7 @@ class AdDonationController extends Controller
 {
     public function index(){
         $cases=Casee::with('donation','donationtype')->where('user_id','1')->get();
-        $donations=Donation::with('casee','donationtype')->where('casee_id',$cases->pluck('id'))->get();
+        $donations=Donation::whereIn('casee_id',$cases->pluck('id'))->get();
         $response = [
             'message'=>'All donations',
             'donations' => $donations,

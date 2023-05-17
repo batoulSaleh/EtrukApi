@@ -178,7 +178,7 @@ class AdCharityController extends Controller
         return response($response,201);
     }
 
-    public function destroyEvent($id)
+    public function destroyEvent(Request $request,$id)
     {
         $event = Event::findOrFail($id);
         if($event->user_id==$request->user()->id){
@@ -191,7 +191,7 @@ class AdCharityController extends Controller
         return response($response, 201);
     }
 
-    public function destroyCase($id){
+    public function destroyCase(Request $request,$id){
         $casee = Casee::findOrFail($id);
         if($casee->user_id==$request->user()->id){
         $casee->delete();

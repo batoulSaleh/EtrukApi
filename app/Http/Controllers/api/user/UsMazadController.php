@@ -28,7 +28,7 @@ class UsMazadController extends Controller
         )->where('status', 'accepted')->orWhere('status', 'finished')->get();
         $response = [
             'message' => 'All auctions',
-            'cases' => $auctions,
+            'auctions' => $auctions,
         ];
         return response($response, 201);
     }
@@ -83,8 +83,8 @@ class UsMazadController extends Controller
         $response = [
             'message' => 'A specific mazad with id of owner.',
             'mazad' => $mazad,
-            'the owner name' => $owner->name_en,
-            'the owner email' => $owner->email,
+            'the_owner_name' => $owner->name_en,
+            'the_owner_email' => $owner->email,
         ];
         return response($response, 201);
     }
@@ -177,9 +177,8 @@ class UsMazadController extends Controller
         )->where('owner_id', $mazad->owner_id)->get();
         $response = [
             'message' => 'Other mazads of the owner of mazad.',
-            'the owner name' => $owner->name,
-            'the owner address' => $owner->address,
-            'other auctions' => $other_auctions,
+            'the_owner_name' => $owner->name_en,
+            'others' => $other_auctions,
         ];
         return response($response, 201);
     }

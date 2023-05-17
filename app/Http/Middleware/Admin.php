@@ -16,9 +16,10 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         if($request->user()->user_type!='0'){
-            return $response=[
+            $response=[
                 'message'=>'you are not allowed'
             ];
+            return response($response);
         }
         return $next($request);
     }

@@ -8,6 +8,7 @@ use App\Models\Donation;
 use App\Models\Casee;
 use App\Models\Item;
 use App\Models\Donationitem;
+use App\Models\Donationtype;
 use App\Models\Payment;
 
 class UsDonationController extends Controller

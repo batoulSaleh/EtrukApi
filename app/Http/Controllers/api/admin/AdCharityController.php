@@ -53,6 +53,17 @@ class AdCharityController extends Controller
         return response($response,201);
     }
 
+    public function getdonations(Request $request){
+        $cases=Casee::where('user_id',$request->user()->id)->get();
+        $donations=Donation::with('casee','donationtype')->whereIn('casee_id',$cases->pluck('id'))->get();
+        $response = [
+            'message'=>'All donations',
+            'donations' => $donations,
+            'count' =>count($donations)
+        ];
+        return response($response,201);
+    }
+
 
     public function getEvents(Request $request){
         $events = Event::where('user_id',$request->user()->id)->get();

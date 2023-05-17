@@ -44,7 +44,6 @@ class AdDonationController extends Controller
 
     
     public function acceptDonation($id){
-
         $donation=Donation::findOrFail($id);
         $donationtype_id=$donation->donationtype_id;
         $case=Casee::find($donation->casee_id);
@@ -55,6 +54,12 @@ class AdDonationController extends Controller
                 'message'=>'the donation is already accepted',
             ];
             $code=500;
+        }elseif($case->user_id != '1'){
+            $response = [
+                'message'=>'not allowed',
+            ];
+            $code=500;
+
         }elseif($case->status=='completed'){
                 $response = [
                     'message'=>'the case is already completed',

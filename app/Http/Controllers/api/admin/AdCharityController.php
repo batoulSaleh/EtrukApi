@@ -102,6 +102,47 @@ class AdCharityController extends Controller
         return response($response, 201);
     }
 
+    public function updateEvent(Request $request, string $id)
+    {
+        $event = Event::find($id);
+        if($event->user_id==$request->user()->id){
+        $request->validate([
+            'name_en' => 'required|string|max:200',
+            'name_ar' => 'required|string|max:200',
+            'description_en' => 'string|max:500',
+            'description_ar' => 'string|max:500',
+            'image' => 'image|max:2048',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
+        ]);
+        $event->update(
+            [
+                'name_en' => $request->name_en,
+                'name_ar' => $request->name_ar,
+                'description_en' => $request->description_en,
+                'description_ar' => $request->description_ar,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'updated' => Carbon::now(),
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+            ]
+        );
+        if ($request->file('image')) {
+            $image_path = $request->file('image')->store('api/events', 'public');
+            $event->image = asset('storage/' . $image_path);
+            $event->save();
+        }
+        $response = ['message' => 'Event is updated successfully.', 'result' => $event];}
+        else{
+            $response = [
+                'message'=>'can not be updated Unauthorized'];
+        }
+        return response($response, 201);
+    }
+
     public function edit(Request $request){
         $charity=User::findOrFail($request->user()->id);
         $request->validate([
@@ -134,6 +175,33 @@ class AdCharityController extends Controller
             'charity' => $charity
         ];
 
+        return response($response,201);
+    }
+
+    public function destroyEvent(string $id)
+    {
+        $event = Event::findOrFail($id);
+        if($event->user_id==$request->user()->id){
+        $event->delete();
+        $response = ['message' => 'Event is deleted successfully.'];}
+        else{
+            $response = [
+                'message'=>'can not be updated Unauthorized'];
+        }
+        return response($response, 201);
+    }
+
+    public function destroyCase($id){
+        $casee = Casee::findOrFail($id);
+        if($casee->user_id==$request->user()->id){
+        $casee->delete();
+        $response = [
+            'message'=>'case deleted successfully',
+        ];}
+        else{
+            $response = [
+                'message'=>'can not be updated Unauthorized'];
+        }
         return response($response,201);
     }
 

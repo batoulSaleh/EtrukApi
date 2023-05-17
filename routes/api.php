@@ -65,6 +65,9 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/cases', [AdCharityController::class, 'getcases'])->middleware('auth:sanctum');
             Route::get('/events', [AdCharityController::class, 'getEvents'])->middleware('auth:sanctum');
             Route::post('/store/event', [AdCharityController::class, 'storeEvent'])->middleware('auth:sanctum');
+            Route::post('/update/event', [AdCharityController::class, 'updateEvent'])->middleware('auth:sanctum');
+            Route::post('/destroy/event', [AdCharityController::class, 'destroyEvent'])->middleware('auth:sanctum');
+            Route::post('/destroy/case', [AdCharityController::class, 'destroyCase'])->middleware('auth:sanctum');
             Route::post('/edit', [AdCharityController::class, 'edit'])->middleware('auth:sanctum');
         });
 

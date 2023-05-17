@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             // $table->bigInteger('mazad_id')->nullable();
             // $table->bigInteger('vendor_id')->nullable();
-            $table->foreignId('mazad_id')->constrained('mazads')->onDelete("cascade");
-            $table->foreignId('vendor_id')->constrained('users');
+            $table->foreignId('mazad_id')->constrained('mazads')->onDelete("cascade")->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained('users');
             $table->bigInteger('vendor_paid')->nullable();
             $table->date('vendor_paid_time');
             // $table->enum('mazad_button', ['increment', 'decrement']);

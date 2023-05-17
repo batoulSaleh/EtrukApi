@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Donationtype;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Zakat;
 
 class DatabaseSeeder extends Seeder
 {
@@ -96,5 +97,11 @@ class DatabaseSeeder extends Seeder
         'address'=> 'address',
         'phone'=> 1234568,
     ]);
-    }
+
+    Zakat::create([
+        'price_gold21'=>'2453',
+        'price_gold24'=>'2453'
+    ]);
+
+}
 }

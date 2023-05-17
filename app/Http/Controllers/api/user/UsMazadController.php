@@ -92,8 +92,8 @@ class UsMazadController extends Controller
     public function mazadIncrement(Request $request,  $id)
     {
         $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
-        $vendor_id = $request->user()->id;
-        $vendor = User::findorfail($vendor_id);
+        $user_id = $request->user()->id;
+        $vendor = User::findorfail($user_id);
         if ($request->user()->id != $mazad->owner_id) //
         {
             $currentBid = $mazad->current_price;
@@ -106,7 +106,7 @@ class UsMazadController extends Controller
                 );
                 $auction = MazadVendors::create(
                     [
-                        'vendor_id' => $request->user()->id,
+                        'user_id' => $request->user()->id,
                         'mazad_id' => $mazad->id,
                         'vendor_paid' => $request->vendor_paid,
                         'vendor_paid_time' => Carbon::now(),
@@ -132,13 +132,12 @@ class UsMazadController extends Controller
     {
         // $mazad = Mazad::find($id);
         $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
-        $history_of_mazad = MazadVendors::where('mazad_id', $id)->get(['vendor_paid', 'vendor_paid_time', 'vendor_id']);
-        $ids = MazadVendors::where('mazad_id', $id)->get();
-        $id_volunteers = $ids->pluck('vendor_id')->toArray();
-        $users = User::whereIn('id', $id_volunteers)->get();
+        $history_of_mazad = MazadVendors::with('users')->where('mazad_id', $id)->get();
+        // $ids = MazadVendors::where('mazad_id', $id)->get();
+        // $id_volunteers = $ids->pluck('vendor_id')->toArray();
+        // $users = User::whereIn('id', $id_volunteers)->get();
         $response = [
             'history' => $history_of_mazad,
-            'users' => $users,
         ];
         return response($response, 201);
     }

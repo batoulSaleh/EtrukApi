@@ -13,8 +13,8 @@ use App\Models\Payment;
 class AdDonationController extends Controller
 {
     public function index(){
-        $cases=Casee::with('donation','donationtype')->where('user_id','1')->get();
-        $donations=Donation::whereIn('casee_id',$cases->pluck('id'))->get();
+        $cases=Casee::where('user_id','1')->get();
+        $donations=Donation::with('casee','donationtype')->whereIn('casee_id',$cases->pluck('id'))->get();
         $response = [
             'message'=>'All donations',
             'donations' => $donations,

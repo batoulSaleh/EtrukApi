@@ -8,6 +8,8 @@ use App\Models\Casee;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Donation;
+use App\Models\Category;
+use App\Models\Donationtype;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 
@@ -29,6 +31,45 @@ class AdCharityController extends Controller
         $response = [
             'message'=>'specific charity with id',
             'charity' => $charity
+        ];
+        return response($response,201);
+    }
+
+    public function allCategories(){
+        $categories=Category::all();
+        $response = [
+            'message'=>'All Categories',
+            'Categories' => $categories,
+            'count' => count($categories)
+        ];
+        return response($response,201);
+    }
+
+    public function allDonationtypes(){
+        $donationtypes=Donationtype::all();
+        $response = [
+            'message'=>'All Donationtypes',
+            'Donationtypes' => $donationtypes
+        ];
+        return response($response,201);
+    }
+
+    public function showCategory($id)
+    {
+        $category=Category::find($id);
+        $response = [
+            'message'=>'specific Category with id',
+            'Category' => $category
+        ];
+        return response($response,201);
+    }
+
+    public function showDonationType($id)
+    {
+        $donationtype=Donationtype::find($id);
+        $response = [
+            'message'=>'specific Donationtype with id',
+            'Donationtype' => $donationtype
         ];
         return response($response,201);
     }

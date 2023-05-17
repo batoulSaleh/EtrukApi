@@ -64,6 +64,10 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/index', [AdCharityController::class, 'index'])->middleware(['auth:sanctum','admin']);
             Route::get('/show/{id}', [AdCharityController::class, 'show'])->middleware(['auth:sanctum','admin']);
             Route::get('/showto/update', [AdCharityController::class, 'showUpdate'])->middleware('auth:sanctum');
+            Route::get('/all/categories', [AdCharityController::class, 'allCategories']);
+            Route::get('/all/donationtypes', [AdCharityController::class, 'allDonationtypes']);
+            Route::get('/show/category/{id}', [AdCharityController::class, 'showCategory']);
+            Route::get('/show/donationtype/{id}', [AdCharityController::class, 'showDonationType']);
             Route::get('/cases', [AdCharityController::class, 'getcases'])->middleware('auth:sanctum');
             Route::get('/events', [AdCharityController::class, 'getEvents'])->middleware('auth:sanctum');
             Route::get('/donations', [AdCharityController::class, 'getdonations'])->middleware('auth:sanctum');

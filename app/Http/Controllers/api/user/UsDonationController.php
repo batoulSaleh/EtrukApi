@@ -22,6 +22,18 @@ class UsDonationController extends Controller
         return response($response,201);
     }
 
+    public function donationTypes(){
+        $donationtypes=Donationtype::select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            )->get();
+        $response = [
+            'message'=>'All Donationtypes',
+            'Donationtypes' => $donationtypes
+        ];
+        return response($response,201);
+    }
+
     public function getmoney(){
         $donations=Donation::where('donationtype_id','1')->where('status','accepted')->get();
         $sum=0;

@@ -121,11 +121,11 @@ class UsMazadController extends Controller
                 return response($response, 201);
             } else {
                 $response = ['message' => 'Should New Bid to be greater than Current Bid.',];
-                return response($response, 201);
+                return response($response, 500);
             }
         } else {
             $response = ['message' => "You can't participate in the auction.",];
-            return response($response, 201);
+            return response($response, 500);
         }
     }
     public function historyOfMazad($id)

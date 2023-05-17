@@ -45,22 +45,24 @@ Route::group(['middleware' => ['lang']], function () {
     Route::post('/forget', [AuthController::class, 'forget']);
     Route::post('/login/admin', [AuthController::class, 'loginadmin']);
 
+
+
     Route::prefix('/dashboard')->group(function () {
 
         Route::prefix('/zakat')->group(function () {
-            Route::post('/update', [AdZakatController::class, 'update']);
+            Route::post('/update', [AdZakatController::class, 'update'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/mazad')->group(function () {
-            Route::get('/index', [AdMazadController::class, 'index']);
-            Route::get('/show/{id}', [AdMazadController::class, 'show']);
-            Route::post('/update/{id}', [AdMazadController::class, 'update']);
-            Route::post('/destroy/{id}', [AdMazadController::class, 'destroy']);
+            Route::get('/index', [AdMazadController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdMazadController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/update/{id}', [AdMazadController::class, 'update'])->middleware(['auth:sanctum','admin']);
+            Route::post('/destroy/{id}', [AdMazadController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/charity')->group(function () {
-            Route::get('/index', [AdCharityController::class, 'index']);
-            Route::get('/show/{id}', [AdCharityController::class, 'show']);
+            Route::get('/index', [AdCharityController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdCharityController::class, 'show'])->middleware(['auth:sanctum','admin']);
             Route::get('/showto/update', [AdCharityController::class, 'showUpdate'])->middleware('auth:sanctum');
             Route::get('/cases', [AdCharityController::class, 'getcases'])->middleware('auth:sanctum');
             Route::get('/events', [AdCharityController::class, 'getEvents'])->middleware('auth:sanctum');
@@ -72,49 +74,49 @@ Route::group(['middleware' => ['lang']], function () {
         });
 
         Route::prefix('/category')->group(function () {
-            Route::get('/index', [AdCategoryController::class, 'index']);
-            Route::get('/show/{id}', [AdCategoryController::class, 'show']);
-            Route::post('/store', [AdCategoryController::class, 'store']);
-            Route::post('/update/{id}', [AdCategoryController::class, 'update']);
-            Route::post('/destroy/{id}', [AdCategoryController::class, 'destroy']);
+            Route::get('/index', [AdCategoryController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdCategoryController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/store', [AdCategoryController::class, 'store'])->middleware(['auth:sanctum','admin']);
+            Route::post('/update/{id}', [AdCategoryController::class, 'update'])->middleware(['auth:sanctum','admin']);
+            Route::post('/destroy/{id}', [AdCategoryController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/case')->group(function () {
-            Route::get('/index', [AdCaseController::class, 'index']);
-            Route::get('/show/{id}', [AdCaseController::class, 'show']);
-            Route::post('/store', [AdCaseController::class, 'store']);
-            Route::post('/update/{id}', [AdCaseController::class, 'update']);
-            Route::post('/destroy/{id}', [AdCaseController::class, 'destroy']);
+            Route::get('/index', [AdCaseController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdCaseController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/store', [AdCaseController::class, 'store'])->middleware(['auth:sanctum','admin']);
+            Route::post('/update/{id}', [AdCaseController::class, 'update'])->middleware(['auth:sanctum','admin']);
+            Route::post('/destroy/{id}', [AdCaseController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/donationtype')->group(function () {
-            Route::get('/index', [DonationTypeController::class, 'index']);
-            Route::get('/show/{id}', [DonationTypeController::class, 'show']);
-            Route::post('/store', [DonationTypeController::class, 'store']);
-            Route::post('/update/{id}', [DonationTypeController::class, 'update']);
-            Route::post('/destroy/{id}', [DonationTypeController::class, 'destroy']);
+            Route::get('/index', [DonationTypeController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [DonationTypeController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/store', [DonationTypeController::class, 'store'])->middleware(['auth:sanctum','admin']);
+            Route::post('/update/{id}', [DonationTypeController::class, 'update'])->middleware(['auth:sanctum','admin']);
+            Route::post('/destroy/{id}', [DonationTypeController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/donation')->group(function () {
-            Route::get('/index', [AdDonationController::class, 'index']);
-            Route::get('/index/case/{caseid}', [AdDonationController::class, 'indexOfCase']);
-            Route::get('/show/{id}', [AdDonationController::class, 'show']);
-            Route::post('/accept/{id}', [AdDonationController::class, 'acceptDonation'])->middleware('auth:sanctum');
-            Route::get('/payments', [AdDonationController::class, 'allPayments']);
+            Route::get('/index', [AdDonationController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/index/case/{caseid}', [AdDonationController::class, 'indexOfCase'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdDonationController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/accept/{id}', [AdDonationController::class, 'acceptDonation'])->middleware(['auth:sanctum','admin']);
+            Route::get('/payments', [AdDonationController::class, 'allPayments'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/volunteer')->group(function () {
-            Route::get('/index', [AdVolunteerController::class, 'index']);
-            Route::get('/show/{id}', [AdVolunteerController::class, 'show']);
-            Route::post('/destroy/{id}', [AdVolunteerController::class, 'destroy']);
+            Route::get('/index', [AdVolunteerController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdVolunteerController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/destroy/{id}', [AdVolunteerController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
         });
 
         Route::prefix('/events')->group(function () {
-            Route::get('/index', [AdEventController::class, 'index']);
-            Route::get('/show/{id}', [AdEventController::class, 'show']);
-            Route::post('/store', [AdEventController::class, 'store']);
-            Route::post('/update/{id}', [AdEventController::class, 'update']);
-            Route::post('/destroy/{id}', [AdEventController::class, 'destroy']);
+            Route::get('/index', [AdEventController::class, 'index'])->middleware(['auth:sanctum','admin']);
+            Route::get('/show/{id}', [AdEventController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::post('/store', [AdEventController::class, 'store'])->middleware(['auth:sanctum','admin']);
+            Route::post('/update/{id}', [AdEventController::class, 'update'])->middleware(['auth:sanctum','admin']);
+            Route::post('/destroy/{id}', [AdEventController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
         });
     });
 

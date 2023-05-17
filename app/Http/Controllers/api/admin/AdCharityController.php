@@ -102,7 +102,7 @@ class AdCharityController extends Controller
         return response($response, 201);
     }
 
-    public function updateEvent(Request $request, string $id)
+    public function updateEvent(Request $request,$id)
     {
         $event = Event::find($id);
         if($event->user_id==$request->user()->id){
@@ -178,7 +178,7 @@ class AdCharityController extends Controller
         return response($response,201);
     }
 
-    public function destroyEvent(string $id)
+    public function destroyEvent($id)
     {
         $event = Event::findOrFail($id);
         if($event->user_id==$request->user()->id){

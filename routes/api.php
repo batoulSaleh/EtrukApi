@@ -21,7 +21,11 @@ use App\Http\Controllers\api\admin\DonationTypeController;
 use App\Http\Controllers\api\admin\AdMazadController;
 use App\Http\Controllers\api\admin\AdZakatController;
 use App\Http\Controllers\api\user\UsMazadController;
-
+use App\Http\Controllers\api\charity\ChCategoryController;
+use App\Http\Controllers\api\charity\ChDonationTypeController;
+use App\Http\Controllers\api\charity\ChCaseController;
+use App\Http\Controllers\api\charity\ChDonationController;
+use App\Http\Controllers\api\charity\ChProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +49,45 @@ Route::group(['middleware' => ['lang']], function () {
     Route::post('/forget', [AuthController::class, 'forget']);
     Route::post('/login/admin', [AuthController::class, 'loginadmin']);
 
+    Route::prefix('/charity')->group(function () {
 
+        Route::prefix('/category')->group(function () {
+            Route::get('/index', [ChCategoryController::class, 'index']);
+            Route::get('/show', [ChCategoryController::class, 'show']);
+        });
+
+        Route::prefix('/donationtype')->group(function () {
+            Route::get('/index', [ChDonationTypeController::class, 'index']);
+            Route::get('/show/{id}', [ChDonationTypeController::class, 'show']);
+        });
+
+        Route::prefix('/case')->group(function () {
+            Route::get('/index', [ChCaseController::class, 'index'])->middleware('auth:sanctum');
+            Route::get('/show/{id}', [ChCaseController::class, 'show']);
+            Route::post('/store', [ChCaseController::class, 'store'])->middleware('auth:sanctum');
+            Route::post('/update/{id}', [ChCaseController::class, 'update'])->middleware('auth:sanctum');
+            Route::post('/destroy/{id}', [ChCaseController::class, 'destroy'])->middleware('auth:sanctum');
+        });
+
+        Route::prefix('/event')->group(function () {
+            Route::get('/index', [ChEventController::class, 'index'])->middleware('auth:sanctum');
+            Route::get('/show/{id}', [ChEventController::class, 'show']);
+            Route::post('/store', [ChEventController::class, 'store'])->middleware('auth:sanctum');
+            Route::post('/update/{id}', [ChEventController::class, 'update'])->middleware('auth:sanctum');
+            Route::post('/destroy/{id}', [ChEventController::class, 'destroy'])->middleware('auth:sanctum');
+        });
+
+        Route::prefix('/donation')->group(function () {
+            Route::get('/index', [ChDonationController::class, 'index'])->middleware('auth:sanctum');
+            Route::post('accept/{id}', [ChDonationController::class, 'accept'])->middleware('auth:sanctum');
+        });
+
+        Route::prefix('/profile')->group(function () {
+            Route::get('/show', [ChProfileController::class, 'show'])->middleware('auth:sanctum');
+            Route::post('/update', [ChProfileController::class, 'update'])->middleware('auth:sanctum');
+        });
+
+    });
 
     Route::prefix('/dashboard')->group(function () {
 
@@ -63,20 +105,6 @@ Route::group(['middleware' => ['lang']], function () {
         Route::prefix('/charity')->group(function () {
             Route::get('/index', [AdCharityController::class, 'index'])->middleware(['auth:sanctum','admin']);
             Route::get('/show/{id}', [AdCharityController::class, 'show'])->middleware(['auth:sanctum','admin']);
-            Route::get('/showto/update', [AdCharityController::class, 'showUpdate'])->middleware('auth:sanctum');
-            Route::get('/all/categories', [AdCharityController::class, 'allCategories']);
-            Route::get('/all/donationtypes', [AdCharityController::class, 'allDonationtypes']);
-            Route::get('/show/category/{id}', [AdCharityController::class, 'showCategory']);
-            Route::get('/show/donationtype/{id}', [AdCharityController::class, 'showDonationType']);
-            Route::get('/cases', [AdCharityController::class, 'getcases'])->middleware('auth:sanctum');
-            Route::get('/events', [AdCharityController::class, 'getEvents'])->middleware('auth:sanctum');
-            Route::get('/donations', [AdCharityController::class, 'getdonations'])->middleware('auth:sanctum');
-            Route::post('/donation/accept/{id}', [AdCharityController::class, 'acceptDonation'])->middleware('auth:sanctum');
-            Route::post('/store/event', [AdCharityController::class, 'storeEvent'])->middleware('auth:sanctum');
-            Route::post('/update/event/{id}', [AdCharityController::class, 'updateEvent'])->middleware('auth:sanctum');
-            Route::post('/destroy/event/{id}', [AdCharityController::class, 'destroyEvent'])->middleware('auth:sanctum');
-            Route::post('/destroy/case/{id}', [AdCharityController::class, 'destroyCase'])->middleware('auth:sanctum');
-            Route::post('/edit', [AdCharityController::class, 'edit'])->middleware('auth:sanctum');
         });
 
         Route::prefix('/category')->group(function () {

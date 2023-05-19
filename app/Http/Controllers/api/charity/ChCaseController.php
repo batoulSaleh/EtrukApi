@@ -10,7 +10,7 @@ use App\Models\Caseimage;
 
 class ChCaseController extends Controller
 {
-    public function all(Request $request){
+    public function index(Request $request){
         $casees=Casee::with('category','donationtype','item','caseimage')->where('user_id',$request->user()->id)->get();
         $response = [
             'message'=>'All cases',

@@ -26,6 +26,7 @@ use App\Http\Controllers\api\charity\ChDonationTypeController;
 use App\Http\Controllers\api\charity\ChCaseController;
 use App\Http\Controllers\api\charity\ChDonationController;
 use App\Http\Controllers\api\charity\ChProfileController;
+use App\Http\Controllers\api\charity\ChEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,7 @@ Route::group(['middleware' => ['lang']], function () {
 
         Route::prefix('/category')->group(function () {
             Route::get('/index', [ChCategoryController::class, 'index']);
-            Route::get('/show', [ChCategoryController::class, 'show']);
+            Route::get('/show/{id}', [ChCategoryController::class, 'show']);
         });
 
         Route::prefix('/donationtype')->group(function () {

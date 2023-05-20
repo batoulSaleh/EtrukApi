@@ -12,7 +12,7 @@ use App\Models\Caseimage;
 class AdCaseController extends Controller
 {
     public function index(){
-        $casees=Casee::with('item','caseimage')->get();
+        $casees=Casee::with('category','donationtype','user','item','caseimage')->get();
         $response = [
             'message'=>'All cases',
             'cases' => $casees,

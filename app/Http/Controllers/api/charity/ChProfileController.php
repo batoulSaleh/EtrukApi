@@ -27,7 +27,7 @@ class ChProfileController extends Controller
             'description_en' => 'string|max:500',
             'description_ar' => 'string|max:500',
             'address'=>'required|string|max:200',
-            'image' => 'required|image|max:2048',
+            'image' => 'image|max:2048',
             'phone' =>'required|numeric',
         ]);
 

@@ -165,8 +165,7 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/othermazad/{id}', [UsMazadController::class, 'auctionsOfUser']);
             Route::post('/increment/{id}', [UsMazadController::class, 'mazadIncrement'])->middleware('auth:sanctum');
             Route::get('/history/{id}', [UsMazadController::class, 'historyOfMazad']);
-            });
-
+        });
 
         Route::prefix('/charity')->group(function () {
             Route::get('/index', [UsCharityController::class, 'index']);
@@ -240,8 +239,6 @@ Route::group(['middleware' => ['lang']], function () {
 
     //protected
     Route::group(['middleware' => ['auth:sanctum']], function () {
-
         Route::post('/logout', [AuthController::class, 'logout']);
     });
-    // Route::post('/calculate', [ZakatController::class, 'calculate']);
 });

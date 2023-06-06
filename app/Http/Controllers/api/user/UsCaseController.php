@@ -28,7 +28,7 @@ class UsCaseController extends Controller
             )->with('category','donationtype','user')->where('status','published')->orWhere('status', 'completed')->get();
 
         $response = [
-            'message'=>'All cases',
+            'message'=>trans('api.fetch'),
             'cases' => $casees,
             'count' => count($casees)
         ];
@@ -52,7 +52,7 @@ class UsCaseController extends Controller
             )->with('category','donationtype','user')->where('status','published')->latest()->take(10)->get();
 
         $response = [
-            'message'=>'All cases',
+            'message'=>trans('api.fetch'),
             'cases' => $casees
         ];
         return response($response,201);
@@ -83,7 +83,7 @@ class UsCaseController extends Controller
                 )->where('casee_id',$casee->id)->get();   
                 
                 $response = [
-                    'message'=>'specific case with id',
+                    'message'=>trans('api.fetch'),
                     'case' => $casee,
                     'items'=>$items,
                 ];
@@ -94,7 +94,7 @@ class UsCaseController extends Controller
     {
         $casee=Casee::where('id',$id)->with('category','donationtype','user','item','caseimage')->first();
         $response = [
-            'message'=>'specific case with id',
+            'message'=>trans('api.fetch'),
             'case' => $casee
         ];
         return response($response,201);
@@ -109,6 +109,8 @@ class UsCaseController extends Controller
             'file' => 'file|max:2048',
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
+        ],[
+            'name_en.required'=> trans('api.name')
         ]);
         if($request->file('file')){
             $file_path = $request->file('file')->store('api/casees','public');
@@ -250,7 +252,7 @@ class UsCaseController extends Controller
                 }
             }
             $response = [
-                'message'=>'case created successfully',
+                'message'=>trans('api.stored'),
                 'case' => $casee
             ];
         }
@@ -288,6 +290,8 @@ class UsCaseController extends Controller
                 $casee->update([
                     'type_en' => null,
                     'type_ar' => null,
+                    'gender_en' => null,
+                    'gender_ar' => null,
                 ]);
             }
 

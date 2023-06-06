@@ -14,7 +14,7 @@ class AuthController extends Controller
             'name_en' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed',
-            'user_type'=>'required|in:0,1,2',
+            'user_type'=>'required|in:1,2',
             'phone' =>'required|numeric',
             ]);
 
@@ -70,11 +70,8 @@ class AuthController extends Controller
 
     public function login(Request $request){
         $fields = $request->validate([
-
-
             'email' => 'required|string|exists:users,email',
             'password' => 'required|string|'
-
         ]);
 
         $user = User::where('email',$fields['email'])->first();

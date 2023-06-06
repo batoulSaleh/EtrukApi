@@ -78,8 +78,6 @@ class AdCaseController extends Controller
                 foreach($images as $image){
                     $image_path = $image->store('api/casees','public');
                     $image=asset('storage/'.$image_path);
-                
-    
                     Caseimage::create([
                         'casee_id'=>$casee->id,
                         'image'=>$image
@@ -93,7 +91,6 @@ class AdCaseController extends Controller
                     'name_en'=>$item['name_en'],
                     'amount'=>$item['amount'],
                     'casee_id'=>$casee->id,
-    
                 ]);
                 $initial_amount=$initial_amount +$item['amount'];
             }
@@ -220,6 +217,8 @@ class AdCaseController extends Controller
             $casee->update([
                 'type_en' => null,
                 'type_ar' => null,
+                'gender_en' => null,
+                'gender_ar' => null,
             ]);
         }
 

@@ -110,7 +110,7 @@ class UsCaseController extends Controller
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
         ],[
-            'name_en.required'=> trans('api.name')
+            'name_en.required'=> trans('api.required')
         ]);
         if($request->file('file')){
             $file_path = $request->file('file')->store('api/casees','public');

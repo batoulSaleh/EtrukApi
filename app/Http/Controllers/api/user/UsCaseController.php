@@ -110,8 +110,14 @@ class UsCaseController extends Controller
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
         ],[
-            'name_en.required'=> trans('api.required')
+            'name_en.required'=> trans('api.required'),
+            'name_ar.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'category_id.required'=> trans('api.required'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'category_id.exists'=> trans('api.exists'),
         ]);
+
         if($request->file('file')){
             $file_path = $request->file('file')->store('api/casees','public');
             $file=asset('storage/'.$file_path);
@@ -122,6 +128,8 @@ class UsCaseController extends Controller
         if($request->donationtype_id==5){
             $request->validate([
                 'items'=>'required'
+            ],[
+            'items.required'=> trans('api.required'),
             ]);
             $initial_amount=0;
             $items=$request->items;
@@ -170,7 +178,7 @@ class UsCaseController extends Controller
             $final_items=Item::where('casee_id',$casee->id)->get();
     
             $response = [
-                'message'=>'case created successfully',
+                'message'=>trans('api.stored'),
                 'case' => $casee,
                 'items'=>$final_items,
             ];
@@ -184,6 +192,14 @@ class UsCaseController extends Controller
                 'gender_en' => 'required|string|max:500',
                 'gender_ar' => 'required|string|max:500',
                 'initial_amount'=>'required|numeric',
+            ],[
+                'description_en.required'=> trans('api.required'),
+                'description_ar.required'=> trans('api.required'),
+                'type_en.required'=> trans('api.required'),
+                'type_ar.required'=> trans('api.required'),
+                'gender_en.required'=> trans('api.required'),
+                'gender_ar.required'=> trans('api.required'),
+                'initial_amount.required'=> trans('api.required'),
             ]);
 
             $casee = Casee::create([
@@ -218,12 +234,14 @@ class UsCaseController extends Controller
             }
 
             $response = [
-                'message'=>'case created successfully',
+                'message'=>trans('api.stored'),
                 'case' => $casee
             ];
         }else{
             $request->validate([
                 'initial_amount'=>'required|numeric',
+            ],[
+                'initial_amount.required'=> trans('api.required'),
             ]);
 
             $casee = Casee::create([
@@ -267,16 +285,23 @@ class UsCaseController extends Controller
             if($casee->status=='pending'){
                 $request->validate([
                     'status'=>'required|in:pending'
+                ],[
+                    'status.required'=> trans('api.required'),
                 ]);
             }
             else{
                 $request->validate([
                     'status'=>'required|in:accepted,published'
+                ],[
+                    'status.required'=> trans('api.required'),
                 ]);
             }
 
             $request->validate([
                 'donationtype_id' =>'required|exists:donationtypes,id',
+            ],[
+                'donationtype_id.required'=> trans('api.required'),
+                'donationtype_id.exists'=> trans('api.exists'),
             ]);
 
             $items=Item::where('casee_id',$casee->id)->get();
@@ -304,6 +329,12 @@ class UsCaseController extends Controller
                     'file' => 'file|max:2048',
                     'category_id' =>'required|exists:categories,id',
                     'items'=>'required'
+                ],[
+                    'name_en.required'=> trans('api.required'),
+                    'name_ar.required'=> trans('api.required'),
+                    'category_id.required'=> trans('api.required'),
+                    'category_id.exists'=> trans('api.exists'),
+                    'items.required'=> trans('api.required'),
                 ]);
     
                 if($request->file('file')){
@@ -385,6 +416,18 @@ class UsCaseController extends Controller
                     'file' => 'file|max:2048',
                     'category_id' =>'required|exists:categories,id',
                     'initial_amount'=>'required|numeric',
+                ],[
+                    'name_en.required'=> trans('api.required'),
+                    'name_ar.required'=> trans('api.required'),
+                    'description_en.required'=> trans('api.required'),
+                    'description_ar.required'=> trans('api.required'),
+                    'type_en.required'=> trans('api.required'),
+                    'type_ar.required'=> trans('api.required'),
+                    'gender_en.required'=> trans('api.required'),
+                    'gender_ar.required'=> trans('api.required'),
+                    'category_id.required'=> trans('api.required'),
+                    'category_id.exists'=> trans('api.exists'),
+                    'initial_amount.required'=> trans('api.required'),
                 ]);
     
                 if($request->file('file')){

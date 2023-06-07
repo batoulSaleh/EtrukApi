@@ -91,7 +91,18 @@ class UsMazadController extends Controller
     }
     public function show($id)
     {
-        $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
+        $mazad = Mazad::with('mazadimage')->select(
+            'id',
+            'name_'.app()->getLocale().' as name',
+            'description_'.app()->getLocale().' as description',
+            'starting_price',
+            'mazad_amount',
+            'current_price',
+            'status',
+            'end_date',
+            'end_time',
+            'owner_id'
+            )->where('id', $id)->first();
         $owner = User::find($mazad->owner_id);
         $response = [
             // 'message' => 'A specific mazad with id of owner.',
@@ -101,6 +112,20 @@ class UsMazadController extends Controller
             'the_owner_email' => $owner->email,
         ];
         return response($response, 201);
+    }
+
+    public function getmoney(){
+        $mazads=Mazad::where('status','finished')->get();
+        $sum=0;
+        foreach($mazads as $mazad){
+            $sum=$sum+$mazad->current_price;
+        }
+        $response = [
+            'message'=>trans('api.fetch'),
+            'sum' => $sum,
+            'count'=>count($mazads)
+        ];
+        return response($response,201);
     }
 
     public function mazadIncrement(Request $request,  $id)

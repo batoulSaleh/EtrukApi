@@ -161,6 +161,7 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/index', [UsMazadController::class, 'index']);
             Route::post('/store', [UsMazadController::class, 'store'])->middleware('auth:sanctum');
             Route::get('/latestshow', [UsMazadController::class, 'latestshow']);
+            Route::get('/get/money', [UsMazadController::class, 'getmoney']);
             Route::get('/show/{id}', [UsMazadController::class, 'show']);
             Route::get('/othermazad/{id}', [UsMazadController::class, 'auctionsOfUser']);
             Route::post('/increment/{id}', [UsMazadController::class, 'mazadIncrement'])->middleware('auth:sanctum');

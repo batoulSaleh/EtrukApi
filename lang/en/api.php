@@ -25,8 +25,9 @@ return [
     'notallowed' => 'you are not allowed to do this process',
     'cartadded' => 'product added to cart',
     'orderstored' => 'your order is placed successfuly',
-    'required' =>'this field is required',
-    'exists' =>'not found',
-    'updated'=>'data updated successfully',
-    'deleted' =>'data deleted successfully'
+    'required' => 'this field is required',
+    'exists' => 'not found',
+    'updated' => 'data updated successfully',
+    'deleted' => 'data deleted successfully',
+    'increment' => 'Mazad increment Successfully',
 ];

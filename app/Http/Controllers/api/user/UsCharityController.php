@@ -23,7 +23,7 @@ class UsCharityController extends Controller
             'email'
             )->where('id','!=',1)->where('user_type','2')->get(); 
         $response = [
-            'message'=>'All charities',
+            'message'=>trans('api.fetch'),
             'charities' => $charities,
             'count'=>count($charities)
         ];
@@ -41,7 +41,7 @@ class UsCharityController extends Controller
             'email'
             )->where('id',$id)->first();
         $response = [
-            'message'=>'specific charity',
+            'message'=>trans('api.fetch'),
             'charity' => $charity
         ];
         return response($response,201);
@@ -62,7 +62,7 @@ class UsCharityController extends Controller
             )->with('category','donationtype','user')->where('user_id',$id)->where('status','published')->get();
 
         $response = [
-            'message'=>'All cases',
+            'message'=>trans('api.fetch'),
             'cases' => $casees
         ];
         return response($response,201);
@@ -82,7 +82,7 @@ class UsCharityController extends Controller
             )->where('user_id',$id)->get();
 
         $response = [
-        'message' => 'All Events',
+        'message'=>trans('api.fetch'),
         'result' => $events
         ];
         return response($response, 201);

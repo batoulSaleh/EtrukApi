@@ -16,7 +16,7 @@ class UsDonationController extends Controller
     public function index(){
         $donations=Donation::where('status','accepted')->get();
         $response = [
-            'message'=>'All donations',
+            'message'=>trans('api.fetch'),
             'donations' => $donations,
             'count' => count($donations)
         ];
@@ -29,7 +29,7 @@ class UsDonationController extends Controller
             'name_'.app()->getLocale().' as name',
             )->get();
         $response = [
-            'message'=>'All Donationtypes',
+            'message'=>trans('api.fetch'),
             'Donationtypes' => $donationtypes
         ];
         return response($response,201);
@@ -42,7 +42,7 @@ class UsDonationController extends Controller
             $sum=$sum+$donation->amount;
         }
         $response = [
-            'message'=>'financial donations',
+            'message'=>trans('api.fetch'),
             'sum' => $sum,
             'count'=>count($donations)
         ];
@@ -54,7 +54,7 @@ class UsDonationController extends Controller
     public function indexOfUser(Request $request){
         $donations=Donation::where('user_id',$request->user()->id)->get();
         $response = [
-            'message'=>'All donations of user',
+            'message'=>trans('api.fetch'),
             'donations' => $donations
         ];
         return response($response,201);
@@ -64,7 +64,7 @@ class UsDonationController extends Controller
     {
         $donation=Donation::find($id);
         $response = [
-            'message'=>'specific donation with id',
+            'message'=>trans('api.fetch'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -82,6 +82,16 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'date_to_send' => 'date'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'amount_financial.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
         ]);
 
         
@@ -90,14 +100,16 @@ class UsDonationController extends Controller
             $request->validate([
             'address' => 'required|string',
             'date_to_send' => 'required|date'
-
+            ],[
+                'address.required'=> trans('api.required'),
+                'date_to_send.required'=> trans('api.required'),
             ]);
         }
 
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -118,7 +130,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -136,21 +148,31 @@ class UsDonationController extends Controller
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
             'date_to_send' => 'date'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'amount_financial.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
         ]);
-
-        
 
         if($request->method=='representative'){
             $request->validate([
             'address' => 'required|string',
             'date_to_send' => 'required|date'
-
+            ],[
+                'address.required'=> trans('api.required'),
+                'date_to_send.required'=> trans('api.required'),
             ]);
         }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -171,7 +193,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -188,12 +210,22 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'amount.required'=> trans('api.required'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
         ]);
 
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -213,7 +245,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -230,13 +262,23 @@ class UsDonationController extends Controller
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'string',
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'amount.required'=> trans('api.required'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
         ]);
 
         
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -255,7 +297,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -274,23 +316,27 @@ class UsDonationController extends Controller
             'method' => 'in:representative',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
-            'date_to_send' => 'date'
-        ]);
-
-        
-
-        if($request->method=='representative'){
-            $request->validate([
             'address' => 'required|string',
             'date_to_send' => 'required|date'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'amount.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'address.required'=> trans('api.required'),
+            'date_to_send.required'=> trans('api.required'),
+        ]);
 
-            ]);
-        }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -313,7 +359,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -331,23 +377,27 @@ class UsDonationController extends Controller
             'description'=>'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
-            'date_to_send' => 'date'
-        ]);
-
-        
-
-        if($request->method=='representative'){
-            $request->validate([
             'address' => 'required|string',
             'date_to_send' => 'required|date'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'amount.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'address.required'=> trans('api.required'),
+            'date_to_send.required'=> trans('api.required'),
+        ]);
 
-            ]);
-        }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -369,7 +419,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -386,24 +436,29 @@ class UsDonationController extends Controller
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
+            'address' => 'required|string',
             'description'=>'string',
-            'date_to_send' => 'date'
+            'date_to_send' => 'required|date'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'amount.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'address.required'=> trans('api.required'),
+            'date_to_send.required'=> trans('api.required'),
         ]);
 
         
-
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-
-            ]);
-        }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -425,7 +480,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -442,24 +497,28 @@ class UsDonationController extends Controller
             'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
+            'address' => 'required|string',
             'description'=>'string',
-            'date_to_send' => 'date'
+            'date_to_send' => 'required|date'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'amount.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'address.required'=> trans('api.required'),
+            'date_to_send.required'=> trans('api.required'),
         ]);
 
-        
-
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-
-            ]);
-        }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -480,7 +539,7 @@ class UsDonationController extends Controller
         ]);
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'case' => $donation
         ];
         return response($response,201);
@@ -495,24 +554,29 @@ class UsDonationController extends Controller
             'method' => 'in:representative',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
+            'address' => 'required|string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'required|date',
             'items'=>'required'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'address.required'=> trans('api.required'),
+            'date_to_send.required'=> trans('api.required'),
+            'items.required'=> trans('api.required'),
         ]);
 
-
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-
-            ]);
-        }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -556,7 +620,7 @@ class UsDonationController extends Controller
         }
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);
@@ -571,24 +635,30 @@ class UsDonationController extends Controller
             'method' => 'in:representative',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
+            'address' => 'required|string',
             'description'=>'string',
-            'date_to_send' => 'date',
+            'date_to_send' => 'required|date',
             'items'=>'required'
+        ],[
+            'name.required'=> trans('api.required'),
+            'email.required'=> trans('api.required'),
+            'phone.required'=> trans('api.required'),
+            'city.required'=> trans('api.required'),
+            'method.in'=> trans('api.exists'),
+            'casee_id.required'=> trans('api.required'),
+            'donationtype_id.required'=> trans('api.required'),
+            'casee_id.exists'=> trans('api.exists'),
+            'donationtype_id.exists'=> trans('api.exists'),
+            'address.required'=> trans('api.required'),
+            'date_to_send.required'=> trans('api.required'),
+            'items.required'=> trans('api.required'),
         ]);
 
 
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-
-            ]);
-        }
         $case=Casee::find($fields['casee_id']);
         if($fields['donationtype_id']!=$case->donationtype_id){
             $response = [
-                'message'=>'different donationtypes',
+                'message'=>trans('api.diffdonation'),
             ];
             return response($response,500);
         }
@@ -631,7 +701,7 @@ class UsDonationController extends Controller
         }
 
         $response = [
-            'message'=>'donation created successfully',
+            'message'=>trans('api.stored'),
             'donation' => $donation
         ];
         return response($response,201);

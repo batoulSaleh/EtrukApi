@@ -28,5 +28,5 @@ return [
     'required' =>'this field is required',
     'exists' =>'not found',
     'updated'=>'data updated successfully',
-    'deleted' =>'data deleted successfully'
+    'diffdonation'=>'different type donations'
 ];

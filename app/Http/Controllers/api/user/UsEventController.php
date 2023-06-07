@@ -26,7 +26,7 @@ class UsEventController extends Controller
             )->where('user_id',1)->get();
 
         $response = [
-        'message' => 'All Events',
+        'message'=>trans('api.fetch'),
         'result' => $events,
         'count'=>count($events)
         ];
@@ -48,7 +48,7 @@ class UsEventController extends Controller
         $id_volunteers = $ids->pluck('volunteer_id')->toArray();
         $volunteers = User::whereIn('id', $id_volunteers)->get();
         $response = [
-            'message' => 'A specific event with id.',
+            'message'=>trans('api.fetch'),
             'event' => $event,
             'volunteers' => $volunteers,
             'count_volunteers' => count($volunteers),
@@ -68,7 +68,7 @@ class UsEventController extends Controller
             'end_time'
         )->latest()->take(3)->get();
         $response = [
-            'message' => 'Latest events.',
+            'message'=>trans('api.fetch'),
             'events' => $events
         ];
         return response($response, 201);
@@ -90,22 +90,22 @@ class UsEventController extends Controller
                         ]
                     );
                     $response = [
-                        'message' => 'Volunteer Joined Successfully.',
+                        'message'=>trans('api.stored'),
                         'EventVolunteer' => $eventvolunteer,
                     ];
                 } else {
                     $response = [
-                        'message' => 'You are already joined.',
+                        'message'=>trans('api.notallowed'),
                     ];
                 }
             } else {
                 $response = [
-                    'message' => 'Event is not exist.',
+                    'message'=>trans('api.exists'),
                 ];
             }
         } else {
             $response = [
-                'message' => "Charity can't join to event.",
+                'message'=>trans('api.notallowed'),
             ];
         }
         return response($response, 201);

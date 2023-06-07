@@ -287,6 +287,7 @@ class UsCaseController extends Controller
                     'status'=>'required|in:pending'
                 ],[
                     'status.required'=> trans('api.required'),
+                    'status.in'=> trans('api.notallowed'),
                 ]);
             }
             else{
@@ -294,6 +295,7 @@ class UsCaseController extends Controller
                     'status'=>'required|in:accepted,published'
                 ],[
                     'status.required'=> trans('api.required'),
+                    'status.in'=> trans('api.notallowed'),
                 ]);
             }
 
@@ -399,7 +401,7 @@ class UsCaseController extends Controller
                 $final_items=Item::where('casee_id',$casee->id)->get();
         
                 $response = [
-                    'message'=>'case updated successfully',
+                    'message'=>trans('api.updated'),
                     'case' => $casee,
                     'items'=>$final_items,
                 ];
@@ -474,7 +476,7 @@ class UsCaseController extends Controller
             }
 
                 $response = [
-                    'message'=>'case created successfully',
+                    'message'=>trans('api.updated'),
                     'case' => $casee
                 ];
 
@@ -487,6 +489,12 @@ class UsCaseController extends Controller
                     'file' => 'file|max:2048',
                     'category_id' =>'required|exists:categories,id',
                     'initial_amount'=>'required|numeric',
+                ],[
+                    'name_en.required'=> trans('api.required'),
+                    'name_ar.required'=> trans('api.required'),
+                    'category_id.required'=> trans('api.required'),
+                    'category_id.exists'=> trans('api.exists'),
+                    'initial_amount.required'=> trans('api.required'),
                 ]);
         
                 if($request->file('file')){
@@ -529,15 +537,15 @@ class UsCaseController extends Controller
             }
                 
                 $response = [
-                    'message'=>'case updated successfully',
+                    'message'=>trans('api.updated'),
                     'case' => $casee
                 ];
             }
         }
         else{
             $response = [
-                'message'=>'can not be updated Unauthorized'];
-        }
+                'message'=>trans('api.notallowed'),
+            ];}
 
         return response($response,201);
     }
@@ -549,12 +557,12 @@ class UsCaseController extends Controller
         if($casee->user_id==$request->user()->id){
             $casee->delete();
         $response = [
-            'message'=>'case deleted successfully',
+            'message'=>trans('api.deleted'),
         ];
         
         }else{
             $response = [
-                'message'=>'can not be deleted ',
+                'message'=>trans('api.notallowed'),
             ];
         }
             return response($response,201);
@@ -575,7 +583,7 @@ class UsCaseController extends Controller
             )->with('category','donationtype','user','item','caseimage')->where('status','published')->where('category_id',$categoryid)->get();
 
         $response = [
-            'message'=>'All cases of category',
+            'message'=>trans('api.fetch'),
             'cases' => $casees
         ];
         return response($response,201);
@@ -596,7 +604,7 @@ class UsCaseController extends Controller
             )->with('category','donationtype','user','item','caseimage')->where('status','published')->where('donationtype_id',$donationtypeid)->get();
 
         $response = [
-            'message'=>'All cases of donation type',
+            'message'=>trans('api.fetch'),
             'cases' => $casees
         ];
         return response($response,201);
@@ -617,7 +625,7 @@ class UsCaseController extends Controller
             )->with('category','donationtype','user','item','caseimage')->where('status','published')->where('category_id',$categoryid)->where('donationtype_id',$donationtypeid)->get();
 
         $response = [
-            'message'=>'All cases of category and donation type',
+            'message'=>trans('api.fetch'),
             'cases' => $casees
         ];
         return response($response,201);

@@ -16,7 +16,7 @@ class UsCategoryController extends Controller
             'image',
             )->get();
         $response = [
-            'message'=>'All Categories',
+            'message'=>trans('api.fetch'),
             'Categories' => $categories
         ];
         return response($response,201);
@@ -32,8 +32,8 @@ class UsCategoryController extends Controller
 
             )->where('id',$id)->first();        
             $response = [
-            'message'=>'specific Category with id',
-            'Category' => $category
+                'message'=>trans('api.fetch'),
+                'Category' => $category
         ];
         return response($response,201);
     }

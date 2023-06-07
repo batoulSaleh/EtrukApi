@@ -120,7 +120,7 @@ class UsCaseController extends Controller
             'description_en.max'=> trans('api.max'),
             'description_ar.string'=> trans('api.string'),
             'description_ar.max'=> trans('api.max'),
-            'file.string'=> trans('api.string'),
+            'file.file'=> trans('api.file'),
             'file.max'=> trans('api.max'),
             'donationtype_id.required'=> trans('api.required'),
             'category_id.required'=> trans('api.required'),
@@ -321,7 +321,7 @@ class UsCaseController extends Controller
                 'description_en.max'=> trans('api.max'),
                 'description_ar.string'=> trans('api.string'),
                 'description_ar.max'=> trans('api.max'),
-                'file.string'=> trans('api.string'),
+                'file.file'=> trans('api.file'),
                 'file.max'=> trans('api.max'),
             ]);
     

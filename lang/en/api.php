@@ -25,17 +25,9 @@ return [
     'notallowed' => 'you are not allowed to do this process',
     'cartadded' => 'product added to cart',
     'orderstored' => 'your order is placed successfuly',
-<<<<<<< HEAD
     'required' =>'this field is required',
     'exists' =>'not found',
     'updated'=>'data updated successfully',
-    'diffdonation'=>'different type donations'
-];
-=======
-    'required' => 'this field is required',
-    'exists' => 'not found',
-    'updated' => 'data updated successfully',
-    'deleted' => 'data deleted successfully',
+    'diffdonation'=>'different type donations',
     'increment' => 'Mazad increment Successfully',
 ];
->>>>>>> ccccf80bde9704d943fce98b60d7c1e01e8d5b9b

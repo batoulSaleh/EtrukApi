@@ -30,4 +30,11 @@ return [
     'updated'=>'data updated successfully',
     'diffdonation'=>'different type donations',
     'increment' => 'Mazad increment Successfully',
+    'register' =>'Successfully register',
+    'login' =>'Successfully Login',
+    'logout' =>'Successfully Logout',
+    'wrong'=>'Wrong Password or Email',
+    'confirm' =>'confirm password please',
+    'unique' => 'must be unique',
+    'email' =>'must be valid email'
 ];

@@ -16,11 +16,23 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
             'user_type'=>'required|in:1,2',
             'phone' =>'required|numeric',
+            ],[
+                'name_en.required'=> trans('api.required'),
+                'email.required'=> trans('api.required'),
+                'email.email'=> trans('api.email'),
+                'email.unique'=> trans('api.unique'),
+                'password.required'=> trans('api.required'),
+                'password.confirmed'=> trans('api.confirm'),
+                'user_type.required'=> trans('api.required'),
+                'phone.required'=> trans('api.required'),
             ]);
 
         if($request->user_type==1){
             $fields = $request->validate([
                 'gender' =>'required|in:m,f'
+            ],[
+                'gender.required'=> trans('api.required'),
+                'gender.in'=> trans('api.exists'),
             ]);
             $user = User::create([
                 'name_en' => $request['name_en'],
@@ -36,6 +48,10 @@ class AuthController extends Controller
                 'address'=>'required|string|max:200',
                 'name_ar' => 'required|string',
                 'image' => 'required|image|max:2048',
+            ],[
+                'address.required'=> trans('api.required'),
+                'name_ar.required'=> trans('api.required'),
+                'image.required'=> trans('api.required'),
             ]);
 
             if ($request->file('image')) {
@@ -60,7 +76,7 @@ class AuthController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;
 
         $response = [
-            'message'=>'successfull register',
+            'message'=>trans('api.register'),
             'user' => $user,
             'token' => $token
         ];
@@ -72,6 +88,10 @@ class AuthController extends Controller
         $fields = $request->validate([
             'email' => 'required|string|exists:users,email',
             'password' => 'required|string|'
+        ],[
+            'email.required'=> trans('api.required'),
+            'password.required'=> trans('api.required'),
+            'email.exists'=> trans('api.exists'),
         ]);
 
         $user = User::where('email',$fields['email'])->first();
@@ -82,13 +102,13 @@ class AuthController extends Controller
         if(!$user || !Hash::check($fields['password'], $user->password)){
 
             return response([ 
-                'message' => 'wrong'
+                'message'=>trans('api.wrong'),
             ],401);
 
         }
 
         $response = [
-            'message'=>'successfull login',
+            'message'=>trans('api.login'),
             'user' => $user,
             'token' => $token
         ];
@@ -100,7 +120,7 @@ class AuthController extends Controller
     public function logout(Request $request){
         auth()->user()->tokens()->delete();
         return [
-            'messege' =>'Logged out'
+            'message'=>trans('api.logout'),
         ];
     }
 
@@ -123,6 +143,10 @@ class AuthController extends Controller
         $fields = $request->validate([
             'email' => 'required|string|exists:users,email',
             'password' => 'required|string'
+        ],[
+            'email.required'=> trans('api.required'),
+            'password.required'=> trans('api.required'),
+            'email.exists'=> trans('api.exists'),
         ]);
 
         $user = User::where('user_type','0')->where('email',$fields['email'])->first();
@@ -131,13 +155,13 @@ class AuthController extends Controller
 
         //check password
         if(!$user || !Hash::check($fields['password'], $user->password)){
-
-            return response([ 'message' => 'wrong'],401);
-
+            return response([ 
+                'message'=>trans('api.wrong'),
+            ],401);
         }
 
         $response = [
-            'message'=>'successfull login',
+            'message'=>trans('api.login'),
             'user' => $user,
             'token' => $token
         ];

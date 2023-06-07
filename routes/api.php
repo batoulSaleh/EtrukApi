@@ -157,6 +157,10 @@ Route::group(['middleware' => ['lang']], function () {
 
     Route::prefix('/user')->group(function () {
 
+        Route::prefix('/zakat')->group(function () {
+            Route::get('/show', [UsZakatController::class, 'show']);
+        });
+
         Route::prefix('/mazad')->group(function () {
             Route::get('/index', [UsMazadController::class, 'index']);
             Route::post('/store', [UsMazadController::class, 'store'])->middleware('auth:sanctum');

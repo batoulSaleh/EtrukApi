@@ -59,7 +59,7 @@ class UsProfileController extends Controller
 
     public function casesOfUser(Request $request)
     {
-        $cases = Casee::where('user_id', $request->user()->id)->get();
+        $cases = Casee::where('user_id', $request->user()->id)->with('category','donationtype','user','item','caseimage')->get();
         $response = [
             // 'message'=>'all cases of user',
             'message' => trans('api.fetch'),

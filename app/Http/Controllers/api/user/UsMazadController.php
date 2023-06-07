@@ -46,14 +46,24 @@ class UsMazadController extends Controller
             'starting_price' => 'required|numeric',
             'mazad_amount' => 'required|numeric',
         ], [
-            'name_en.required' => trans('api.required'),
-            'name_ar.required' => trans('api.required'),
-            'description_en.required' => trans('api.required'),
-            'description_ar.required' => trans('api.required'),
+            'name_en.required'=> trans('api.required'),
+            'name_en.string'=> trans('api.string'),
+            'name_en.max'=> trans('api.max'),
+            'name_ar.required'=> trans('api.required'),
+            'name_ar.string'=> trans('api.string'),
+            'name_ar.max'=> trans('api.max'),
+            'description_en.required'=> trans('api.required'),
+            'description_ar.required'=> trans('api.required'),
+            'description_en.string'=> trans('api.string'),
+            'description_en.max'=> trans('api.max'),
+            'description_ar.string'=> trans('api.string'),
+            'description_ar.max'=> trans('api.max'),
             'end_date.required' => trans('api.required'),
             'end_time.required' => trans('api.required'),
             'starting_price.required' => trans('api.required'),
+            'starting_price.numeric' => trans('api.numeric'),
             'mazad_amount.required' => trans('api.required'),
+            'mazad_amount.numeric' => trans('api.numeric'),
         ]);
         $auction = Mazad::create(
             [
@@ -222,5 +232,34 @@ class UsMazadController extends Controller
             'others' => $other_auctions,
         ];
         return response($response, 201);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        // $mazad = Mazad::find($id);
+        $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
+        $request->validate([
+            'status' => 'required|in:pending,accepted,rejected,finished',
+        ]);
+        $mazad->update(
+            [
+                'status' => $request->status,
+            ]
+        );
+        if ($mazad->status == 'rejected') {
+            $response = ['message' => "Your auction can't be published."];
+            return response($response, 201);
+        }
+        elseif($mazad->status == 'finished') {
+            $response = ['message' => "Your auction is finished "];
+            return response($response, 201);
+        }else {
+            $response =
+                [
+                    'message' => "Your auction is published successfully.",
+                    'auction' => $mazad,
+                ];
+            return response($response, 201);
+        }
     }
 }

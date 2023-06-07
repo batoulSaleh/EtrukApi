@@ -36,5 +36,10 @@ return [
     'wrong'=>'Wrong Password or Email',
     'confirm' =>'confirm password please',
     'unique' => 'must be unique',
-    'email' =>'must be valid email'
+    'email' =>'must be valid email',
+    'string'=>'this field must be text',
+    'file'=>'this field must be file',
+    'max'=>'Do not exceed the maximum field size',
+    'min'=>'Do not exceed the minimum age',
+    'numeric'=> 'this field must be number'
 ];

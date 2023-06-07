@@ -111,7 +111,17 @@ class UsCaseController extends Controller
             'category_id' =>'required|exists:categories,id',
         ],[
             'name_en.required'=> trans('api.required'),
+            'name_en.string'=> trans('api.string'),
+            'name_en.max'=> trans('api.max'),
             'name_ar.required'=> trans('api.required'),
+            'name_ar.string'=> trans('api.string'),
+            'name_ar.max'=> trans('api.max'),
+            'description_en.string'=> trans('api.string'),
+            'description_en.max'=> trans('api.max'),
+            'description_ar.string'=> trans('api.string'),
+            'description_ar.max'=> trans('api.max'),
+            'file.string'=> trans('api.string'),
+            'file.max'=> trans('api.max'),
             'donationtype_id.required'=> trans('api.required'),
             'category_id.required'=> trans('api.required'),
             'donationtype_id.exists'=> trans('api.exists'),
@@ -195,6 +205,10 @@ class UsCaseController extends Controller
             ],[
                 'description_en.required'=> trans('api.required'),
                 'description_ar.required'=> trans('api.required'),
+                'description_en.string'=> trans('api.string'),
+                'description_en.max'=> trans('api.max'),
+                'description_ar.string'=> trans('api.string'),
+                'description_ar.max'=> trans('api.max'),
                 'type_en.required'=> trans('api.required'),
                 'type_ar.required'=> trans('api.required'),
                 'gender_en.required'=> trans('api.required'),
@@ -302,6 +316,13 @@ class UsCaseController extends Controller
                 'description_en' => 'string|max:500',
                 'description_ar' => 'string|max:500',
                 'file' => 'file|max:2048',
+            ],[
+                'description_en.string'=> trans('api.string'),
+                'description_en.max'=> trans('api.max'),
+                'description_ar.string'=> trans('api.string'),
+                'description_ar.max'=> trans('api.max'),
+                'file.string'=> trans('api.string'),
+                'file.max'=> trans('api.max'),
             ]);
     
             if($request->file('file')){

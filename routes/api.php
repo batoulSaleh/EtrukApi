@@ -170,6 +170,7 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/othermazad/{id}', [UsMazadController::class, 'auctionsOfUser']);
             Route::post('/increment/{id}', [UsMazadController::class, 'mazadIncrement'])->middleware('auth:sanctum');
             Route::get('/history/{id}', [UsMazadController::class, 'historyOfMazad']);
+            Route::post('/update/{id}', [AdMazadController::class, 'update']);
         });
 
         Route::prefix('/charity')->group(function () {

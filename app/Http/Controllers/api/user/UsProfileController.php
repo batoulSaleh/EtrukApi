@@ -31,8 +31,11 @@ class UsProfileController extends Controller
             'image' => 'image|max:2048',
         ], [
             'name_en.required' => trans('api.required'),
+            'name_en.string' => trans('api.string'),
             'phone.required' => trans('api.required'),
+            'phone.numeric' => trans('api.numeric'),
             'gender.required' => trans('api.required'),
+            'gender.max' => trans('api.max'),
         ]);
 
         $user->update([

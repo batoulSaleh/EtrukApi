@@ -72,7 +72,7 @@ class UsDonationController extends Controller
         $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+            'phone' => 'required|numeric',
             'amount_financial' => 'required|numeric',
             'amount_description' => 'string',
             'method' => 'in:online_payment,representative,vodafone',
@@ -82,14 +82,20 @@ class UsDonationController extends Controller
             'date_to_send' => 'date'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
             'phone.required'=> trans('api.required'),
+            'phone.numeric'=> trans('api.numeric'),
             'amount_financial.required'=> trans('api.required'),
+            'amount_financial.numeric'=> trans('api.numeric'),
+            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
+            'address.string'=> trans('api.string'),
         ]);
 
         
@@ -101,6 +107,7 @@ class UsDonationController extends Controller
             ],[
                 'address.required'=> trans('api.required'),
                 'date_to_send.required'=> trans('api.required'),
+                'address.string'=> trans('api.string'),
             ]);
         }
 
@@ -148,14 +155,20 @@ class UsDonationController extends Controller
             'date_to_send' => 'date'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
             'phone.required'=> trans('api.required'),
+            'phone.numeric'=> trans('api.numeric'),
             'amount_financial.required'=> trans('api.required'),
+            'amount_financial.numeric'=> trans('api.numeric'),
+            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
+            'address.string'=> trans('api.string'),
         ]);
 
         if($request->method=='representative'){
@@ -165,6 +178,7 @@ class UsDonationController extends Controller
             ],[
                 'address.required'=> trans('api.required'),
                 'date_to_send.required'=> trans('api.required'),
+                'address.string'=> trans('api.string'),
             ]);
         }
         $case=Casee::find($fields['casee_id']);
@@ -201,7 +215,7 @@ class UsDonationController extends Controller
         $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+            'phone' => 'required|numeric',
             'city' => 'required|string',
             'amount' => 'required|numeric',
             'description'=>'string',
@@ -210,14 +224,21 @@ class UsDonationController extends Controller
             'address' => 'string',
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
             'phone.required'=> trans('api.required'),
+            'phone.numeric'=> trans('api.numeric'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
+            'amount.numeric'=> trans('api.numeric'),
+            'description.string'=> trans('api.string'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
+            'address.string'=> trans('api.string'),
         ]);
 
         $case=Casee::find($fields['casee_id']);
@@ -262,14 +283,21 @@ class UsDonationController extends Controller
             'address' => 'string',
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
             'phone.required'=> trans('api.required'),
+            'phone.numeric'=> trans('api.numeric'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
+            'amount.numeric'=> trans('api.numeric'),
+            'description.string'=> trans('api.string'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
+            'address.string'=> trans('api.string'),
         ]);
 
         
@@ -306,7 +334,7 @@ class UsDonationController extends Controller
         $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+            'phone' => 'required|numeric',
             'city' => 'required|string',
             'amount' => 'required|numeric',
             'amount_description' => 'string',
@@ -318,16 +346,23 @@ class UsDonationController extends Controller
             'date_to_send' => 'required|date'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
+            'phone.numeric'=> trans('api.numeric'),
             'phone.required'=> trans('api.required'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
+            'amount.numeric'=> trans('api.numeric'),
+            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
             'address.required'=> trans('api.required'),
+            'address.string'=> trans('api.string'),
             'date_to_send.required'=> trans('api.required'),
         ]);
 
@@ -379,16 +414,23 @@ class UsDonationController extends Controller
             'date_to_send' => 'required|date'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
+            'phone.numeric'=> trans('api.numeric'),
             'phone.required'=> trans('api.required'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
+            'amount.numeric'=> trans('api.numeric'),
+            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
             'address.required'=> trans('api.required'),
+            'address.string'=> trans('api.string'),
             'date_to_send.required'=> trans('api.required'),
         ]);
 
@@ -427,7 +469,7 @@ class UsDonationController extends Controller
         $fields=$request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+            'phone' => 'required|numeric',
             'city' => 'required|string',
             'method' => 'in:representative',
             'amount' => 'required|numeric',
@@ -439,16 +481,23 @@ class UsDonationController extends Controller
             'date_to_send' => 'required|date'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
+            'phone.numeric'=> trans('api.numeric'),
             'phone.required'=> trans('api.required'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
+            'amount.numeric'=> trans('api.numeric'),
+            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
             'address.required'=> trans('api.required'),
+            'address.string'=> trans('api.string'),
             'date_to_send.required'=> trans('api.required'),
         ]);
 
@@ -500,16 +549,23 @@ class UsDonationController extends Controller
             'date_to_send' => 'required|date'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
+            'phone.numeric'=> trans('api.numeric'),
             'phone.required'=> trans('api.required'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
+            'amount.numeric'=> trans('api.numeric'),
+            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
             'address.required'=> trans('api.required'),
+            'address.string'=> trans('api.string'),
             'date_to_send.required'=> trans('api.required'),
         ]);
 
@@ -558,15 +614,20 @@ class UsDonationController extends Controller
             'items'=>'required'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
+            'phone.numeric'=> trans('api.numeric'),
             'phone.required'=> trans('api.required'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
             'address.required'=> trans('api.required'),
+            'address.string'=> trans('api.string'),
             'date_to_send.required'=> trans('api.required'),
             'items.required'=> trans('api.required'),
         ]);
@@ -639,15 +700,20 @@ class UsDonationController extends Controller
             'items'=>'required'
         ],[
             'name.required'=> trans('api.required'),
+            'name.string'=> trans('api.string'),
             'email.required'=> trans('api.required'),
+            'email.email'=> trans('api.email'),
+            'phone.numeric'=> trans('api.numeric'),
             'phone.required'=> trans('api.required'),
             'city.required'=> trans('api.required'),
+            'city.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
             'casee_id.exists'=> trans('api.exists'),
             'donationtype_id.exists'=> trans('api.exists'),
             'address.required'=> trans('api.required'),
+            'address.string'=> trans('api.string'),
             'date_to_send.required'=> trans('api.required'),
             'items.required'=> trans('api.required'),
         ]);

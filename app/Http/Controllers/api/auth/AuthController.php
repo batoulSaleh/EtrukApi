@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function register(Request $request){
         $fields = $request->validate([
             'name_en' => 'required|string',
-            'email' => 'required|string|unique:users,email',
+            'email' => 'required|string|unique:users,email|email',
             'password' => 'required|string|confirmed',
             'user_type'=>'required|in:1,2',
             'phone' =>'required|numeric',
@@ -86,7 +86,7 @@ class AuthController extends Controller
 
     public function login(Request $request){
         $fields = $request->validate([
-            'email' => 'required|string|exists:users,email',
+            'email' => 'required|string|exists:users,email|email',
             'password' => 'required|string|'
         ],[
             'email.required'=> trans('api.required'),

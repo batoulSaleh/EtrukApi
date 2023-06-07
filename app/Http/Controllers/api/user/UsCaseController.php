@@ -104,8 +104,8 @@ class UsCaseController extends Controller
         $request->validate([
             'name_en' => 'required|string|max:200',
             'name_ar' => 'required|string|max:200',
-            'description_en' => 'string|max:500',
-            'description_ar' => 'string|max:500',
+            'description_en' => 'max:500',
+            'description_ar' => 'max:500',
             'file' => 'file|max:2048',
             'donationtype_id' =>'required|exists:donationtypes,id',
             'category_id' =>'required|exists:categories,id',
@@ -116,9 +116,7 @@ class UsCaseController extends Controller
             'name_ar.required'=> trans('api.required'),
             'name_ar.string'=> trans('api.string'),
             'name_ar.max'=> trans('api.max'),
-            'description_en.string'=> trans('api.string'),
             'description_en.max'=> trans('api.max'),
-            'description_ar.string'=> trans('api.string'),
             'description_ar.max'=> trans('api.max'),
             'file.file'=> trans('api.file'),
             'file.max'=> trans('api.max'),
@@ -195,8 +193,8 @@ class UsCaseController extends Controller
 
         }elseif($request->donationtype_id==4){
             $request->validate([
-                'description_en' => 'required|string|max:500',
-                'description_ar' => 'required|string|max:500',
+                'description_en' => 'required|max:500',
+                'description_ar' => 'required|max:500',
                 'type_en' => 'required|string|max:500',
                 'type_ar' => 'required|string|max:500',
                 'gender_en' => 'required|string|max:500',
@@ -205,9 +203,7 @@ class UsCaseController extends Controller
             ],[
                 'description_en.required'=> trans('api.required'),
                 'description_ar.required'=> trans('api.required'),
-                'description_en.string'=> trans('api.string'),
                 'description_en.max'=> trans('api.max'),
-                'description_ar.string'=> trans('api.string'),
                 'description_ar.max'=> trans('api.max'),
                 'type_en.required'=> trans('api.required'),
                 'type_ar.required'=> trans('api.required'),

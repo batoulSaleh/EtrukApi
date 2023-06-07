@@ -21,6 +21,17 @@ class AdMazadController extends Controller
         return response($response, 201);
     }
 
+    public function show($id)
+    {
+        $mazad=Mazad::find($id);
+        $response = [
+            'message'=>'specific mazad with id',
+            'mazad' => $mazad
+        ];
+        return response($response,201);
+    }
+
+
     public function update(Request $request, string $id)
     {
         // $mazad = Mazad::find($id);

@@ -27,12 +27,13 @@ class UsMazadController extends Controller
             'current_price',
         )->where('status', 'accepted')->orWhere('status', 'finished')->get();
         $response = [
-            'message' => 'All auctions',
+            'message' => trans('api.fetch'),
+            // 'message' => 'All auctions',
             'auctions' => $auctions,
         ];
         return response($response, 201);
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -44,6 +45,15 @@ class UsMazadController extends Controller
             'end_time' => 'required|date_format:H:i:s',
             'starting_price' => 'required|numeric',
             'mazad_amount' => 'required|numeric',
+        ], [
+            'name_en.required' => trans('api.required'),
+            'name_ar.required' => trans('api.required'),
+            'description_en.required' => trans('api.required'),
+            'description_ar.required' => trans('api.required'),
+            'end_date.required' => trans('api.required'),
+            'end_time.required' => trans('api.required'),
+            'starting_price.required' => trans('api.required'),
+            'mazad_amount.required' => trans('api.required'),
         ]);
         $auction = Mazad::create(
             [
@@ -73,7 +83,10 @@ class UsMazadController extends Controller
                 ]);
             }
         }
-        $response = ['message' => 'Auction is created successfully.', 'result' => $auction];
+        $response = [
+            'message' => trans('api.stored'),
+            'result' => $auction
+        ];
         return response($response, 201);
     }
     public function show($id)
@@ -81,7 +94,8 @@ class UsMazadController extends Controller
         $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
         $owner = User::find($mazad->owner_id);
         $response = [
-            'message' => 'A specific mazad with id of owner.',
+            // 'message' => 'A specific mazad with id of owner.',
+            'message' => trans('api.fetch'),
             'mazad' => $mazad,
             'the_owner_name' => $owner->name_en,
             'the_owner_email' => $owner->email,
@@ -113,7 +127,8 @@ class UsMazadController extends Controller
                     ]
                 );
                 $response = [
-                    'message' => 'Increment Successfully.',
+                    // 'message' => 'Increment Successfully.',
+                    'message' => trans('api.increment'),
                     'result' => $auction,
                     'mazad' => $mazad,
                     'vendor' => $vendor,
@@ -154,7 +169,8 @@ class UsMazadController extends Controller
         )->where('status', 'accepted')->latest()->take(3)->get();
 
         $response = [
-            'message' => 'The latest auctions.',
+            // 'message' => 'The latest auctions.',
+            'message' => trans('api.fetch'),
             'mazad' => $auctions,
         ];
         return response($response, 201);
@@ -176,7 +192,7 @@ class UsMazadController extends Controller
             'owner_id',
         )->where('owner_id', $mazad->owner_id)->get();
         $response = [
-            'message' => 'Other mazads of the owner of mazad.',
+            // 'message' => 'Other mazads of the owner of mazad.',
             'the_owner_name' => $owner->name_en,
             'others' => $other_auctions,
         ];

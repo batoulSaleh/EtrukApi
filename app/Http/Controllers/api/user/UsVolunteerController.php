@@ -13,7 +13,8 @@ class UsVolunteerController extends Controller
     {
         $user = User::findOrFail($request->user()->id);
         $response = [
-            'message' => 'user who login',
+            // 'message' => 'user who login',
+            'message' => trans('api.fetch'),
             'user' => $user
         ];
         return response($response, 201);
@@ -30,6 +31,14 @@ class UsVolunteerController extends Controller
             'age' => 'required|integer|min:16',
             'activity' => 'required|in:blind,feeding,medical_convoys',
             'volunteer_type' => 'required|in:individual,group',
+        ], [
+            'name.required' => trans('api.required'),
+            'email.required' => trans('api.required'),
+            'city.required' => trans('api.required'),
+            'age.required' => trans('api.required'),
+            'activity.required' => trans('api.required'),
+            'volunteer_type.required' => trans('api.required'),
+
         ]);
 
         if ($request->volunteer_type == 'group') {
@@ -54,7 +63,8 @@ class UsVolunteerController extends Controller
         ]);
 
         $response = [
-            'message' => 'volunteer successfully',
+            // 'message' => 'volunteer successfully',
+            'message' => trans('api.fetch'),
             'volunteer' => $volunteer
         ];
         return response($response, 201);
@@ -71,11 +81,22 @@ class UsVolunteerController extends Controller
             'age' => 'required|integer|min:16',
             'activity' => 'required|in:blind,feeding,medical_convoys',
             'volunteer_type' => 'required|in:individual,group',
+        ], [
+            'name.required' => trans('api.required'),
+            'email.required' => trans('api.required'),
+            'city.required' => trans('api.required'),
+            'age.required' => trans('api.required'),
+            'activity.required' => trans('api.required'),
+            'volunteer_type.required' => trans('api.required'),
+
         ]);
 
         if ($request->volunteer_type == 'group') {
             $request->validate([
                 'num_of_members' => 'required',
+            ], [
+                'num_of_members.required' => trans('api.required'),
+
             ]);
             $num_of_member = $request->num_of_members;
         } else {
@@ -95,7 +116,8 @@ class UsVolunteerController extends Controller
         ]);
 
         $response = [
-            'message' => 'volunteer successfully',
+            // 'message' => 'volunteer successfully',
+            'message' => trans('api.fetch'),
             'volunteer' => $volunteer
         ];
         return response($response, 201);

@@ -213,7 +213,6 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/index/user', [UsDonationController::class, 'indexOfUser'])->middleware('auth:sanctum');
             Route::get('/show/{id}', [UsDonationController::class, 'show']);
             Route::post('/financial/user', [UsDonationController::class, 'donatefinanciallyUser'])->middleware('auth:sanctum');
-            Route::post('/financial/user/copy', [UsDonationController::class, 'donatefinanciallyUserC'])->middleware('auth:sanctum');
             Route::post('/financial/guest', [UsDonationController::class, 'donatefinanciallyGuest']);
             Route::post('/volunteering/user', [UsDonationController::class, 'volunteeringUser'])->middleware('auth:sanctum');
             Route::post('/volunteering/guest', [UsDonationController::class, 'volunteeringGuest']);

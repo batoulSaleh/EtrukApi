@@ -144,79 +144,6 @@ class UsDonationController extends Controller
             'status'=>'pending'
         ]);
 
-        $response = [
-            'message'=>trans('api.stored'),
-            'donation' => $donation
-        ];
-        return response($response,201);
-    }
-
-    public function donatefinanciallyUserC(Request $request){
-        $fields=$request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required|numeric',
-            'amount_financial' => 'required|numeric',
-            'amount_description' => 'string',
-            'method' => 'in:online_payment,representative,vodafone',
-            'casee_id' => 'required|exists:casees,id',
-            'donationtype_id' => 'required|exists:donationtypes,id',
-            'address' => 'string',
-            'date_to_send' => 'date'
-        ],[
-            'name.required'=> trans('api.required'),
-            'name.string'=> trans('api.string'),
-            'email.required'=> trans('api.required'),
-            'email.email'=> trans('api.email'),
-            'phone.required'=> trans('api.required'),
-            'phone.numeric'=> trans('api.numeric'),
-            'amount_financial.required'=> trans('api.required'),
-            'amount_financial.numeric'=> trans('api.numeric'),
-            'amount_description.string'=> trans('api.string'),
-            'method.in'=> trans('api.exists'),
-            'casee_id.required'=> trans('api.required'),
-            'donationtype_id.required'=> trans('api.required'),
-            'casee_id.exists'=> trans('api.exists'),
-            'donationtype_id.exists'=> trans('api.exists'),
-            'address.string'=> trans('api.string'),
-        ]);
-
-        
-
-        if($request->method=='representative'){
-            $request->validate([
-            'address' => 'required|string',
-            'date_to_send' => 'required|date'
-            ],[
-                'address.required'=> trans('api.required'),
-                'date_to_send.required'=> trans('api.required'),
-                'address.string'=> trans('api.string'),
-            ]);
-        }
-
-        $case=Casee::find($fields['casee_id']);
-        if($fields['donationtype_id']!=$case->donationtype_id){
-            $response = [
-                'message'=>trans('api.diffdonation'),
-            ];
-            return response($response,500);
-        }
-
-        $donation = Donation::create([
-            'casee_id' => $request->casee_id,
-            'donationtype_id' => $request->donationtype_id,
-            'method' => $request->method,
-            'name' => $request->name,
-            'email' => $request->email,
-            'amount' => $request->amount_financial,
-            'amount_description' => $request->amount_description,
-            'address' => $request->address,
-            'date_to_send' => $request->date_to_send,
-            'user_id' => $request->user()->id,
-            'phone'=>$request->phone,
-            'status'=>'pending'
-        ]);
-
         $return ="https://etruk-athra.invoacdmy.com/card-details/".$case->id."?status=1";
         $payment_response = Http::withHeaders([
             'authorization' => 'SGJNZBM2ZT-JGW9G2JHDW-N29ZZHK9JH',
@@ -304,10 +231,29 @@ class UsDonationController extends Controller
             'status'=>'pending'
         ]);
 
+
+                $return ="https://etruk-athra.invoacdmy.com/card-details/".$case->id."?status=1";
+        $payment_response = Http::withHeaders([
+            'authorization' => 'SGJNZBM2ZT-JGW9G2JHDW-N29ZZHK9JH',
+            'Content-Type' => 'application/json',
+        ])
+        ->post('https://secure-egypt.paytabs.com/payment/request', [
+            "profile_id" => "79010",
+            "tran_type" => "sale",
+            "tran_class" =>  "ecom",
+            "cart_id" => "CART#1001",
+            "cart_currency" =>  "USD",
+            "cart_amount" =>  $request->amount_financial,
+            "cart_description" =>  "Description of the items/services",
+            "return"=>$return,
+        ]);
+
         $response = [
             'message'=>trans('api.stored'),
-            'donation' => $donation
+            'donation' => $donation,
+            'payment_response'=>$payment_response->json()
         ];
+        
         return response($response,201);
     }
 

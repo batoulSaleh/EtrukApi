@@ -23,6 +23,16 @@ class UsDonationController extends Controller
         return response($response,201);
     }
 
+    public function indexfinancial(){
+        $donations=Donation::where('status','accepted')->where('donationtype_id','1')->get();
+        $response = [
+            'message'=>trans('api.fetch'),
+            'donations' => $donations,
+            'count' => count($donations)
+        ];
+        return response($response,201);
+    }
+
     public function donationTypes(){
         $donationtypes=Donationtype::select(
             'id',

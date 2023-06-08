@@ -206,6 +206,7 @@ Route::group(['middleware' => ['lang']], function () {
         });
 
         Route::prefix('/donation')->group(function () {
+            Route::get('/index/financial', [UsDonationController::class, 'indexfinancial']);
             Route::get('/index', [UsDonationController::class, 'index']);
             Route::get('/donation/types', [UsDonationController::class, 'donationTypes']);
             Route::get('/money', [UsDonationController::class, 'getmoney']);

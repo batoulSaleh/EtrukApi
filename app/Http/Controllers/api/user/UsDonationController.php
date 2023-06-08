@@ -224,7 +224,7 @@ class UsDonationController extends Controller
         $response = [
             'message'=>trans('api.stored'),
             'donation' => $donation,
-            'payment_response'=>$payment_response
+            'payment_response'=>$payment_response->json()
         ];
         return response($response,201);
     }

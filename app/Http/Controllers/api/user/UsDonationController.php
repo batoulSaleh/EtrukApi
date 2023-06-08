@@ -217,6 +217,7 @@ class UsDonationController extends Controller
             'status'=>'pending'
         ]);
 
+        $return ="https://etruk-athra.invoacdmy.com/card-details/".$case->id;
         $payment_response = Http::withHeaders([
             'authorization' => 'SGJNZBM2ZT-JGW9G2JHDW-N29ZZHK9JH',
             'Content-Type' => 'application/json',
@@ -229,6 +230,7 @@ class UsDonationController extends Controller
             "cart_currency" =>  "USD",
             "cart_amount" =>  $request->amount_financial,
             "cart_description" =>  "Description of the items/services",
+            "return"=>$return,
         ]);
 
         $response = [

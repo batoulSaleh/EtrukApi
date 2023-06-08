@@ -170,11 +170,11 @@ class UsMazadController extends Controller
                 ];
                 return response($response, 201);
             } else {
-                $response = ['message' => 'Should New Bid to be greater than Current Bid.',];
+                $response = ['message' => trans('api.paid'),];
                 return response($response, 500);
             }
         } else {
-            $response = ['message' => "You can't participate in the auction.",];
+            $response = ['message' => trans('api.notallowed'),];
             return response($response, 500);
         }
     }
@@ -227,6 +227,7 @@ class UsMazadController extends Controller
             'owner_id',
         )->where('owner_id', $mazad->owner_id)->get();
         $response = [
+            'message' => trans('api.fetch'),
             // 'message' => 'Other mazads of the owner of mazad.',
             'the_owner_name' => $owner->name_en,
             'others' => $other_auctions,

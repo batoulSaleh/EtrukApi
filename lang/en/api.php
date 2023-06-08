@@ -41,5 +41,6 @@ return [
     'file'=>'this field must be file',
     'max'=>'Do not exceed the maximum field size',
     'min'=>'Do not exceed the minimum age',
-    'numeric'=> 'this field must be number'
+    'numeric'=> 'this field must be number',
+    'paid'=>'Should New Bid to be greater than Current Bid.'
 ];

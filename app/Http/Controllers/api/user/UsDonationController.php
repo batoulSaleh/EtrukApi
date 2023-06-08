@@ -215,7 +215,7 @@ class UsDonationController extends Controller
             "profile_id" => "79010",
             "tran_type" => "sale",
             "tran_class" =>  "ecom",
-            "cart_id" => $case->id,
+            "cart_id" => "CART#1001",
             "cart_currency" =>  "USD",
             "cart_amount" =>  $request->amount_financial,
             "cart_description" =>  "Description of the items/services",

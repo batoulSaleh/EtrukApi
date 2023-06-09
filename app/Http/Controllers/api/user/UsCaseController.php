@@ -24,7 +24,11 @@ class UsCaseController extends Controller
             'status',
             'user_id',
             'donationtype_id',
-            'category_id'
+            'category_id',
+            'type_en',
+            'type_ar',
+            'gender_en',
+            'gender_ar'
             )->with('category','donationtype','user')->where('status','published')->orWhere('status', 'completed')->get();
 
         $response = [
@@ -48,7 +52,11 @@ class UsCaseController extends Controller
             'status',
             'user_id',
             'donationtype_id',
-            'category_id'
+            'category_id',
+            'type_en',
+            'type_ar',
+            'gender_en',
+            'gender_ar'
             )->with('category','donationtype','user')->where('status','published')->latest()->take(10)->get();
 
         $response = [
@@ -61,7 +69,7 @@ class UsCaseController extends Controller
     public function show($id)
     {
 
-        $casee=Casee::select(
+        $casee=Casee::with('item','caseimage')->select(
             'id',
             'name_'.app()->getLocale().' as name',
             'description_'.app()->getLocale().' as description',
@@ -72,7 +80,11 @@ class UsCaseController extends Controller
             'status',
             'user_id',
             'donationtype_id',
-            'category_id'
+            'category_id',
+            'type_en',
+            'type_ar',
+            'gender_en',
+            'gender_ar'
             )->with('category','donationtype','user','caseimage')->where('id',$id)->first();
 
             $items=Item::select(

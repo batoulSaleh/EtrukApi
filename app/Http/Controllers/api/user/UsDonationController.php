@@ -520,11 +520,9 @@ class UsDonationController extends Controller
             'city' => 'required|string',
             'method' => 'in:representative',
             'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'required|string',
-            'description'=>'string',
             'date_to_send' => 'required|date'
         ],[
             'name.required'=> trans('api.required'),
@@ -537,7 +535,6 @@ class UsDonationController extends Controller
             'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
             'amount.numeric'=> trans('api.numeric'),
-            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),
@@ -588,11 +585,9 @@ class UsDonationController extends Controller
             'city' => 'required|string',
             'method' => 'in:representative',
             'amount' => 'required|numeric',
-            'amount_description' => 'string',
             'casee_id' => 'required|exists:casees,id',
             'donationtype_id' => 'required|exists:donationtypes,id',
             'address' => 'required|string',
-            'description'=>'string',
             'date_to_send' => 'required|date'
         ],[
             'name.required'=> trans('api.required'),
@@ -605,7 +600,6 @@ class UsDonationController extends Controller
             'city.string'=> trans('api.string'),
             'amount.required'=> trans('api.required'),
             'amount.numeric'=> trans('api.numeric'),
-            'amount_description.string'=> trans('api.string'),
             'method.in'=> trans('api.exists'),
             'casee_id.required'=> trans('api.required'),
             'donationtype_id.required'=> trans('api.required'),

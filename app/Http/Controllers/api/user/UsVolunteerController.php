@@ -83,7 +83,7 @@ class UsVolunteerController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'numeric',
+            'phone' => 'required|numeric',
             'city' => 'required|string',
             'address' => 'string',
             'age' => 'required|integer|min:16',

@@ -134,12 +134,11 @@ class AdDonationController extends Controller
 
         $donation=Donation::findOrFail($id);
         $casee=Casee::find($donation->casee_id);
-        if($casee->user_id==$request->user()->id){
+        if($casee->user_id=='1'){
             $donation->delete();
         $response = [
             'message'=>trans('api.deleted'),
         ];
-        
         }else{
             $response = [
                 'message'=>trans('api.notallowed'),

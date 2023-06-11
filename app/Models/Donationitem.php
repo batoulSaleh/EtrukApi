@@ -15,4 +15,13 @@ class Donationitem extends Model
         'donation_id',
         'amount',
     ];
+
+    protected $appends =['item_details'];
+
+
+    public function getItemDetailsAttribute(){
+        $item = Item::find($this->item_id);
+        return $item;
+    }
+
 }

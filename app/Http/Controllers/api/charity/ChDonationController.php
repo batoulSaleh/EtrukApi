@@ -31,7 +31,7 @@ class ChDonationController extends Controller
         ];
         return response($response,201);
     }
-    
+
     public function accept(Request $request,$id){
         $donation=Donation::findOrFail($id);
         $donationtype_id=$donation->donationtype_id;
@@ -118,5 +118,22 @@ class ChDonationController extends Controller
                 }
             }
         return response($response,$code);
+    }
+
+    public function destroy(Request $request,$id){
+        $donation=Donation::findOrFail($id);
+        $casee=Casee::find($donation->casee_id);
+        if($casee->user_id==$request->user()->id){
+            $donation->delete();
+        $response = [
+            'message'=>trans('api.deleted'),
+        ];
+        
+        }else{
+            $response = [
+                'message'=>trans('api.notallowed'),
+            ];
+        }
+            return response($response,201);
     }
 }

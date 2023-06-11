@@ -130,13 +130,22 @@ class AdDonationController extends Controller
         return response($response,$code);
     }
 
-    public function allPayments(){
-        $payments=Payment::all();
+    public function destroy(Request $request,$id){
+
+        $donation=Donation::findOrFail($id);
+        $casee=Casee::find($donation->casee_id);
+        if($casee->user_id==$request->user()->id){
+            $donation->delete();
         $response = [
-            'message'=>'All payments',
-            'payments' => $payments
+            'message'=>trans('api.deleted'),
         ];
-        return response($response,201);
+        
+        }else{
+            $response = [
+                'message'=>trans('api.notallowed'),
+            ];
+        }
+            return response($response,201);
     }
 
 }

@@ -81,6 +81,7 @@ Route::group(['middleware' => ['lang']], function () {
         Route::prefix('/donation')->group(function () {
             Route::get('/index', [ChDonationController::class, 'index'])->middleware('auth:sanctum');
             Route::get('/show/{id}', [ChDonationController::class, 'show'])->middleware('auth:sanctum');
+            Route::get('/destroy/{id}', [ChDonationController::class, 'destroy'])->middleware('auth:sanctum');
             Route::post('accept/{id}', [ChDonationController::class, 'accept'])->middleware('auth:sanctum');
         });
 
@@ -137,6 +138,7 @@ Route::group(['middleware' => ['lang']], function () {
             Route::get('/index', [AdDonationController::class, 'index'])->middleware(['auth:sanctum','admin']);
             Route::get('/index/case/{caseid}', [AdDonationController::class, 'indexOfCase'])->middleware(['auth:sanctum','admin']);
             Route::get('/show/{id}', [AdDonationController::class, 'show'])->middleware(['auth:sanctum','admin']);
+            Route::get('/destroy/{id}', [AdDonationController::class, 'destroy'])->middleware(['auth:sanctum','admin']);
             Route::post('/accept/{id}', [AdDonationController::class, 'acceptDonation'])->middleware(['auth:sanctum','admin']);
             Route::get('/payments', [AdDonationController::class, 'allPayments'])->middleware(['auth:sanctum','admin']);
         });

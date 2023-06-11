@@ -75,7 +75,7 @@ class UsProfileController extends Controller
 
     public function donationsOfUser(Request $request)
     {
-        $donations = Donation::where('user_id', $request->user()->id)->where('status', 'accepted')->get();
+        $donations = Donation::with('casee','donationtype','donationitem')->where('user_id', $request->user()->id)->where('status', 'accepted')->get();
         $response = [
             // 'message'=>'all donations of user',
             'message' => trans('api.fetch'),

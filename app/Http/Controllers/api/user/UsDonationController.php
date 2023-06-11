@@ -9,12 +9,11 @@ use App\Models\Casee;
 use App\Models\Item;
 use App\Models\Donationitem;
 use App\Models\Donationtype;
-use App\Models\Payment;
 
 class UsDonationController extends Controller
 {
     public function index(){
-        $donations=Donation::where('status','accepted')->get();
+        $donations=Donation::with('casee','donationtype','donationitem')->where('status','accepted')->get();
         $response = [
             'message'=>trans('api.fetch'),
             'donations' => $donations,
@@ -24,7 +23,7 @@ class UsDonationController extends Controller
     }
 
     public function indexfinancial(){
-        $donations=Donation::where('status','accepted')->where('donationtype_id','1')->get();
+        $donations=Donation::with('casee','donationtype','donationitem')->where('status','accepted')->where('donationtype_id','1')->get();
         $response = [
             'message'=>trans('api.fetch'),
             'donations' => $donations,
@@ -60,7 +59,7 @@ class UsDonationController extends Controller
     }
 
     public function indexOfUser(Request $request){
-        $donations=Donation::where('user_id',$request->user()->id)->get();
+        $donations=Donation::with('casee','donationtype','donationitem')->where('user_id',$request->user()->id)->get();
         $response = [
             'message'=>trans('api.fetch'),
             'donations' => $donations
@@ -70,7 +69,7 @@ class UsDonationController extends Controller
 
     public function show($id)
     {
-        $donation=Donation::find($id);
+        $donation=Donation::with('casee','donationtype','donationitem')->where('id',$id)->get();
         $response = [
             'message'=>trans('api.fetch'),
             'donation' => $donation
@@ -688,7 +687,7 @@ class UsDonationController extends Controller
             $it=Item::find($item['id']);
             if((double)$item['amount']>(double)$it->amount){
                 $response = [
-                    'message'=>'the'.$it->name_en .'amount must be less than or equal' . $it->amount,
+                    'message'=>trans('api.item'),
                 ];
                 return response($response,500);
             }
@@ -812,28 +811,5 @@ class UsDonationController extends Controller
         return response($response,201);
     }
     
-    public function storePayment(Request $request){
-        $request->validate([
-            'cnn' => 'required|numeric',
-            'name' => 'required|string|max:200',
-            'date' => 'required|date',
-            'verification_code' => 'required|string|max:500',
-            'donation_id' => 'required|exists:donations,id',
-        ]);
-
-        $payment = Payment::create([
-            'cnn' => $request->cnn,
-            'name'=> $request->name,
-            'date'=> $request->date,
-            'verification_code'=> $request->verification_code,
-            'donation_id'=> $request->donation_id,
-        ]);
-
-        $response = [
-            'message'=>'payment created successfully',
-            'payment' => $payment
-        ];
-        return response($response,201);
-    }
 
 }

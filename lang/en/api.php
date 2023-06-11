@@ -42,5 +42,6 @@ return [
     'max'=>'Do not exceed the maximum field size',
     'min'=>'Do not exceed the minimum age',
     'numeric'=> 'this field must be number',
-    'paid'=>'Should New Bid to be greater than Current Bid.'
+    'paid'=>'Should New Bid to be greater than Current Bid.',
+    'item'=>'please check the amount of each item in donation is less than or equal amount item case'
 ];

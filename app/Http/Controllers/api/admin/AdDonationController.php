@@ -8,13 +8,12 @@ use App\Models\Donation;
 use App\Models\Casee;
 use App\Models\Item;
 use App\Models\Donationitem;
-use App\Models\Payment;
 
 class AdDonationController extends Controller
 {
     public function index(){
         $cases=Casee::where('user_id','1')->get();
-        $donations=Donation::with('casee','donationtype')->whereIn('casee_id',$cases->pluck('id'))->get();
+        $donations=Donation::with('casee','donationtype','donationitem')->whereIn('casee_id',$cases->pluck('id'))->get();
         $response = [
             'message'=>'All donations',
             'donations' => $donations,
@@ -24,7 +23,7 @@ class AdDonationController extends Controller
     }
 
     public function indexOfCase($caseid){
-        $donations=Donation::where('casee_id',$caseid)->with('casee','donationtype')->get();
+        $donations=Donation::where('casee_id',$caseid)->with('casee','donationtype','donationitem')->get();
         $response = [
             'message'=>'All donations of case',
             'donations' => $donations
@@ -34,7 +33,7 @@ class AdDonationController extends Controller
 
     public function show($id)
     {
-        $donation=Donation::where('id',$id)->with('casee','donationtype')->get();
+        $donation=Donation::where('id',$id)->with('casee','donationtype','donationitem')->get();
         $response = [
             'message'=>'specific donation with id',
             'donation' => $donation

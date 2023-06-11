@@ -13,7 +13,7 @@ class ChDonationController extends Controller
 {
     public function index(Request $request){
         $cases=Casee::where('user_id',$request->user()->id)->get();
-        $donations=Donation::with('casee','donationtype')->whereIn('casee_id',$cases->pluck('id'))->get();
+        $donations=Donation::with('casee','donationtype','donationitem')->whereIn('casee_id',$cases->pluck('id'))->get();
         $response = [
             'message'=>'All donations',
             'donations' => $donations,
@@ -22,6 +22,16 @@ class ChDonationController extends Controller
         return response($response,201);
     }
 
+    public function show($id)
+    {
+        $donation=Donation::where('id',$id)->with('casee','donationtype','donationitem')->get();
+        $response = [
+            'message'=>'specific donation with id',
+            'donation' => $donation
+        ];
+        return response($response,201);
+    }
+    
     public function accept(Request $request,$id){
         $donation=Donation::findOrFail($id);
         $donationtype_id=$donation->donationtype_id;

@@ -80,6 +80,7 @@ Route::group(['middleware' => ['lang']], function () {
 
         Route::prefix('/donation')->group(function () {
             Route::get('/index', [ChDonationController::class, 'index'])->middleware('auth:sanctum');
+            Route::get('/show/{id}', [AdDonationCChDonationControllerontroller::class, 'show'])->middleware('auth:sanctum');
             Route::post('accept/{id}', [ChDonationController::class, 'accept'])->middleware('auth:sanctum');
         });
 

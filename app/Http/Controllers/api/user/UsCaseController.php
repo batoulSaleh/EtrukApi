@@ -29,7 +29,7 @@ class UsCaseController extends Controller
             'type_ar',
             'gender_en',
             'gender_ar'
-            )->with('category','donationtype','user')->where('status','published')->orWhere('status', 'completed')->get();
+            )->with('category','donationtype','user')->where('user_id','1')->where('status','published')->orWhere('status', 'completed')->get();
 
         $response = [
             'message'=>trans('api.fetch'),
@@ -57,7 +57,7 @@ class UsCaseController extends Controller
             'type_ar',
             'gender_en',
             'gender_ar'
-            )->with('category','donationtype','user')->where('status','published')->latest()->take(10)->get();
+            )->with('category','donationtype','user')->where('user_id','1')->where('status','published')->latest()->take(10)->get();
 
         $response = [
             'message'=>trans('api.fetch'),

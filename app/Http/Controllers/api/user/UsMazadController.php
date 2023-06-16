@@ -46,18 +46,18 @@ class UsMazadController extends Controller
             'starting_price' => 'required|numeric',
             'mazad_amount' => 'required|numeric',
         ], [
-            'name_en.required'=> trans('api.required'),
-            'name_en.string'=> trans('api.string'),
-            'name_en.max'=> trans('api.max'),
-            'name_ar.required'=> trans('api.required'),
-            'name_ar.string'=> trans('api.string'),
-            'name_ar.max'=> trans('api.max'),
-            'description_en.required'=> trans('api.required'),
-            'description_ar.required'=> trans('api.required'),
-            'description_en.string'=> trans('api.string'),
-            'description_en.max'=> trans('api.max'),
-            'description_ar.string'=> trans('api.string'),
-            'description_ar.max'=> trans('api.max'),
+            'name_en.required' => trans('api.required'),
+            'name_en.string' => trans('api.string'),
+            'name_en.max' => trans('api.max'),
+            'name_ar.required' => trans('api.required'),
+            'name_ar.string' => trans('api.string'),
+            'name_ar.max' => trans('api.max'),
+            'description_en.required' => trans('api.required'),
+            'description_ar.required' => trans('api.required'),
+            'description_en.string' => trans('api.string'),
+            'description_en.max' => trans('api.max'),
+            'description_ar.string' => trans('api.string'),
+            'description_ar.max' => trans('api.max'),
             'end_date.required' => trans('api.required'),
             'end_time.required' => trans('api.required'),
             'starting_price.required' => trans('api.required'),
@@ -103,8 +103,8 @@ class UsMazadController extends Controller
     {
         $mazad = Mazad::with('mazadimage')->select(
             'id',
-            'name_'.app()->getLocale().' as name',
-            'description_'.app()->getLocale().' as description',
+            'name_' . app()->getLocale() . ' as name',
+            'description_' . app()->getLocale() . ' as description',
             'starting_price',
             'mazad_amount',
             'current_price',
@@ -112,7 +112,7 @@ class UsMazadController extends Controller
             'end_date',
             'end_time',
             'owner_id'
-            )->where('id', $id)->first();
+        )->where('id', $id)->first();
         $owner = User::find($mazad->owner_id);
         $response = [
             // 'message' => 'A specific mazad with id of owner.',
@@ -124,18 +124,19 @@ class UsMazadController extends Controller
         return response($response, 201);
     }
 
-    public function getmoney(){
-        $mazads=Mazad::where('status','finished')->get();
-        $sum=0;
-        foreach($mazads as $mazad){
-            $sum=$sum+$mazad->current_price;
+    public function getmoney()
+    {
+        $mazads = Mazad::where('status', 'finished')->get();
+        $sum = 0;
+        foreach ($mazads as $mazad) {
+            $sum = $sum + $mazad->current_price;
         }
         $response = [
-            'message'=>trans('api.fetch'),
+            'message' => trans('api.fetch'),
             'sum' => $sum,
-            'count'=>count($mazads)
+            'count' => count($mazads)
         ];
-        return response($response,201);
+        return response($response, 201);
     }
 
     public function mazadIncrement(Request $request,  $id)
@@ -235,32 +236,32 @@ class UsMazadController extends Controller
         return response($response, 201);
     }
 
-    public function update(Request $request, string $id)
-    {
-        // $mazad = Mazad::find($id);
-        $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
-        $request->validate([
-            'status' => 'required|in:pending,accepted,rejected,finished',
-        ]);
-        $mazad->update(
-            [
-                'status' => $request->status,
-            ]
-        );
-        if ($mazad->status == 'rejected') {
-            $response = ['message' => "Your auction can't be published."];
-            return response($response, 201);
-        }
-        elseif($mazad->status == 'finished') {
-            $response = ['message' => "Your auction is finished "];
-            return response($response, 201);
-        }else {
-            $response =
-                [
-                    'message' => "Your auction is published successfully.",
-                    'auction' => $mazad,
-                ];
-            return response($response, 201);
-        }
-    }
+    // public function update(Request $request, string $id)
+    // {
+    //     // $mazad = Mazad::find($id);
+    //     $mazad = Mazad::with('mazadimage')->where('id', $id)->first();
+    //     $request->validate([
+    //         'status' => 'required|in:pending,accepted,rejected,finished',
+    //     ]);
+    //     $mazad->update(
+    //         [
+    //             'status' => $request->status,
+    //         ]
+    //     );
+    //     if ($mazad->status == 'rejected') {
+    //         $response = ['message' => "Your auction can't be published."];
+    //         return response($response, 201);
+    //     }
+    //     elseif($mazad->status == 'finished') {
+    //         $response = ['message' => "Your auction is finished "];
+    //         return response($response, 201);
+    //     }else {
+    //         $response =
+    //             [
+    //                 'message' => "Your auction is published successfully.",
+    //                 'auction' => $mazad,
+    //             ];
+    //         return response($response, 201);
+    //     }
+    // }
 }
